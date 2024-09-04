@@ -40,6 +40,8 @@ dependencies {
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(project(":core:common"))
+    implementation(project(":features:auth"))
     //Dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)

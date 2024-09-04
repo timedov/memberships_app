@@ -23,6 +23,6 @@ rootProject.name = "ForBoost"
 include(":app")
 include(":core")
 include(":core:common")
-include(":core:data")
 include(":features")
 include(":features:auth")
+include(":core:data")

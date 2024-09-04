@@ -1,26 +1,23 @@
 package com.example.forboost.di.components
 
 import android.app.Application
+import com.example.common.di.AppScope
+import com.example.forboost.ForBoostApp
 import com.example.forboost.MainActivity
+import com.example.forboost.di.dependencies.FeatureComponentsDeps
 import com.example.forboost.di.modules.AppModule
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Scope
-
-@Scope
-annotation class AppScope
 
 @[AppScope Component(modules = [AppModule::class])]
-interface AppComponent {
+interface AppComponent : FeatureComponentsDeps {
 
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): AppComponent
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance application: ForBoostApp): AppComponent
     }
 
-    fun inject(activity: MainActivity)
+    fun inject(application: Application)
+
+    fun inject(mainActivity: MainActivity)
 }

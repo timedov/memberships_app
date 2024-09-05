@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.auth"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
     //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)

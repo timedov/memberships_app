@@ -2,10 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.gms.google.services)
 }
 
 android {
-    namespace = "com.example.common"
+    namespace = "com.example.firebase"
     compileSdk = 34
 
     defaultConfig {
@@ -35,16 +36,24 @@ android {
 
 dependencies {
 
-    //dagger
-    implementation(libs.google.dagger)
-    implementation(libs.androidx.lifecycle.runtime.android)
-
-    ksp(libs.dagger.compiler)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+
+    //dagger
+    ksp(libs.dagger.compiler)
+    implementation(libs.google.dagger)
 }

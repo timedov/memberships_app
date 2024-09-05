@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.common"
+    namespace = "com.example.domain"
     compileSdk = 34
 
     defaultConfig {
@@ -36,10 +36,8 @@ android {
 dependencies {
 
     //dagger
-    implementation(libs.google.dagger)
-    implementation(libs.androidx.lifecycle.runtime.android)
-
     ksp(libs.dagger.compiler)
+    implementation(libs.google.dagger)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

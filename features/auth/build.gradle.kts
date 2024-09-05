@@ -42,12 +42,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
     //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
 
     implementation(project(":core:common"))
+    implementation(project(":core:ui"))
 
     //compose
     implementation(libs.androidx.ui.graphics.android)
@@ -55,8 +55,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
-
+    implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.core.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

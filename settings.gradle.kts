@@ -23,8 +23,9 @@ rootProject.name = "ForBoost"
 include(":app")
 include(":core")
 include(":core:common")
-include(":core:ui")
 include(":features")
 include(":features:auth")
 include(":core:data")
-
+include(":core:ui")
+include(":core:domain")
+include(":core:data:firebase")

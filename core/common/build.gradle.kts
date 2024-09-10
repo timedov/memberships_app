@@ -35,11 +35,15 @@ android {
 
 dependencies {
 
+    implementation(libs.firebase.auth.interop)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.firebase.auth.ktx)
     //dagger
-    implementation(libs.google.dagger)
-    implementation(libs.androidx.lifecycle.runtime.android)
     ksp(libs.dagger.compiler)
+    implementation(libs.google.dagger)
 
+    implementation(libs.androidx.lifecycle.runtime.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

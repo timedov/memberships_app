@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.example.domain"
     compileSdk = 34
 
     defaultConfig {
@@ -33,6 +34,10 @@ android {
 }
 
 dependencies {
+
+    //dagger
+    ksp(libs.dagger.compiler)
+    implementation(libs.google.dagger)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.domain
 
 import org.junit.Test
 
@@ -14,5 +14,4 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
-
 }

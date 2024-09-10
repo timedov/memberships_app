@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.gms.google.services)
 }
 
 android {
@@ -50,7 +51,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(project(":core:common"))
+    implementation(project(":core:ui"))
     implementation(project(":features:auth"))
+
     //Dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
@@ -59,8 +62,13 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
 
+    //firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)

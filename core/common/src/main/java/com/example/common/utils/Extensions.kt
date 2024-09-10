@@ -1,12 +1,17 @@
 package com.example.common.utils
 
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlin.coroutines.cancellation.CancellationException
 
 inline fun <T> Flow<T>.observe(fragment: Fragment, crossinline block: (T) -> Unit): Job {
     val lifecycleOwner = fragment.viewLifecycleOwner
@@ -14,5 +19,32 @@ inline fun <T> Flow<T>.observe(fragment: Fragment, crossinline block: (T) -> Uni
         lifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
             collect { data -> block(data) }
         }
+    }
+}
+
+inline fun <R> runSuspendCatching(
+    exceptionHandlerDelegate: ExceptionHandlerDelegate,
+    block: () -> R
+): Result<R> {
+    return try {
+        Result.success(block())
+    } catch (c: CancellationException) {
+        throw c
+    } catch (e: Throwable) {
+        Result.failure(exceptionHandlerDelegate.handleException(e))
+    }
+}
+
+
+fun NavController.safeNavigate(direction: NavDirections) {
+    currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+}
+fun NavController.safeNavigate(
+    @IdRes currentDestinationId: Int,
+    @IdRes id: Int,
+    args: Bundle? = null
+) {
+    if (currentDestinationId == currentDestination?.id) {
+        navigate(id, args)
     }
 }

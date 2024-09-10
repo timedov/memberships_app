@@ -1,4 +1,4 @@
-package com.example.common.base
+package com.example.ui.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -47,7 +47,9 @@ dependencies {
     implementation(libs.google.dagger)
 
     implementation(project(":core:common"))
+    implementation(project(":core:domain"))
     implementation(project(":core:ui"))
+    implementation(project(":core:data:firebase"))
 
     //compose
     implementation(libs.androidx.ui.graphics.android)
@@ -55,8 +57,14 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
+
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.core.ktx)
+
+    //firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

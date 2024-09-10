@@ -1,4 +1,4 @@
-package com.example.auth.presentation.model
+package com.example.auth.presentation.login.model
 
 sealed interface LoginState {
     data object Initial : LoginState

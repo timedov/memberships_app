@@ -52,6 +52,7 @@ dependencies {
 
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
+    implementation(project(":core:data:network"))
 
     //Dagger
     ksp(libs.dagger.compiler)
@@ -64,6 +65,12 @@ dependencies {
     //firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+
+    //retrofit
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

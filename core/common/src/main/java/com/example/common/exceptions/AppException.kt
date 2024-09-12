@@ -11,4 +11,7 @@ sealed class AppException(message: String) : Exception(message) {
 
     class FirebaseGenericException(message: String) : AppException(message)
     class GeneralException(message: String) : AppException(message)
+
+    class NetworkException(message: String) : AppException(message)
+    class EmptyResponseException(message: String) : AppException(message)
 }

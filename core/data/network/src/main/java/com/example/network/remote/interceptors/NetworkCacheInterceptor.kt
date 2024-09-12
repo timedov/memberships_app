@@ -1,4 +1,4 @@
-package com.example.network.interceptors
+package com.example.network.remote.interceptors
 
 import com.example.common.utils.Constants
 import com.example.common.utils.Keys

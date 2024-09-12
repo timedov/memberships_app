@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(project(":core:common"))
+    implementation(project(":core:domain"))
     implementation(project(":core:ui"))
     implementation(project(":core:data:network"))
 
@@ -67,16 +68,18 @@ dependencies {
     implementation(libs.firebase.firestore)
 
     //retrofit
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+
+    //Paging3
+    implementation(libs.androidx.paging.common.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

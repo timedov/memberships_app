@@ -1,4 +1,4 @@
-package com.example.network.di.qualifiers
+package com.example.network.remote.di.qualifiers
 
 import javax.inject.Qualifier
 

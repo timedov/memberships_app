@@ -14,6 +14,7 @@ ksp = "1.9.10-1.0.13"
 jetbrainsKotlinJvm = "1.9.10"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
+materialIconsExtended = "1.7.1"
 navigationFragmentKtx = "2.8.0"
 navigationUiKtx = "2.8.0"
 material3Android = "1.2.1"
@@ -33,6 +34,7 @@ navigationRuntimeKtx = "2.8.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation-android = { module = "androidx.compose.foundation:foundation-android", version.ref = "foundationAndroid" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-ui-android = { module = "androidx.compose.ui:ui-android", version.ref = "uiGraphicsAndroid" }
 androidx-ui-graphics-android = { module = "androidx.compose.ui:ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 androidx-ui-tooling-preview-android = { module = "androidx.compose.ui:ui-tooling-preview-android", version.ref = "uiGraphicsAndroid" }

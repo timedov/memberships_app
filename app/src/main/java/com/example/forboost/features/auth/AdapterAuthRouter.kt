@@ -8,7 +8,7 @@ class AdapterAuthRouter @Inject constructor(
     private val globalRouter: GlobalRouter
 ) : AuthRouter {
 
-    override fun navigateToMain() {
+    override fun navigateToFeed() {
         globalRouter.navigateToMain()
     }
 

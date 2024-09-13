@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+    <string name="page_not_load">This page did not load</string>
+    <string name="check_connection_suggest">Check your connection and try again later</string>
+    <string name="retry">Retry</string>
+</resources>

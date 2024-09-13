@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.coil)
 
+    //Retrofit
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

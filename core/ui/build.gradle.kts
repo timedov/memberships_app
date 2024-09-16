@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.fragment.ktx)
+    implementation(project(":core:common"))
 
     //test
     testImplementation(libs.junit)

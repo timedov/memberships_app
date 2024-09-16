@@ -13,7 +13,7 @@ interface PostApi {
     @GET("posts")
     suspend fun getPosts(@Query("page") page: Int, @Query("size") size: Int): List<PostResponse>
 
-    @GET("posts")
+    @GET("")
     suspend fun getPostsByTier(
         @Query("page") page: Int,
         @Query("size") size: Int,

@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Toolbar
-        android:id="@+id/feed_toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="16dp">
+        android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/empty_profile_pic"
-            app:shapeAppearanceOverlay="@style/Circle"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title_tv"
-            android:layout_width="wrap_content"
+        <Toolbar
+            android:id="@+id/feed_toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home"
-            style="@style/TextStyle.Title"
-            android:layout_gravity="center"/>
-    </Toolbar>
+            android:paddingVertical="16dp"
+            android:gravity="top">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_rv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/empty_profile_pic"
+                app:shapeAppearanceOverlay="@style/Circle"
+                android:layout_gravity="center_vertical"/>
 
-</LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                style="@style/TextStyle.Title"
+                android:layout_gravity="center"/>
+        </Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/loading_error_compose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

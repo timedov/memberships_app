@@ -1,5 +1,6 @@
 package com.example.feed.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
@@ -19,59 +20,57 @@ class FeedViewModel @Inject constructor(
     private val router: FeedRouter,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<FeedState, FeedEvent, FeedAction>(
-    initialState = FeedState.Initial
+    initialState = FeedState.Loading
 ) {
 
+    private var selectedTier: Tier = Tier.ALL_TIERS
+
     init {
-        loadPosts()
+        loadPostsByTier()
     }
 
-    private fun loadPosts() {
-        _uiState.value = FeedState.Loading
+    private fun loadPostsByTier() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                postRepository.getPosts()
+                postRepository.getPostsByTier(selectedTier)
             }.onSuccess {
                 it.cachedIn(viewModelScope)
                     .collect { pagingData ->
-                        _uiState.value = FeedState.Content(pagingData, Tier.ALL_TIERS)
+                        _uiState.value =
+                            FeedState.Content(posts = pagingData, selectedTier = selectedTier)
                     }
             }.onFailure {
-                _uiState.value = FeedState.Error(error = it)
+                Log.e("FeedViewModel", "An error occurred while requesting data", it)
+                _uiState.value = FeedState.Error(it)
             }
         }
     }
 
     override fun obtainEvent(event: FeedEvent) {
         when (event) {
-            is FeedEvent.TierClick -> selectTier(event.tier)
-            is FeedEvent.PostClick -> router.navigateToDetailsScreen(event.id)
-            FeedEvent.Refresh -> refreshPosts()
-            FeedEvent.Retry -> retryLoadPosts()
-        }
-    }
-
-    private fun selectTier(tier: Tier) {
-        _uiState.value = FeedState.Loading
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                postRepository.getPostsByTier(tier)
-            }.onSuccess {
-                it.cachedIn(viewModelScope)
-                .collect { pagingData ->
-                    _uiState.value = FeedState.Content(pagingData, tier)
-                }
-            }.onFailure {
-                _uiState.value = FeedState.Error(error = it)
+            is FeedEvent.TierClick -> {
+                selectedTier = event.tier
+                _uiState.value = FeedState.Loading
+                loadPostsByTier()
+            }
+            is FeedEvent.Refresh -> {
+                _uiState.value = FeedState.Loading
+                loadPostsByTier()
+            }
+            is FeedEvent.PostClick -> {
+                navigateToDetailsScreen(event.id)
+            }
+            is FeedEvent.ProfileClick -> {
+                navigateToProfileScreen()
             }
         }
     }
 
-    private fun refreshPosts() {
-        loadPosts()
+    private fun navigateToProfileScreen() {
+        router.navigateToProfile()
     }
 
-    private fun retryLoadPosts() {
-        loadPosts()
+    private fun navigateToDetailsScreen(id: Long) {
+        router.navigateToDetailsScreen(id)
     }
 }

@@ -33,6 +33,10 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 }
 
@@ -44,6 +48,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.swiperefreshlayout)
+
+    //Compose
+    implementation(libs.androidx.ui.android)
 
     //Paging3
     implementation(libs.androidx.paging.runtime.ktx)

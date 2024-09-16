@@ -1,11 +1,16 @@
 package com.example.feed.presentation
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.example.common.di.ComponentDepsProvider
-import com.example.common.utils.observe
-import com.example.domain.model.Tier
+import com.example.domain.model.PostModel
 import com.example.feed.R
 import com.example.feed.databinding.FragmentFeedBinding
 import com.example.feed.di.DaggerFeedComponent
@@ -14,7 +19,10 @@ import com.example.feed.presentation.adapter.PostAdapter
 import com.example.feed.presentation.model.FeedEvent
 import com.example.feed.presentation.model.FeedState
 import com.example.ui.base.BaseFragment
+import com.example.ui.view.composables.ErrorScreen
+import com.example.ui.view.composables.ShowLoading
 import com.example.ui.viewmodel.ViewModelProviderFactory
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment() {
@@ -28,7 +36,7 @@ class FeedFragment : BaseFragment() {
 
     private var viewBinding: FragmentFeedBinding? = null
 
-    private lateinit var postAdapter: PostAdapter
+    private lateinit var adapter: PostAdapter
 
     override fun getLayoutId() = R.layout.fragment_feed
 
@@ -39,58 +47,92 @@ class FeedFragment : BaseFragment() {
             .factory()
             .create(ComponentDepsProvider.get(requireContext()))
             .apply { inject(this@FeedFragment) }
+    }
 
-        postAdapter = PostAdapter(
-            onPostClick = ::onPostClicked,
-            onTierClick = ::onTierClicked
-        )
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        viewBinding = FragmentFeedBinding.inflate(inflater, container, false)
+        return viewBinding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding = FragmentFeedBinding.bind(view)
+        adapter = PostAdapter(
+            onPostClick = { postId ->
+                viewModel.obtainEvent(FeedEvent.PostClick(postId))
+            },
+            onTierClick = { tier ->
+                viewModel.obtainEvent(FeedEvent.TierClick(tier))
+            }
+        )
 
-        viewBinding?.feedRv?.adapter = postAdapter
+        viewBinding?.apply {
+            feedRv.adapter = adapter
 
-        observeViewModel()
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.obtainEvent(FeedEvent.Refresh)
+            }
+        }
+
+        collectPagingLoadState()
+
+        collectState()
     }
 
-    private fun observeViewModel() {
-        viewModel.uiState.observe(this) { state ->
-            when (state) {
-                is FeedState.Loading -> showLoading()
-                is FeedState.Content -> showContent(state)
-                is FeedState.Error -> showError(state.error)
-                is FeedState.Initial -> Unit
+    private fun collectPagingLoadState() {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> showLoading()
+                    is LoadState.NotLoading -> Unit
+                    is LoadState.Error -> showError()
+                }
             }
         }
     }
 
-    private fun onPostClicked(id: Long) {
-        viewModel.obtainEvent(FeedEvent.PostClick(id))
-    }
-
-    private fun onTierClicked(tier: Tier) {
-        viewModel.obtainEvent(FeedEvent.TierClick(tier))
+    private fun collectState() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { state ->
+                Log.d("FeedFragment", "State: $state")
+                when (state) {
+                    is FeedState.Loading -> showLoading()
+                    is FeedState.Content -> submitData(state.posts)
+                    is FeedState.Error -> showError()
+                }
+            }
+        }
     }
 
     private fun showLoading() {
-        // Show loading
+        viewBinding?.loadingErrorCompose?.setContent {
+            ShowLoading(isLoading = true)
+        }
+        viewBinding?.loadingErrorCompose?.visibility = View.VISIBLE
     }
 
-    private fun showContent(state: FeedState.Content) {
-        postAdapter.submitData(lifecycle, state.posts)
+    private fun submitData(posts: PagingData<PostModel>) {
+        adapter.submitData(viewLifecycleOwner.lifecycle, posts)
+        viewBinding?.swipeRefreshLayout?.isRefreshing = false
+        viewBinding?.loadingErrorCompose?.visibility = View.GONE
     }
 
-    private fun showError(error: Throwable) {
-        // Show error
+    private fun showError() {
+        viewBinding?.loadingErrorCompose?.setContent {
+            ErrorScreen(
+                onRetryClick = { viewModel.obtainEvent(FeedEvent.Refresh) }
+            )
+        }
+        viewBinding?.loadingErrorCompose?.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
-        viewBinding = null
         feedComponent = null
+        viewBinding = null
     }
 }

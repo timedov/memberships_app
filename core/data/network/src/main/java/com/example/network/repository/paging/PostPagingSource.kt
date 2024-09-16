@@ -1,11 +1,14 @@
 package com.example.network.repository.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.domain.model.PostModel
 import com.example.domain.model.Tier
 import com.example.network.mapper.PostModelMapper
 import com.example.network.remote.datasource.PostApi
+import retrofit2.HttpException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class PostPagingSource @Inject constructor(
@@ -23,8 +26,9 @@ class PostPagingSource @Inject constructor(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostModel> {
-        return try {
+        try {
             val page = params.key ?: 0
+            Log.d("PostPagingSource", "Loading page: $page")
             val responseList = postModelMapper.mapResponseListToModelList(
                 if (tier == Tier.ALL_TIERS) {
                     postApi.getPosts(page = page, size = params.loadSize)
@@ -32,15 +36,20 @@ class PostPagingSource @Inject constructor(
                     postApi.getPostsByTier(page = page, size = params.loadSize, tier = tier.code)
                 }
             )
+            Log.d("PostPagingSource", "Loaded ${responseList.size} items")
             val nextPageNumber = if (responseList.size < params.loadSize) null else page + 1
             val prevKeyNumber = if (page == 0) null else page - 1
-            LoadResult.Page(
+            return LoadResult.Page(
                 data = responseList,
                 prevKey = prevKeyNumber,
                 nextKey = nextPageNumber
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+        } catch (e: HttpException) {
+            Log.e("PostPagingSource", "HttpException: ${e.message}", e)
+            return LoadResult.Error(e)
+        } catch (e: UnknownHostException) {
+            Log.e("PostPagingSource", "UnknownHostException: ${e.message}", e)
+            return LoadResult.Error(e)
         }
     }
 

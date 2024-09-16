@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import com.example.common.utils.observe
 
 abstract class BaseFragment : Fragment() {
 
@@ -21,4 +24,7 @@ abstract class BaseFragment : Fragment() {
         } ?: provideComposeView() ?: throw IllegalStateException("Provide layoutRes or ComposeView")
     }
 
+    inline fun <T> Flow<T>.observe(crossinline block: (T) -> Unit): Job {
+        return observe( fragment = this@BaseFragment, block)
+    }
 }

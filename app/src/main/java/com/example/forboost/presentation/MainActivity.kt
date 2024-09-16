@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.forboost.ForBoostApp
 import com.example.forboost.R
 import com.example.forboost.navigation.Navigator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController.apply {
             navigator.attachNavController(this)
+
+            findViewById<BottomNavigationView>(R.id.bnv_main).setupWithNavController(this)
         }
     }
 

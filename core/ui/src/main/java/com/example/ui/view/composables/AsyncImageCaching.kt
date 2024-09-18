@@ -12,13 +12,13 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 
 @Composable
-inline fun AsyncImageCaching(
+fun AsyncImageCaching(
     model: Any?,
     contentDescription: String?,
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
-    crossinline builder: ImageRequest.Builder.() -> Unit = {}
+    builder: ImageRequest.Builder.() -> Unit = {}
 ) {
     val context = LocalContext.current
     val request = ImageRequest.Builder(context)

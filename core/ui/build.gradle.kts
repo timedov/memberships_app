@@ -51,14 +51,11 @@ dependencies {
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.material.icons.extended)
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
 
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.fragment.ktx)
-
     implementation(project(":core:common"))
 
     //test

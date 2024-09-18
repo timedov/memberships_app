@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
     implementation(project(":core:data:network"))
+    implementation(project(":features:profile"))
 
     //Dagger
     ksp(libs.dagger.compiler)

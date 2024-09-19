@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data:network"))
     implementation(project(":features:profile"))
+    implementation(project(":core:data:firebase"))
 
     //Dagger
     ksp(libs.dagger.compiler)

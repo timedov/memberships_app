@@ -35,7 +35,6 @@ android {
 
 dependencies {
 
-    implementation(libs.firebase.auth.interop)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.firebase.auth.ktx)

@@ -13,8 +13,8 @@ class PostResponse(
     val image: String?,
     @SerialName("category")
     val category: String?,
-    @SerialName("videosCount")
-    val videosCount: Int = 0,
-    @SerialName("postsCount")
-    val postsCount: Int = 0,
+    @SerialName("posted")
+    val postedTimestamp: Long = 0,
+    @SerialName("author")
+    val authorName: String?,
 )

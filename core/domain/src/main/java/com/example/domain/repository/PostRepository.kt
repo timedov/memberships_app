@@ -12,4 +12,6 @@ interface PostRepository {
     fun getPosts(): Flow<PagingData<PostModel>>
 
     suspend fun getPostsByTier(tier: Tier): Flow<PagingData<PostModel>>
+
+    fun getPostsOfUser(username: String): Flow<PagingData<PostModel>>
 }

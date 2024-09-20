@@ -18,6 +18,7 @@ import coil.imageLoader
 import coil.load
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import java.util.concurrent.TimeUnit
 
 inline fun <T> Flow<T>.observe(fragment: Fragment, crossinline block: (T) -> Unit): Job {
     val lifecycleOwner = fragment.viewLifecycleOwner
@@ -71,3 +72,28 @@ fun Int.subscribersCountToPrettyFormat() =
         this < 1000000 -> {"${this / 1000}k"}
         else -> {"${this / 1000000}m"}
     }
+
+fun Long.timeAgo(): String {
+    val diffInMillis = System.currentTimeMillis() - this
+
+    val seconds = TimeUnit.MILLISECONDS.toSeconds(diffInMillis)
+    val minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis)
+    val hours = TimeUnit.MILLISECONDS.toHours(diffInMillis)
+    val days = TimeUnit.MILLISECONDS.toDays(diffInMillis)
+
+    return when {
+        seconds < 60 -> "$seconds seconds ago"
+        minutes < 60 -> "$minutes minutes ago"
+        hours < 24 -> "$hours hours ago"
+        days < 30 -> "$days days ago"
+        days < 365 -> {
+            val months = days / 30
+            "$months months ago"
+        }
+        else -> {
+            val years = days / 365
+            "$years years ago"
+        }
+    }
+}
+

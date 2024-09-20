@@ -1,12 +1,17 @@
 package com.example.profile.presentation.model
 
+import androidx.paging.PagingData
 import com.example.domain.model.PostModel
 import com.example.domain.model.UserDetailsModel
+import kotlinx.coroutines.flow.Flow
 
 sealed interface ProfileState {
     data object Loading : ProfileState
-    data class UserDetails(val userDetails: UserDetailsModel) : ProfileState
-    data class Posts(val posts: List<PostModel>) : ProfileState
+    data class Content(
+        val userDetails: UserDetailsModel,
+        val subscribers: String = "",
+        val posts: Flow<PagingData<PostModel>>,
+    ) : ProfileState
     data class Error(val message: String) : ProfileState
 }
 

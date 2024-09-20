@@ -5,8 +5,8 @@ class PostModel(
     val title: String,
     val image: String,
     val category: String,
-    val videosCount: Int,
-    val postsCount: Int
+    val postedAgo: String,
+    val author: String
 )
 
 enum class Tier(val code: Int) {

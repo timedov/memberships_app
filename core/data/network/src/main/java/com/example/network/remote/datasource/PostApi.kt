@@ -19,4 +19,11 @@ interface PostApi {
         @Query("size") size: Int,
         @Query("tier") tier: Int
     ): List<PostResponse>
+
+    @GET("posts")
+    fun getPostsByAuthor(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("author") author: String
+    ): List<PostResponse>
 }

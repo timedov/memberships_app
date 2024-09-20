@@ -51,6 +51,7 @@ dependencies {
 
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
+    implementation(project(":core:common"))
 
     //compose
     implementation(platform(libs.androidx.compose.bom))
@@ -60,7 +61,10 @@ dependencies {
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
     implementation(libs.coil.compose)
-    implementation(project(":core:common"))
+
+    //Paging3
+    implementation(libs.androidx.paging.common.android)
+    implementation (libs.androidx.paging.compose)
 
     //Dagger
     ksp(libs.dagger.compiler)

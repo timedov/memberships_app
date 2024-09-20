@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
-import com.example.domain.model.UserDetailsModel
-import com.example.domain.repository.UserRepository
+import com.example.common.utils.runSuspendCatching
+import com.example.domain.repository.PostRepository
+import com.example.profile.usecase.GetSubscribersUseCase
+import com.example.profile.usecase.GetUserDetailsUseCase
 import com.example.profile.navigation.ProfileRouter
 import com.example.profile.presentation.model.ProfileAction
 import com.example.profile.presentation.model.ProfileEvent
@@ -15,12 +17,13 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ProfileViewModel @AssistedInject constructor(
     @Assisted private val username: String,
     private val profileRouter: ProfileRouter,
-    private val userRepository: UserRepository,
+    private val getUserDetailsUseCase: GetUserDetailsUseCase,
+    private val getSubscribersUseCase: GetSubscribersUseCase,
+    private val postRepository: PostRepository,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<ProfileState, ProfileEvent, ProfileAction>(
     initialState = ProfileState.Loading
@@ -32,33 +35,40 @@ class ProfileViewModel @AssistedInject constructor(
 
     override fun obtainEvent(event: ProfileEvent) {
         when (event) {
-            ProfileEvent.BackClick -> profileRouter.popBackStack()
+            ProfileEvent.Refresh -> loadUserDetails()
             ProfileEvent.SubscribeClick -> profileRouter.navigateToSubscribe()
             is ProfileEvent.PostClick -> profileRouter.navigateToPostDetails(event.postId)
-            ProfileEvent.Refresh -> loadUserDetails()
+            ProfileEvent.BackClick -> profileRouter.popBackStack()
         }
     }
 
     private fun loadUserDetails() {
         viewModelScope.launch {
-            _uiState.value = ProfileState.UserDetails(
-                userDetails = UserDetailsModel(
-                    username = username,
-                    imageUrl = null,
-                    subscribers = "1,7k",
-                    joinedYear = 2022,
-                    about = "Android Developer"
+            runSuspendCatching(exceptionHandlerDelegate) {
+                getUserDetailsUseCase.invoke(username)
+            }.onSuccess {
+                _uiState.value = ProfileState.Content(
+                    userDetails = it,
+                    posts = postRepository.getPostsOfUser(username)
                 )
-            )
+                loadSubscribers()
+            }.onFailure {
+                _uiState.value = ProfileState.Error(it.message.orEmpty())
+            }
         }
     }
 
-
-    private fun loadPosts() {
+    private fun loadSubscribers() {
         viewModelScope.launch {
-            _uiState.value = ProfileState.Posts(
-                posts = emptyList()
-            )
+            runSuspendCatching(exceptionHandlerDelegate) {
+                getSubscribersUseCase.invoke(username)
+            }.onSuccess {
+                _uiState.value = (_uiState.value as ProfileState.Content).copy(
+                    subscribers = it
+                )
+            }.onFailure {
+                _uiState.value = ProfileState.Error(it.message.orEmpty())
+            }
         }
     }
 

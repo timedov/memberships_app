@@ -13,7 +13,9 @@ class PostPagingSource @Inject constructor(
     private val postModelMapper: PostModelMapper
 ) : PagingSource<Int, PostModel>() {
 
-    private var tier = Tier.ALL_TIERS
+    var tier = Tier.ALL_TIERS
+
+    var author: String? = null
 
     override fun getRefreshKey(state: PagingState<Int, PostModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -26,7 +28,10 @@ class PostPagingSource @Inject constructor(
         return try {
             val page = params.key ?: 0
             val responseList = postModelMapper.mapResponseListToModelList(
-                if (tier == Tier.ALL_TIERS) {
+                if (!author.isNullOrEmpty()) {
+                    postApi.getPostsByAuthor(page = page, size = params.loadSize, author = author!!)
+                }
+                else if (tier == Tier.ALL_TIERS) {
                     postApi.getPosts(page = page, size = params.loadSize)
                 } else {
                     postApi.getPostsByTier(page = page, size = params.loadSize, tier = tier.code)
@@ -42,9 +47,5 @@ class PostPagingSource @Inject constructor(
         } catch (e: Exception) {
             LoadResult.Error(e)
         }
-    }
-
-    fun setTier(tier: Tier) {
-        this.tier = tier
     }
 }

@@ -8,4 +8,6 @@
     <string name="profile_image">Profile Image</string>
     <string name="posts">Posts</string>
     <string name="about">About</string>
+    <string name="no_description">No description</string>
+    <string name="no_posts">No posts yet</string>
 </resources>

@@ -45,6 +45,7 @@ androidx-ui-android = { module = "androidx.compose.ui:ui-android", version.ref =
 androidx-ui-graphics-android = { module = "androidx.compose.ui:ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 androidx-ui-tooling-preview-android = { module = "androidx.compose.ui:ui-tooling-preview-android", version.ref = "uiGraphicsAndroid" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "googleDagger" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

@@ -1,5 +1,6 @@
 package com.example.ui.view.composables
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,7 +17,8 @@ import com.example.ui.R
 @Composable
 fun CenterAlignedTopAppBarWithBackButton(
     title: String,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    actions: @Composable RowScope.() -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -31,5 +33,6 @@ fun CenterAlignedTopAppBarWithBackButton(
                 )
             }
         },
+        actions = actions
     )
 }

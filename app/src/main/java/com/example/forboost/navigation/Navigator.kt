@@ -15,4 +15,12 @@ class Navigator : GlobalRouter {
             this.navController = null
         }
     }
+
+    override fun popBackStack() {
+        navController?.popBackStack()
+    }
+
+    override fun navigateToSaveTier(id: Long) {
+        TODO("Not yet implemented")
+    }
 }

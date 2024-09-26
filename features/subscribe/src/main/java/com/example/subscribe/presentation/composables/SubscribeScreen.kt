@@ -99,13 +99,13 @@ fun SubscribeScreen(viewModel: SubscribeViewModel) {
                         }
                     )
                 }
-                SubscribeState.Error -> {
+                is SubscribeState.Error -> {
                     isRefreshing = false
                     ErrorScreen(
                         onRetryClick = { viewModel.obtainEvent(SubscribeEvent.Refresh) }
                     )
                 }
-                SubscribeState.Loading -> {
+                is SubscribeState.Loading -> {
                     LoadingScreen(isLoading = true)
                 }
             }

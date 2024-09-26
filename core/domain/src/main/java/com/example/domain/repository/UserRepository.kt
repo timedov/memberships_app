@@ -22,7 +22,5 @@ interface UserRepository {
 
     suspend fun getUserDetailsByUsername(username: String): UserDetailsModel
 
-    suspend fun getUserSubscribersCount(username: String): Int
-
     suspend fun signOut()
 }

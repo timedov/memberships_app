@@ -5,6 +5,6 @@ object Keys {
     const val SUBSCRIBES_COLLECTION_KEY = "subscribes"
     const val USERNAME_KEY = "username"
     const val SUBSCRIBED_TO_KEY = "subscribedTo"
-    const val STATE_KEY = "state"
+    const val STATUS_KEY = "status"
     const val CACHE_CONTROL_KEY = "Cache-Control"
 }

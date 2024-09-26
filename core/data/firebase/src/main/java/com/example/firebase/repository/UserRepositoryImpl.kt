@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import com.example.common.utils.Keys
-import com.example.domain.model.SubscribeState
+import com.example.domain.model.SubscribeStatus
 import com.example.domain.model.UserDetailsModel
 import com.example.firebase.mapper.UserDomainModelMapper
 
@@ -81,14 +81,6 @@ class UserRepositoryImpl @Inject constructor(
             .await()
         return mapper.firebaseDocToUserDetails(documents.first())
     }
-
-    override suspend fun getUserSubscribersCount(username: String): Int =
-        db.collection(Keys.SUBSCRIBES_COLLECTION_KEY)
-            .whereEqualTo(Keys.SUBSCRIBED_TO_KEY, username)
-            .whereEqualTo(Keys.STATE_KEY, SubscribeState.ACTIVE)
-            .get()
-            .await()
-            .size()
 
     override suspend fun signOut() {
         auth.signOut()

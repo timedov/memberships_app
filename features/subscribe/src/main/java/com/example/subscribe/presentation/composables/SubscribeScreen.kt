@@ -24,13 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.ui.model.TierUiModel
-import com.example.domain.model.UserDetailsModel
 import com.example.subscribe.R
 import com.example.subscribe.presentation.SubscribeViewModel
 import com.example.subscribe.presentation.model.SubscribeAction
 import com.example.subscribe.presentation.model.SubscribeEvent
 import com.example.subscribe.presentation.model.SubscribeState
+import com.example.ui.model.TierUiModel
 import com.example.ui.view.composables.CenterAlignedTopAppBarWithBackButton
 import com.example.ui.view.composables.ErrorScreen
 import com.example.ui.view.composables.LoadingScreen
@@ -93,7 +92,7 @@ fun SubscribeScreen(viewModel: SubscribeViewModel) {
                     isCurrentUser = currentState.isCurrentUser
 
                     SubscribeContent(
-                        userDetails = UserDetailsModel(),
+                        userDetails = currentState.userDetails,
                         tiers = currentState.tiers,
                         selectedTier = selectedTier,
                         onTierSelected = { selectedTier = it },

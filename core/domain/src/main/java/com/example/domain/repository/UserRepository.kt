@@ -1,6 +1,6 @@
 package com.example.domain.repository
 
-import com.example.domain.model.UserDetailsModel
+import com.example.domain.model.UserDetailsDomainModel
 import com.example.domain.model.UserDomainModel
 
 interface UserRepository {
@@ -20,7 +20,7 @@ interface UserRepository {
 
     suspend fun updateUserCredentials(username: String) : Boolean
 
-    suspend fun getUserDetailsByUsername(username: String): UserDetailsModel
+    suspend fun getUserDetailsByUsername(username: String): UserDetailsDomainModel
 
     suspend fun signOut()
 }

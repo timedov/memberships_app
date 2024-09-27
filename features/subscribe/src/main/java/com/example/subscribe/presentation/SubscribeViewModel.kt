@@ -1,9 +1,9 @@
 package com.example.subscribe.presentation
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
+import com.example.domain.usecase.GetUserDetailsUseCase
 import com.example.domain.usecase.IsCurrentUserUseCase
 import com.example.subscribe.navigation.SubscribeRouter
 import com.example.subscribe.presentation.model.SubscribeAction
@@ -12,6 +12,7 @@ import com.example.subscribe.presentation.model.SubscribeState
 import com.example.subscribe.usecase.GetTiersUseCase
 import com.example.subscribe.usecase.SubscribeUseCase
 import com.example.ui.base.BaseViewModel
+import com.example.ui.utils.toUiModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class SubscribeViewModel @Inject constructor(
     private val subscribeRouter: SubscribeRouter,
     private val subscribeUseCase: SubscribeUseCase,
     private val getTiersUseCase: GetTiersUseCase,
+    private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val isCurrentUserUseCase: IsCurrentUserUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SubscribeState, SubscribeEvent, SubscribeAction>(
@@ -28,7 +30,25 @@ class SubscribeViewModel @Inject constructor(
     private var username: String = ""
 
     init {
-        loadTiers()
+        loadUserDetails()
+    }
+
+    private fun loadUserDetails() {
+        viewModelScope.launch {
+            _uiState.value = SubscribeState.Loading
+            runSuspendCatching(exceptionHandlerDelegate) {
+                getUserDetailsUseCase.invoke(username)
+            }.onSuccess {
+                _uiState.value = SubscribeState.Content(
+                    userDetails = it.toUiModel(),
+                    tiers = emptyList(),
+                    isCurrentUser = true
+                )
+                loadTiers()
+            }.onFailure {
+                _uiState.value = SubscribeState.Error
+            }
+        }
     }
 
     private fun loadTiers() {
@@ -37,10 +57,7 @@ class SubscribeViewModel @Inject constructor(
             runSuspendCatching(exceptionHandlerDelegate) {
                 getTiersUseCase.invoke(username)
             }.onSuccess {
-                _uiState.value = SubscribeState.Content(
-                    tiers = it,
-                    isCurrentUser = false
-                )
+                _uiState.value = (_uiState.value as SubscribeState.Content).copy(tiers = it)
                 checkIsCurrentUser()
             }.onFailure {
                 _uiState.value = SubscribeState.Error

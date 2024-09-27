@@ -14,13 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.UserDetailsModel
 import com.example.ui.R
+import com.example.ui.model.UserDetailsUiModel
 import com.example.ui.view.composables.AsyncImageCaching
 
 @Composable
 fun UserDetailsTitle(
-    userDetails: UserDetailsModel,
+    userDetails: UserDetailsUiModel,
     modifier: Modifier = Modifier
 ) {
     AsyncImageCaching(

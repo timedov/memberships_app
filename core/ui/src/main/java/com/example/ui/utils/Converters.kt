@@ -1,7 +1,9 @@
 package com.example.ui.utils
 
 import com.example.domain.model.TierDomainModel
+import com.example.domain.model.UserDetailsDomainModel
 import com.example.ui.model.TierUiModel
+import com.example.ui.model.UserDetailsUiModel
 
 fun TierDomainModel.toUiModel() =
     TierUiModel(
@@ -9,4 +11,13 @@ fun TierDomainModel.toUiModel() =
         name = name,
         price = "$$price",
         description = description
+    )
+
+fun UserDetailsDomainModel.toUiModel() =
+    UserDetailsUiModel(
+        username = username,
+        imageUrl = imageUrl,
+        subscribers = subscribers,
+        joinedYear = joinedYear,
+        about = about
     )

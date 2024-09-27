@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.ui.model.TierUiModel
-import com.example.domain.model.UserDetailsModel
+import com.example.ui.model.UserDetailsUiModel
 
 @Composable
 fun SubscribeContent(
-    userDetails: UserDetailsModel,
+    userDetails: UserDetailsUiModel,
     tiers: List<TierUiModel>,
     selectedTier: TierUiModel,
     onTierSelected: (TierUiModel) -> Unit,

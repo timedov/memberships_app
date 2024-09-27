@@ -16,15 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.TierModel
+import com.example.ui.model.TierUiModel
 import com.example.subscribe.R
 import com.example.ui.themes.OnSurfaceBackgroundAlpha
 
 @Composable
 fun TierItem(
-    tier: TierModel,
+    tier: TierUiModel,
     isSelected: () -> Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val backgroundColor =
         if (isSelected()) MaterialTheme.colorScheme.primary.copy(alpha = OnSurfaceBackgroundAlpha)
@@ -38,7 +39,7 @@ fun TierItem(
     else MaterialTheme.colorScheme.onSurface
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
             .clickable { onClick() },

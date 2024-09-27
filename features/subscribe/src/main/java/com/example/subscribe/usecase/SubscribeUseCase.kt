@@ -1,7 +1,7 @@
 package com.example.subscribe.usecase
 
 import android.icu.util.Calendar
-import com.example.domain.model.SubscribeModel
+import com.example.domain.model.SubscribeDomainModel
 import com.example.domain.model.SubscribeStatus
 import com.example.domain.repository.SubscribeRepository
 import com.example.domain.repository.UserRepository
@@ -16,7 +16,7 @@ class SubscribeUseCase @Inject constructor(
         val currentUserUsername = userRepository.getCurrentUserCredentials()
         val calendar = Calendar.getInstance()
         subscribeRepository.subscribeToTier(
-            SubscribeModel(
+            SubscribeDomainModel(
                 tierId = tierId,
                 followed = currentUserUsername,
                 subscribedTo = subscribedTo,

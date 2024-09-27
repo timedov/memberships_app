@@ -1,33 +1,31 @@
 package com.example.subscribe.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
-import com.example.domain.repository.TierRepository
-import com.example.domain.repository.UserRepository
+import com.example.domain.usecase.IsCurrentUserUseCase
 import com.example.subscribe.navigation.SubscribeRouter
 import com.example.subscribe.presentation.model.SubscribeAction
 import com.example.subscribe.presentation.model.SubscribeEvent
 import com.example.subscribe.presentation.model.SubscribeState
+import com.example.subscribe.usecase.GetTiersUseCase
 import com.example.subscribe.usecase.SubscribeUseCase
 import com.example.ui.base.BaseViewModel
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SubscribeViewModel @AssistedInject constructor(
-    @Assisted private val username: String,
+class SubscribeViewModel @Inject constructor(
     private val subscribeRouter: SubscribeRouter,
     private val subscribeUseCase: SubscribeUseCase,
-    private val tierRepository: TierRepository,
-    private val userRepository: UserRepository,
+    private val getTiersUseCase: GetTiersUseCase,
+    private val isCurrentUserUseCase: IsCurrentUserUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SubscribeState, SubscribeEvent, SubscribeAction>(
     initialState = SubscribeState.Loading
 ) {
+
+    private var username: String = ""
 
     init {
         loadTiers()
@@ -37,9 +35,12 @@ class SubscribeViewModel @AssistedInject constructor(
         viewModelScope.launch {
             _uiState.value = SubscribeState.Loading
             runSuspendCatching(exceptionHandlerDelegate) {
-                tierRepository.getTiersByUser(username)
+                getTiersUseCase.invoke(username)
             }.onSuccess {
-                _uiState.value = SubscribeState.Content(tiers = it, false)
+                _uiState.value = SubscribeState.Content(
+                    tiers = it,
+                    isCurrentUser = false
+                )
                 checkIsCurrentUser()
             }.onFailure {
                 _uiState.value = SubscribeState.Error
@@ -50,10 +51,10 @@ class SubscribeViewModel @AssistedInject constructor(
     private fun checkIsCurrentUser() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                userRepository.getCurrentUserCredentials()
+                isCurrentUserUseCase.invoke(username)
             }.onSuccess {
                 _uiState.value =
-                    (_uiState.value as SubscribeState.Content).copy(isCurrentUser = it == username)
+                    (_uiState.value as SubscribeState.Content).copy(isCurrentUser = it)
             }.onFailure {
                 _uiState.value = SubscribeState.Error
             }
@@ -62,11 +63,12 @@ class SubscribeViewModel @AssistedInject constructor(
 
     override fun obtainEvent(event: SubscribeEvent) {
         when (event) {
+            is SubscribeEvent.Initiate -> username = event.username
             is SubscribeEvent.Subscribe -> subscribe(event.tierId)
             is SubscribeEvent.EditTier -> navigateToSaveTierScreen(event.tierId)
-            SubscribeEvent.AddNewTier -> navigateToSaveTierScreen()
-            SubscribeEvent.BackClick -> popBackStack()
-            SubscribeEvent.Refresh -> loadTiers()
+            is SubscribeEvent.AddNewTier -> navigateToSaveTierScreen()
+            is SubscribeEvent.BackClick -> popBackStack()
+            is SubscribeEvent.Refresh -> loadTiers()
         }
     }
 
@@ -78,7 +80,7 @@ class SubscribeViewModel @AssistedInject constructor(
         _uiState.value = SubscribeState.Loading
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                subscribeUseCase(tierId = tierId, subscribedTo = username)
+                subscribeUseCase.invoke(tierId = tierId, subscribedTo = username)
             }.onSuccess {
                 _actionsFlow.emit(SubscribeAction.SubscribeSuccess)
             }.onFailure {
@@ -90,24 +92,5 @@ class SubscribeViewModel @AssistedInject constructor(
 
     private fun popBackStack() {
         subscribeRouter.popBackStack()
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(username: String): SubscribeViewModel
-    }
-
-    companion object {
-
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            assistedParam: String,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(assistedParam) as T
-            }
-        }
     }
 }

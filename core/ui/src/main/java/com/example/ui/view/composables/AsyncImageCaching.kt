@@ -15,7 +15,7 @@ import coil.request.ImageRequest
 import com.example.ui.R
 
 @Composable
-inline fun AsyncImageCaching(
+fun AsyncImageCaching(
     model: Any?,
     contentDescription: String?,
     placeholder: Painter = painterResource(id = R.drawable.no_image),
@@ -23,7 +23,7 @@ inline fun AsyncImageCaching(
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
-    crossinline builder: ImageRequest.Builder.() -> Unit = {}
+    builder: ImageRequest.Builder.() -> Unit = {},
 ) {
     val context = LocalContext.current
     val request = ImageRequest.Builder(context)

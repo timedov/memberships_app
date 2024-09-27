@@ -20,14 +20,15 @@ import com.example.ui.view.composables.AsyncImageCaching
 
 @Composable
 fun UserDetailsTitle(
-    userDetails: UserDetailsModel
+    userDetails: UserDetailsModel,
+    modifier: Modifier = Modifier
 ) {
     AsyncImageCaching(
         model = userDetails.imageUrl,
         contentDescription = null,
         placeholder = painterResource(id = R.drawable.empty_profile_pic),
         error = painterResource(id = R.drawable.empty_profile_pic),
-        modifier = Modifier
+        modifier = modifier
             .size(120.dp)
             .clip(CircleShape)
     )
@@ -35,7 +36,7 @@ fun UserDetailsTitle(
         text = stringResource(com.example.subscribe.R.string.user_exclusive_content, userDetails.username),
         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
         textAlign = TextAlign.Center,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
     )

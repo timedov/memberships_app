@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
 
     implementation(project(":core:common"))
+    implementation(project(":core:domain"))
 
     //test
     testImplementation(libs.junit)

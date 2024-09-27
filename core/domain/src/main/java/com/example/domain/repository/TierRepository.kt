@@ -1,14 +1,14 @@
 package com.example.domain.repository
 
-import com.example.domain.model.TierModel
+import com.example.domain.model.TierDomainModel
 
 interface TierRepository {
 
-    fun getTiersByUser(username: String): List<TierModel>
+    suspend fun getTiersByUser(username: String): List<TierDomainModel>
 
-    fun getTierById(id: Int): TierModel
+    suspend fun getTierById(id: Int): TierDomainModel
 
-    fun saveTier(tier: TierModel): Boolean
+    suspend fun saveTier(tier: TierDomainModel): Boolean
 
-    fun deleteTier(tier: TierModel): Boolean
+    suspend fun deleteTier(tier: TierDomainModel): Boolean
 }

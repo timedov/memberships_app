@@ -1,7 +1,7 @@
 package com.example.firebase.repository
 
 import com.example.common.utils.Keys
-import com.example.domain.model.SubscribeModel
+import com.example.domain.model.SubscribeDomainModel
 import com.example.domain.model.SubscribeStatus
 import com.example.domain.repository.SubscribeRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,10 +12,10 @@ class SubscribeRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : SubscribeRepository {
 
-    override suspend fun subscribeToTier(subscribeModel: SubscribeModel) {
+    override suspend fun subscribeToTier(subscribeDomainModel: SubscribeDomainModel) {
         db.collection(Keys.SUBSCRIBES_COLLECTION_KEY)
-            .document(subscribeModel.id)
-            .set(subscribeModel)
+            .document(subscribeDomainModel.id)
+            .set(subscribeDomainModel)
             .await()
     }
 

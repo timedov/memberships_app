@@ -7,20 +7,18 @@ import com.example.common.di.ComponentDepsProvider
 import com.example.subscribe.di.DaggerSubscribeComponent
 import com.example.subscribe.di.SubscribeComponent
 import com.example.subscribe.presentation.composables.SubscribeScreen
+import com.example.subscribe.presentation.model.SubscribeEvent
 import com.example.ui.base.BaseFragment
 import com.example.ui.themes.ForBoostAppTheme
+import com.example.ui.viewmodel.ViewModelProviderFactory
 import javax.inject.Inject
 
 class SubscribeFragment : BaseFragment() {
 
-    private var subscribeComponent: SubscribeComponent? = null
-
     @Inject
-    lateinit var vmFactory: SubscribeViewModel.Factory
+    lateinit var vmFactory: ViewModelProviderFactory
 
-    private val viewModel: SubscribeViewModel by viewModels {
-        SubscribeViewModel.provideFactory(vmFactory, "User")
-    }
+    private val viewModel: SubscribeViewModel by viewModels { vmFactory }
 
     override fun provideComposeView(): ComposeView =
         ComposeView(requireContext()).apply {
@@ -32,8 +30,23 @@ class SubscribeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        subscribeComponent = DaggerSubscribeComponent.factory()
+        DaggerSubscribeComponent.factory()
             .create(ComponentDepsProvider.get(requireContext()))
             .apply { inject(this@SubscribeFragment) }
+
+        viewModel.obtainEvent(
+            SubscribeEvent.Initiate(username = "Bebe")
+        )
+    }
+
+    companion object {
+
+        private const val USERNAME = "username"
+
+        fun newInstance(username: String) = SubscribeFragment().apply {
+            arguments = Bundle().apply {
+                putString(USERNAME, username)
+            }
+        }
     }
 }

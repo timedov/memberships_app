@@ -1,10 +1,10 @@
 package com.example.domain.repository
 
-import com.example.domain.model.SubscribeModel
+import com.example.domain.model.SubscribeDomainModel
 
 interface SubscribeRepository {
 
-    suspend fun subscribeToTier(subscribeModel: SubscribeModel)
+    suspend fun subscribeToTier(subscribeDomainModel: SubscribeDomainModel)
 
     suspend fun getUserSubscribersCount(username: String): Int
 }

@@ -1,33 +1,20 @@
 package com.example.subscribe.presentation.composables
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.subscribe.R
 import com.example.subscribe.presentation.model.SubscribeAction
+import com.example.ui.view.composables.ShowToast
 
 @Composable
-fun ObserveActions(action: SubscribeAction?) {
+fun ObserveActions(action: SubscribeAction) {
     when (action) {
+        SubscribeAction.Initial -> {}
         SubscribeAction.SubscribeSuccess -> {
-            Toast
-                .makeText(
-                    LocalContext.current,
-                    stringResource(id = R.string.subscription_successful),
-                    Toast.LENGTH_SHORT
-                )
-                .show()
+            ShowToast(stringResource(R.string.subscription_successful))
         }
         SubscribeAction.SubscribeError -> {
-            Toast
-                .makeText(
-                    LocalContext.current,
-                    stringResource(R.string.subscription_failed),
-                    Toast.LENGTH_SHORT
-                )
-                .show()
+            ShowToast(stringResource(R.string.subscription_failed))
         }
-        else -> {}
     }
 }

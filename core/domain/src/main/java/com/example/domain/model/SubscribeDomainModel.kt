@@ -2,7 +2,7 @@ package com.example.domain.model
 
 import java.util.UUID
 
-class SubscribeModel(
+class SubscribeDomainModel(
     val id: String = UUID.randomUUID().toString(),
     val tierId: Long,
     val followed: String,

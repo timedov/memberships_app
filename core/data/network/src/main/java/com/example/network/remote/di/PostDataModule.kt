@@ -5,6 +5,7 @@ import com.example.common.di.AppScope
 import com.example.common.utils.Constants
 import com.example.network.BuildConfig
 import com.example.network.remote.datasource.PostApi
+import com.example.network.remote.datasource.TierApi
 import com.example.network.remote.di.qualifiers.NetworkCacheInterceptorQualifier
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -49,6 +50,19 @@ class PostDataModule {
             .addConverterFactory(converterFactory)
             .build()
             .create(PostApi::class.java)
+
+    @Provides
+    @AppScope
+    fun provideTierApi(
+        okHttpClient: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): TierApi =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(converterFactory)
+            .build()
+            .create(TierApi::class.java)
 
     @Provides
     @AppScope

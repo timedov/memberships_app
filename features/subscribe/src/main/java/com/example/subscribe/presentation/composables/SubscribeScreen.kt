@@ -11,8 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -43,12 +41,10 @@ fun SubscribeScreen(viewModel: SubscribeViewModel) {
     var isRefreshing by remember { mutableStateOf(false) }
     var isCurrentUser by remember { mutableStateOf(false) }
     var selectedTier by remember { mutableStateOf(TierUiModel()) }
-    val snackbarHostState = remember { SnackbarHostState() }
 
     ObserveActions(action)
 
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBarWithBackButton(
                 title = stringResource(R.string.subscribe),
@@ -80,12 +76,6 @@ fun SubscribeScreen(viewModel: SubscribeViewModel) {
                 isRefreshing = true
             },
         ) {
-            /* У класса State<T>, к которому и принадлежит state, имеет open getter, из-за этого
-            компилятор не может сделать автокаст с помощью is, ведь в переопределенном getter'е
-            может логика, при которой возвращаются разные дочерние классы T, что небезопасно.
-            Новая переменная создается для того, чтобы сохранить текущее значение state.
-            Вот ответ на stackoverflow для полного понимания:
-            https://stackoverflow.com/questions/41086296/smartcast-is-impossible-because-property-has-open-or-custom-getter */
             when (val currentState = state) {
                 is SubscribeState.Content -> {
                     isRefreshing = false

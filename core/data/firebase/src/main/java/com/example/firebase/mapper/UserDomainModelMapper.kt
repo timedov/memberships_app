@@ -14,12 +14,12 @@ class UserDomainModelMapper @Inject constructor() {
                     "displayName = ${input.displayName}, email = ${input.email}")
         return UserDomainModel(
             uid = input.uid,
-            username = input.displayName ?: "",
-            email = input.email!!
+            username = input.displayName.orEmpty(),
+            email = input.email.orEmpty()
         )
     }
 
-    fun firebaseDocToUserModel(input: DocumentSnapshot): UserDomainModel =
-        input.toObject(UserDomainModel::class.java)!!
+    fun firebaseDocToUserModel(input: DocumentSnapshot): UserDomainModel? =
+        input.toObject(UserDomainModel::class.java)
 
 }

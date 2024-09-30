@@ -48,7 +48,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getUserById(userId: String): UserDomainModel =
+    override suspend fun getUserById(userId: String): UserDomainModel? =
         mapper.firebaseDocToUserModel(
             db.collection(Keys.USERS_COLLECTION_KEY).document(userId).get().await()
         )

@@ -3,5 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_nav_graph"
-    app:startDestination="">
+    app:startDestination="@id/saveTierFragment">
+    <fragment
+        android:id="@+id/saveTierFragment"
+        android:name="com.example.savetier.presentation.SaveTierFragment"
+        android:label="SaveTierFragment" />
 </navigation>

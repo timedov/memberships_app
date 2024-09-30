@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="save_tier">Save Tier</string>
+    <string name="confirm_saving_tier">Are you sure you want to save tier?</string>
+    <string name="cancel">Cancel</string>
+    <string name="tier_saved_successfully">Tier saved successfully</string>
+    <string name="tier_saving_failed">Failed to save tier</string>
+</resources>

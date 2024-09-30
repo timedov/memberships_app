@@ -15,4 +15,8 @@ class Navigator : GlobalRouter {
             this.navController = null
         }
     }
+
+    override fun popBackStack() {
+        navController?.popBackStack()
+    }
 }

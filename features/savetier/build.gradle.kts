@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ui"
+    namespace = "com.example.savetier"
     compileSdk = 34
 
     defaultConfig {
@@ -24,6 +24,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -31,12 +34,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-        compose = true
-    }
-
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
@@ -44,28 +41,27 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
+
     //compose
-    implementation(libs.androidx.ui.graphics.android)
+    implementation(libs.material)
     implementation(libs.androidx.ui.android)
-    implementation(libs.androidx.ui.tooling.preview.android)
-    implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
-    implementation(libs.androidx.material.icons.extended)
     implementation(libs.coil)
     implementation(libs.coil.compose)
-
-    implementation(libs.material)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(project(":core:common"))
-
-    //test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

@@ -1,3 +1,5 @@
 package com.example.forboost.di.dependencies
 
-interface FeatureComponentsDeps
+import com.example.savetier.di.SaveTierDeps
+
+interface FeatureComponentsDeps : SaveTierDeps

@@ -5,7 +5,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.example.common.di.ComponentDepsProvider
 import com.example.subscribe.di.DaggerSubscribeComponent
-import com.example.subscribe.di.SubscribeComponent
 import com.example.subscribe.presentation.composables.SubscribeScreen
 import com.example.subscribe.presentation.model.SubscribeEvent
 import com.example.ui.base.BaseFragment
@@ -35,7 +34,7 @@ class SubscribeFragment : BaseFragment() {
             .apply { inject(this@SubscribeFragment) }
 
         viewModel.obtainEvent(
-            SubscribeEvent.Initiate(username = "Bebe")
+            SubscribeEvent.Initiate(username = arguments?.getString(USERNAME).orEmpty())
         )
     }
 

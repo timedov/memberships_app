@@ -99,7 +99,7 @@ fun SubscribeScreen(viewModel: SubscribeViewModel) {
                                 viewModel.obtainEvent(SubscribeEvent.Subscribe(selectedTier.id))
                             }
                         },
-                        selectedTier = selectedTier,
+                        isEnabled = if (!isCurrentUser) selectedTier.id != -1L else true,
                         buttonTitle = stringResource(
                             id = if (isCurrentUser) R.string.plus else R.string.subscribe
                         ),

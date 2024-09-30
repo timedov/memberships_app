@@ -13,6 +13,14 @@ fun TierDomainModel.toUiModel() =
         description = description
     )
 
+fun TierUiModel.toDomainModel() =
+    TierDomainModel(
+        id = id,
+        name = name,
+        price = price.removePrefix("$").toDouble(),
+        description = description
+    )
+
 fun UserDetailsDomainModel.toUiModel() =
     UserDetailsUiModel(
         username = username,

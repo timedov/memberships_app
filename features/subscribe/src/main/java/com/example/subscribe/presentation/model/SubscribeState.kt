@@ -8,7 +8,7 @@ sealed interface SubscribeState {
     data class Content(
         val userDetails: UserDetailsUiModel,
         val tiers: List<TierUiModel>,
-        val isCurrentUser: Boolean
+        val isCurrentUser: Boolean = false
     ) : SubscribeState
     data object Error : SubscribeState
 }

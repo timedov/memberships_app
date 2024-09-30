@@ -1,6 +1,5 @@
 package com.example.subscribe.di
 
-import com.example.subscribe.presentation.SubscribeViewModel
 import com.example.subscribe.presentation.SubscribeFragment
 import com.example.ui.viewmodel.ViewModelProviderFactory
 import dagger.Component

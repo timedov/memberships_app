@@ -12,6 +12,7 @@ import com.example.subscribe.presentation.model.SubscribeState
 import com.example.subscribe.usecase.GetTiersUseCase
 import com.example.subscribe.usecase.SubscribeUseCase
 import com.example.ui.base.BaseViewModel
+import com.example.ui.model.UserDetailsUiModel
 import com.example.ui.utils.toUiModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,21 +30,19 @@ class SubscribeViewModel @Inject constructor(
 
     private var username: String = ""
 
+    private var userDetails: UserDetailsUiModel = UserDetailsUiModel()
+
     init {
         loadUserDetails()
     }
 
     private fun loadUserDetails() {
+        _uiState.value = SubscribeState.Loading
         viewModelScope.launch {
-            _uiState.value = SubscribeState.Loading
             runSuspendCatching(exceptionHandlerDelegate) {
                 getUserDetailsUseCase.invoke(username)
             }.onSuccess {
-                _uiState.value = SubscribeState.Content(
-                    userDetails = it.toUiModel(),
-                    tiers = emptyList(),
-                    isCurrentUser = true
-                )
+                userDetails = it.toUiModel()
                 loadTiers()
             }.onFailure {
                 _uiState.value = SubscribeState.Error
@@ -52,12 +51,15 @@ class SubscribeViewModel @Inject constructor(
     }
 
     private fun loadTiers() {
+        _uiState.value = SubscribeState.Loading
         viewModelScope.launch {
-            _uiState.value = SubscribeState.Loading
             runSuspendCatching(exceptionHandlerDelegate) {
                 getTiersUseCase.invoke(username)
             }.onSuccess {
-                _uiState.value = (_uiState.value as SubscribeState.Content).copy(tiers = it)
+                _uiState.value = SubscribeState.Content(
+                    userDetails = userDetails,
+                    tiers = it,
+                )
                 checkIsCurrentUser()
             }.onFailure {
                 _uiState.value = SubscribeState.Error

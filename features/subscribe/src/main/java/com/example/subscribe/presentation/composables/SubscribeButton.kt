@@ -9,18 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui.model.TierUiModel
 
 @Composable
 fun SubscribeButton(
     onButtonClick: () -> Unit,
-    selectedTier: TierUiModel,
+    isEnabled: Boolean,
     buttonTitle: String,
     modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onButtonClick,
-        enabled = selectedTier.id != -1L,
+        enabled = isEnabled,
         colors = ButtonDefaults.filledTonalButtonColors(),
         modifier = modifier,
         shape = MaterialTheme.shapes.large

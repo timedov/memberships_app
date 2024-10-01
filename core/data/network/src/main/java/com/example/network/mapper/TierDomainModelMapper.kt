@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class TierDomainModelMapper @Inject constructor() {
 
-    fun mapResponseToDomainModel(response: TierResponse): TierDomainModel? =
+    fun mapResponseToDomainModel(response: TierResponse): TierDomainModel =
         if (isResponseEmpty(response)) {
             TierDomainModel(
                 id = response.id,
@@ -15,7 +15,7 @@ class TierDomainModelMapper @Inject constructor() {
                 price = response.price,
                 description = response.description
             )
-        } else null
+        } else TierDomainModel()
 
     fun mapDomainModelToRequest(domainModel: TierDomainModel, author: String): SaveTierRequest =
         SaveTierRequest(
@@ -26,7 +26,7 @@ class TierDomainModelMapper @Inject constructor() {
         )
 
     fun mapResponseListToDomainModelList(responseList: List<TierResponse>): List<TierDomainModel> =
-        responseList.mapNotNull { mapResponseToDomainModel(it) }
+        responseList.map { mapResponseToDomainModel(it) }
 
     private fun isResponseEmpty(response: TierResponse) =
         response.id == -1L

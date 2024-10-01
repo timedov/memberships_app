@@ -8,6 +8,6 @@ class GetTierUseCase @Inject constructor(
     private val tierRepository: TierRepository
 ) {
 
-    suspend operator fun invoke(tierId: Long): TierDomainModel? =
+    suspend operator fun invoke(tierId: Long): TierDomainModel =
         tierRepository.getTierById(tierId)
 }

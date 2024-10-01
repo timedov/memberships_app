@@ -37,12 +37,6 @@ class SaveTierFragment : BaseFragment() {
 
     companion object {
 
-        const val TIER_ID = "tierId"
-
-        fun newInstance(tierId: Long) = SaveTierFragment().apply {
-            arguments = Bundle().apply {
-                putLong(TIER_ID, tierId)
-            }
-        }
+        private const val TIER_ID = "tierId"
     }
 }

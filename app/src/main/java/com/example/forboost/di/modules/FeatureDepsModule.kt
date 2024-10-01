@@ -7,6 +7,7 @@ import com.example.feed.di.FeedDeps
 import com.example.forboost.di.components.AppComponent
 import com.example.forboost.di.dependencies.DepsMap
 import com.example.profile.di.ProfileDeps
+import com.example.subscribe.di.SubscribeDeps
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,11 +21,14 @@ interface FeatureDepsModule {
 
     @Binds
     @[IntoMap ComponentDepsKey(AuthDeps::class)]
-    fun authComponentDependencies(appComponent: AppComponent): ComponentDeps
+    fun bindAuthDeps(appComponent: AppComponent): ComponentDeps
 
     @[Binds IntoMap ComponentDepsKey(FeedDeps::class)]
-    fun feedComponentDependencies(appComponent: AppComponent): ComponentDeps
+    fun bindFeedDeps(appComponent: AppComponent): ComponentDeps
 
     @[Binds IntoMap ComponentDepsKey(ProfileDeps::class)]
     fun bindProfileDeps(appComponent: AppComponent): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(SubscribeDeps::class)]
+    fun bindSubscribeDeps(appComponent: AppComponent): ComponentDeps
 }

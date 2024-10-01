@@ -1,0 +1,12 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="user_exclusive_content">%1$s\'s Exclusive Content</string>
+    <string name="price_per_month">%1$s/mo</string>
+    <string name="plus">+</string>
+    <string name="edit_tier">Edit tier</string>
+    <string name="delete_tier">Delete tier</string>
+    <string name="subscription_successful">Subscription successful!</string>
+    <string name="subscription_failed">Subscription failed. Please try again later.</string>
+</resources>

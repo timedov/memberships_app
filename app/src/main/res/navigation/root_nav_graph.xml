@@ -17,4 +17,9 @@
         android:id="@+id/profileFragment"
         android:name="com.example.profile.presentation.ProfileFragment"
         android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/subscribeFragment"
+        android:name="com.example.subscribe.presentation.SubscribeFragment"
+        android:label="SubscribeFragment" />
 </navigation>

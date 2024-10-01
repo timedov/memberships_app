@@ -13,4 +13,6 @@ interface GlobalRouter {
     fun navigateToPostDetails(id: Long)
 
     fun navigateToSubscribe()
+
+    fun navigateToSaveTier(id: Long)
 }

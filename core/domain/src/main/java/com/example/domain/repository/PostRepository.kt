@@ -1,15 +1,13 @@
 package com.example.domain.repository
 
 import androidx.paging.PagingData
-import com.example.domain.model.PostModel
-import com.example.domain.model.Tier
+import com.example.domain.model.PostDomainModel
+import com.example.domain.model.TierType
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
 
-    suspend fun getPostById(id: Long): PostModel
+    suspend fun getPostById(id: Long): PostDomainModel
 
-    fun getPosts(): Flow<PagingData<PostModel>>
-
-    suspend fun getPostsByTier(tier: Tier): Flow<PagingData<PostModel>>
+    suspend fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>>
 }

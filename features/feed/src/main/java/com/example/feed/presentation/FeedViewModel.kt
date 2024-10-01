@@ -1,11 +1,10 @@
 package com.example.feed.presentation
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
-import com.example.domain.model.Tier
+import com.example.domain.model.TierType
 import com.example.domain.repository.PostRepository
 import com.example.feed.navigation.FeedRouter
 import com.example.feed.presentation.model.FeedAction
@@ -23,7 +22,7 @@ class FeedViewModel @Inject constructor(
     initialState = FeedState.Loading
 ) {
 
-    private var selectedTier: Tier = Tier.ALL_TIERS
+    private var selectedTier: TierType = TierType.ALL_TIERS
 
     init {
         loadPostsByTier()
@@ -40,7 +39,6 @@ class FeedViewModel @Inject constructor(
                             FeedState.Content(posts = pagingData, selectedTier = selectedTier)
                     }
             }.onFailure {
-                Log.e("FeedViewModel", "An error occurred while requesting data", it)
                 _uiState.value = FeedState.Error(it)
             }
         }

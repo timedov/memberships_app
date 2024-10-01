@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.model.PostModel
-import com.example.domain.model.Tier
+import com.example.domain.model.TierType
 import com.example.feed.R
 import com.example.feed.databinding.ItemPostBinding
 import com.example.feed.databinding.ItemTiersBinding
 import com.example.feed.presentation.holder.PostViewHolder
 import com.example.feed.presentation.holder.TiersViewHolder
+import com.example.ui.model.PostUiModel
 
 class PostAdapter(
     private val onPostClick: (Long) -> Unit,
-    private val onTierClick: (Tier) -> Unit
-) : PagingDataAdapter<PostModel, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+    private val onTierClick: (TierType) -> Unit
+) : PagingDataAdapter<PostUiModel, RecyclerView.ViewHolder>(POST_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
@@ -58,14 +58,12 @@ class PostAdapter(
 
         const val TIERS_TYPE = 0
 
-        private val POST_COMPARATOR = object : DiffUtil.ItemCallback<PostModel>() {
-            override fun areItemsTheSame(oldItem: PostModel, newItem: PostModel) =
-                oldItem.id == newItem.id
+        private val POST_COMPARATOR = object : DiffUtil.ItemCallback<PostUiModel>() {
+            override fun areItemsTheSame(oldItem: PostUiModel, newItem: PostUiModel) =
+                oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: PostModel, newItem: PostModel) =
-                oldItem.title == newItem.title
-                        && oldItem.image == newItem.image
-                        && oldItem.category == newItem.category
+            override fun areContentsTheSame(oldItem: PostUiModel, newItem: PostUiModel) =
+                oldItem.id == newItem.id
         }
     }
 }

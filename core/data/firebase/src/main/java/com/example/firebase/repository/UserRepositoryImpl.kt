@@ -9,7 +9,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import com.example.common.utils.Keys
 import com.example.domain.model.SubscribeState
-import com.example.domain.model.UserDetailsModel
+import com.example.domain.model.UserDetailsDomainModel
 import com.example.firebase.mapper.UserDomainModelMapper
 
 class UserRepositoryImpl @Inject constructor(
@@ -74,7 +74,7 @@ class UserRepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun getUserDetailsByUsername(username: String): UserDetailsModel {
+    override suspend fun getUserDetailsByUsername(username: String): UserDetailsDomainModel {
         val documents = db.collection(Keys.USERS_COLLECTION_KEY)
             .whereEqualTo(Keys.USERNAME_KEY, username)
             .get()

@@ -18,13 +18,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.domain.model.PostModel
+import com.example.ui.model.PostUiModel
 import com.example.ui.themes.OnSurfaceTextAlpha
 import com.example.ui.themes.Shapes
 import com.example.ui.R as UiR
 
 @Composable
-fun PostItem(post: PostModel, onClick: (Long) -> Unit) {
+fun PostItem(post: PostUiModel, onClick: (Long) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

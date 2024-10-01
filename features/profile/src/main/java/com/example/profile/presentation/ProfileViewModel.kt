@@ -1,25 +1,20 @@
 package com.example.profile.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
 import com.example.domain.repository.PostRepository
-import com.example.profile.usecase.GetSubscribersUseCase
-import com.example.profile.usecase.GetUserDetailsUseCase
 import com.example.profile.navigation.ProfileRouter
 import com.example.profile.presentation.model.ProfileAction
 import com.example.profile.presentation.model.ProfileEvent
 import com.example.profile.presentation.model.ProfileState
+import com.example.profile.usecase.GetSubscribersUseCase
+import com.example.profile.usecase.GetUserDetailsUseCase
 import com.example.ui.base.BaseViewModel
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel @AssistedInject constructor(
-    @Assisted private val username: String,
+class ProfileViewModel @Inject constructor(
     private val profileRouter: ProfileRouter,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getSubscribersUseCase: GetSubscribersUseCase,
@@ -28,6 +23,8 @@ class ProfileViewModel @AssistedInject constructor(
 ) : BaseViewModel<ProfileState, ProfileEvent, ProfileAction>(
     initialState = ProfileState.Loading
 ) {
+
+    var username: String = ""
 
     init {
         loadUserDetails()
@@ -68,25 +65,6 @@ class ProfileViewModel @AssistedInject constructor(
                 )
             }.onFailure {
                 _uiState.value = ProfileState.Error(it.message.orEmpty())
-            }
-        }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(username: String): ProfileViewModel
-    }
-
-    companion object {
-
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            assistedParam: String,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(assistedParam) as T
             }
         }
     }

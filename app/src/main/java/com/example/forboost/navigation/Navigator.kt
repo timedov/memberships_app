@@ -19,4 +19,12 @@ class Navigator : GlobalRouter {
     override fun popBackStack() {
         navController?.popBackStack()
     }
+
+    override fun navigateToPostDetails(id: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToSubscribe() {
+        TODO("Not yet implemented")
+    }
 }

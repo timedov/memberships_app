@@ -2,40 +2,44 @@ package com.example.network.repository.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.domain.model.PostModel
-import com.example.domain.model.Tier
-import com.example.network.mapper.PostModelMapper
+import com.example.domain.model.PostDomainModel
+import com.example.domain.model.TierType
+import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
+import com.example.network.remote.datasource.responses.isResponseEmpty
 import javax.inject.Inject
 
 class PostPagingSource @Inject constructor(
     private val postApi: PostApi,
-    private val postModelMapper: PostModelMapper
-) : PagingSource<Int, PostModel>() {
+    private val postModelMapper: PostDomainModelMapper
+) : PagingSource<Int, PostDomainModel>() {
 
-    var tier = Tier.ALL_TIERS
+    var tier = TierType.ALL_TIERS
 
-    var author: String? = null
+    var author: String = ""
 
-    override fun getRefreshKey(state: PagingState<Int, PostModel>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, PostDomainModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostModel> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostDomainModel> {
         return try {
             val page = params.key ?: 0
-            val responseList = postModelMapper.mapResponseListToModelList(
-                if (!author.isNullOrEmpty()) {
-                    postApi.getPostsByAuthor(page = page, size = params.loadSize, author = author!!)
-                }
-                else if (tier == Tier.ALL_TIERS) {
-                    postApi.getPosts(page = page, size = params.loadSize)
-                } else {
-                    postApi.getPostsByTier(page = page, size = params.loadSize, tier = tier.code)
-                }
+            val responseList = postModelMapper.mapResponseListToDomainModelList(
+                if (author.isNotEmpty())
+                    postApi.getPostsByAuthor(
+                        author = author,
+                        size = params.loadSize,
+                        page = page
+                    ).filter { it.isResponseEmpty().not() }
+                 else postApi.getPostsByTier(
+                    tier = tier.code,
+                    size = params.loadSize,
+                    page = page,
+                ).filter { it.isResponseEmpty().not() }
             )
             val nextPageNumber = if (responseList.size < params.loadSize) null else page + 1
             val prevKeyNumber = if (page == 0) null else page - 1

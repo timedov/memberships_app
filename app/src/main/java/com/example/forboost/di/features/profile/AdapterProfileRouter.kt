@@ -8,7 +8,7 @@ class AdapterProfileRouter @Inject constructor(
     private val globalRouter: GlobalRouter
 ) : ProfileRouter {
     override fun navigateToPostDetails(id: Long) {
-        TODO("Not yet implemented")
+        globalRouter.navigateToPostDetails(id)
     }
 
     override fun popBackStack() {
@@ -16,6 +16,6 @@ class AdapterProfileRouter @Inject constructor(
     }
 
     override fun navigateToSubscribe() {
-        TODO("Not yet implemented")
+        globalRouter.navigateToSubscribe()
     }
 }

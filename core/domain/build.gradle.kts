@@ -37,6 +37,7 @@ dependencies {
 
     //paging
     implementation(libs.androidx.paging.common.android)
+    implementation(project(":core:common"))
 
     //dagger
     ksp(libs.dagger.compiler)

@@ -19,7 +19,7 @@ class PostRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>> =
+    override fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>> =
         Pager(
             config = PagingConfig(
                 pageSize = Constants.DEFAULT_PAGE_SIZE,

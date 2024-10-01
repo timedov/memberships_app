@@ -9,7 +9,7 @@ interface PostRepository {
 
     suspend fun getPostById(id: Long): PostDomainModel
 
-    suspend fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>>
+    fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>>
 
     fun getPostsOfUser(username: String): Flow<PagingData<PostDomainModel>>
 }

@@ -55,7 +55,6 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data:network"))
     implementation(project(":core:data:firebase"))
-    implementation(project(":core:ui"))
     implementation(project(":features:auth"))
     implementation(project(":features:feed"))
     implementation(project(":features:profile"))

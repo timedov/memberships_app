@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.android.dynamic.feature) apply false
     alias(libs.plugins.secrets.gradle.plugin) apply false
     alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.gms.google.services) apply false
 }

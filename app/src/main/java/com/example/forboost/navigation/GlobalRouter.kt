@@ -1,3 +1,6 @@
 package com.example.forboost.navigation
 
-interface GlobalRouter
+interface GlobalRouter {
+
+    fun navigateToMain()
+}

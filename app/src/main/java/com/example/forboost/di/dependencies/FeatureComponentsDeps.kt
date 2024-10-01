@@ -1,3 +1,5 @@
 package com.example.forboost.di.dependencies
 
-interface FeatureComponentsDeps
+import com.example.auth.di.AuthDeps
+
+interface FeatureComponentsDeps : AuthDeps

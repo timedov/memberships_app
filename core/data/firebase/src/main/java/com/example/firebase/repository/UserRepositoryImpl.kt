@@ -46,7 +46,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun signIn(email: String, password: String): UserDomainModel {
         Log.i("UserRepositoryImpl", "SignIn(email=$email, password=$password)")
         val userFB = auth.signInWithEmailAndPassword(email, password).await()
-        return mapper.firebaseUserToUserModel(userFB.user!!)
+        return userFB.user?.let { mapper.firebaseUserToUserModel(it) } ?: UserDomainModel()
     }
 
 

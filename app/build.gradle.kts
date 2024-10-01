@@ -55,6 +55,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data:network"))
     implementation(project(":core:data:firebase"))
+    implementation(project(":core:ui"))
+    implementation(project(":features:auth"))
 
     //Dagger
     ksp(libs.dagger.compiler)
@@ -74,6 +76,14 @@ dependencies {
 
     //Paging3
     implementation(libs.androidx.paging.common.android)
+
+    //compose
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+
+    //firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

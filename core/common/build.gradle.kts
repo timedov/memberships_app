@@ -40,10 +40,10 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
 
     //dagger
-    ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
-
     implementation(libs.androidx.lifecycle.runtime.android)
+    ksp(libs.dagger.compiler)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -30,4 +30,3 @@ include(":core:data")
 include("core:data:firebase")
 include(":core:data:network")
 include(":core:ui")
-

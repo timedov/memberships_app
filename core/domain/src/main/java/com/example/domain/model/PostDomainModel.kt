@@ -8,4 +8,3 @@ class PostDomainModel(
     val postedAt: Long,
     val author: String
 )
-

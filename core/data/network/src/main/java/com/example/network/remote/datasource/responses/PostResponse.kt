@@ -18,3 +18,8 @@ class PostResponse(
     @SerialName("author")
     val authorName: String?,
 )
+
+fun PostResponse.isResponseEmpty() = id == 0L
+            && title.isNullOrEmpty()
+            && image.isNullOrEmpty()
+            && category.isNullOrEmpty()

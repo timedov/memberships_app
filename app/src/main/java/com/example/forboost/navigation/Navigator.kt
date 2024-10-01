@@ -1,6 +1,5 @@
 package com.example.forboost.navigation
 
-import android.util.Log
 import androidx.navigation.NavController
 import javax.inject.Inject
 
@@ -18,8 +17,12 @@ class Navigator @Inject constructor() : GlobalRouter {
         }
     }
 
+    override fun popBackStack() {
+        navController?.popBackStack()
+    }
+
     override fun navigateToMain() {
-        Log.d("Navigator", "Imagine it is navigating to main screen")
+        TODO("Not yet implemented")
     }
 
     override fun navigateToSignUp() {
@@ -27,6 +30,14 @@ class Navigator @Inject constructor() : GlobalRouter {
     }
 
     override fun navigateToForgotPassword() {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToPostDetails(id: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToSubscribe() {
         TODO("Not yet implemented")
     }
 }

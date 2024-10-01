@@ -27,4 +27,13 @@ class PostRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { postPagingSource.apply { this.tier = tier } }
         ).flow
+
+    override fun getPostsOfUser(username: String): Flow<PagingData<PostDomainModel>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = Constants.DEFAULT_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { postPagingSource.apply { author = username } }
+        ).flow
 }

@@ -12,4 +12,9 @@
         android:id="@+id/feedFragment"
         android:name="com.example.feed.presentation.FeedFragment"
         android:label="FeedFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.profile.presentation.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

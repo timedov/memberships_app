@@ -6,9 +6,7 @@ interface TierRepository {
 
     suspend fun getTiersByUser(username: String): List<TierDomainModel>
 
-    suspend fun getTierById(id: Long): TierDomainModel?
+    suspend fun getTierById(id: Long): TierDomainModel
 
     suspend fun saveTier(tier: TierDomainModel, username: String)
-
-    suspend fun deleteTier(tier: TierDomainModel)
 }

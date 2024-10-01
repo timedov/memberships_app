@@ -16,14 +16,12 @@ class TierRepositoryImpl @Inject constructor(
             tierApi.getTiersByUser(username = username)
         )
 
-    override suspend fun getTierById(id: Long): TierDomainModel? =
+    override suspend fun getTierById(id: Long): TierDomainModel =
         tierDomainModelMapper.mapResponseToDomainModel(tierApi.getTierById(id = id))
 
     override suspend fun saveTier(tier: TierDomainModel, username: String) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun deleteTier(tier: TierDomainModel) {
-        TODO("Not yet implemented")
+        tierApi.saveTier(
+            tierDomainModelMapper.mapDomainModelToRequest(domainModel = tier, author = username),
+        )
     }
 }

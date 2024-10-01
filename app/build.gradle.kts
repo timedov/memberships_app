@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":features:feed"))
     implementation(project(":features:profile"))
     implementation(project(":features:subscribe"))
+    implementation(project(":features:savetier"))
 
     //dagger
     ksp(libs.dagger.compiler)

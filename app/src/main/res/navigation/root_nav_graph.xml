@@ -22,4 +22,9 @@
         android:id="@+id/subscribeFragment"
         android:name="com.example.subscribe.presentation.SubscribeFragment"
         android:label="SubscribeFragment" />
+
+    <fragment
+        android:id="@+id/saveTierFragment"
+        android:name="com.example.savetier.presentation.SaveTierFragment"
+        android:label="SaveTierFragment" />
 </navigation>

@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/features/feed" />
             <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/subscribe" />
+            <option value="$PROJECT_DIR$/features/savetier" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

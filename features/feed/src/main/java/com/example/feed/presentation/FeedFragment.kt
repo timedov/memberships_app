@@ -32,7 +32,8 @@ class FeedFragment : BaseFragment() {
 
     private val viewModel: FeedViewModel by viewModels { vmFactory }
 
-    private var viewBinding: FragmentFeedBinding? = null
+    private var _viewBinding: FragmentFeedBinding? = null
+    private val viewBinding get() = _viewBinding!!
 
     private lateinit var adapter: PostAdapter
 
@@ -51,8 +52,8 @@ class FeedFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = FragmentFeedBinding.inflate(inflater, container, false)
-        return viewBinding!!.root
+        _viewBinding = FragmentFeedBinding.inflate(inflater, container, false)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +68,7 @@ class FeedFragment : BaseFragment() {
             }
         )
 
-        viewBinding?.apply {
+        viewBinding.apply {
             feedRv.adapter = adapter
 
             swipeRefreshLayout.setOnRefreshListener {
@@ -105,29 +106,25 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun showLoading() {
-        viewBinding?.loadingErrorCompose?.setContent {
-            ShowLoading(isLoading = true)
-        }
-        viewBinding?.loadingErrorCompose?.visibility = View.VISIBLE
+        viewBinding.loadingErrorCompose.setContent { ShowLoading(isLoading = true) }
+        viewBinding.loadingErrorCompose.visibility = View.VISIBLE
     }
 
     private fun submitData(posts: PagingData<PostDomainModel>) {
         adapter.submitData(viewLifecycleOwner.lifecycle, posts.map { it.toUiModel() })
-        viewBinding?.swipeRefreshLayout?.isRefreshing = false
-        viewBinding?.loadingErrorCompose?.visibility = View.GONE
+        viewBinding.swipeRefreshLayout.isRefreshing = false
+        viewBinding.loadingErrorCompose.visibility = View.GONE
     }
 
     private fun showError() {
-        viewBinding?.loadingErrorCompose?.setContent {
-            ErrorScreen(
-                onRetryClick = { viewModel.obtainEvent(FeedEvent.Refresh) }
-            )
+        viewBinding.loadingErrorCompose.setContent {
+            ErrorScreen(onRetryClick = { viewModel.obtainEvent(FeedEvent.Refresh) })
         }
-        viewBinding?.loadingErrorCompose?.visibility = View.VISIBLE
+        viewBinding.loadingErrorCompose.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewBinding = null
+        _viewBinding = null
     }
 }

@@ -6,4 +6,9 @@ import com.example.profile.di.ProfileDeps
 import com.example.subscribe.di.SubscribeDeps
 import com.example.savetier.di.SaveTierDeps
 
-interface FeatureComponentsDeps : AuthDeps, FeedDeps, ProfileDeps, SubscribeDeps, SaveTierDeps
+interface FeatureComponentsDeps :
+    AuthDeps,
+    FeedDeps,
+    ProfileDeps,
+    SubscribeDeps,
+    SaveTierDeps

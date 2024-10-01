@@ -1,9 +1,11 @@
 package com.example.subscribe.di
 
+import com.example.common.di.FeatureScope
 import com.example.subscribe.presentation.SubscribeFragment
 import com.example.ui.viewmodel.ViewModelProviderFactory
 import dagger.Component
 
+@FeatureScope
 @Component(
     modules = [SubscribeModule::class],
     dependencies = [SubscribeDeps::class]

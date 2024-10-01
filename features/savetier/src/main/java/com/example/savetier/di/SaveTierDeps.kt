@@ -4,6 +4,7 @@ import com.example.common.di.ComponentDeps
 import com.example.domain.repository.TierRepository
 import com.example.domain.repository.UserRepository
 import com.example.savetier.navigation.SaveTierRouter
+import kotlinx.coroutines.CoroutineDispatcher
 
 interface SaveTierDeps : ComponentDeps {
 
@@ -12,4 +13,6 @@ interface SaveTierDeps : ComponentDeps {
     fun userRepository(): UserRepository
 
     fun tierRepository(): TierRepository
+
+    fun coroutineDispatcher(): CoroutineDispatcher
 }

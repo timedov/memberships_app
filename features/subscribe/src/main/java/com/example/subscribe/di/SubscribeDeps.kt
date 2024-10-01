@@ -5,6 +5,7 @@ import com.example.domain.repository.SubscribeRepository
 import com.example.domain.repository.TierRepository
 import com.example.domain.repository.UserRepository
 import com.example.subscribe.navigation.SubscribeRouter
+import kotlinx.coroutines.CoroutineDispatcher
 
 interface SubscribeDeps : ComponentDeps {
 
@@ -15,4 +16,6 @@ interface SubscribeDeps : ComponentDeps {
     fun tierRepository(): TierRepository
 
     fun subscribeRepository(): SubscribeRepository
+
+    fun coroutineDispatcher(): CoroutineDispatcher
 }

@@ -14,4 +14,10 @@ sealed class AppException(message: String) : Exception(message) {
 
     class NetworkException(message: String) : AppException(message)
     class EmptyResponseException(message: String) : AppException(message)
+
+    class HttpBadRequestException(message: String) : AppException(message)
+    class HttpUnauthorizedException(message: String) : AppException(message)
+    class HttpNotFoundException(message: String) : AppException(message)
+    class HttpInternalServerErrorException(message: String) : AppException(message)
+    class HttpUnknownException(message: String) : AppException(message)
 }

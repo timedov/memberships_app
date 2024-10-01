@@ -7,4 +7,9 @@
         android:id="@+id/loginFragment"
         android:name="com.example.auth.presentation.login.LoginFragment"
         android:label="LoginFragment" />
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.feed.presentation.FeedFragment"
+        android:label="FeedFragment" />
 </navigation>

@@ -13,10 +13,10 @@ class AdapterAuthRouter @Inject constructor(
     }
 
     override fun navigateToSignUp() {
-        TODO("Not yet implemented")
+        globalRouter.navigateToSignUp()
     }
 
     override fun navigateToForgotPassword() {
-        TODO("Not yet implemented")
+        globalRouter.navigateToForgotPassword()
     }
 }

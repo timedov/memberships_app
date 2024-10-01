@@ -35,6 +35,7 @@ android {
 
 dependencies {
 
+    //firebase
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.firebase.auth.ktx)
@@ -49,6 +50,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.coil)
 
+    //retrofit
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

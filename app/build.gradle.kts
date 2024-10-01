@@ -57,8 +57,9 @@ dependencies {
     implementation(project(":core:data:firebase"))
     implementation(project(":core:ui"))
     implementation(project(":features:auth"))
+    implementation(project(":features:feed"))
 
-    //Dagger
+    //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
 
@@ -74,16 +75,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.retrofit)
 
-    //Paging3
+    //paging3
     implementation(libs.androidx.paging.common.android)
-
-    //compose
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-
-    //firebase
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -91,6 +84,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

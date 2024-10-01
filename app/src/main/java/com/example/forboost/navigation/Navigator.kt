@@ -21,4 +21,12 @@ class Navigator @Inject constructor() : GlobalRouter {
     override fun navigateToMain() {
         Log.d("Navigator", "Imagine it is navigating to main screen")
     }
+
+    override fun navigateToSignUp() {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToForgotPassword() {
+        TODO("Not yet implemented")
+    }
 }

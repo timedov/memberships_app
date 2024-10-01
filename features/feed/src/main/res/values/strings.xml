@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_title">No title</string>
+    <string name="no_category">No category</string>
+    <string name="zero_videos">0 videos</string>
+    <string name="zero_posts">0 posts</string>
+    <string name="all_tiers">All tiers</string>
+    <string name="tier_1">5$ tier</string>
+    <string name="tier_2">$10 tier</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="no_author">No Author</string>
+    <string name="posted_now">Posted now</string>
+</resources>

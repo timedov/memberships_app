@@ -34,7 +34,7 @@ import com.example.auth.presentation.login.composables.ObserveState
 import com.example.auth.presentation.login.composables.TitleText
 import com.example.auth.presentation.login.model.LoginEvent
 import com.example.ui.themes.OnSurfaceTextAlpha
-import com.example.ui.view.composables.ShowLoading
+import com.example.ui.view.composables.LoadingScreen
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel) {
@@ -100,5 +100,5 @@ fun LoginScreen(viewModel: LoginViewModel) {
     }
 
     SnackbarHost(hostState = snackbarHostState)
-    ShowLoading(isLoading = true)
+    LoadingScreen(isLoading = isLoading)
 }

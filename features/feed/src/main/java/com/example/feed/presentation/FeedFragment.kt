@@ -20,7 +20,7 @@ import com.example.feed.presentation.model.FeedState
 import com.example.ui.base.BaseFragment
 import com.example.ui.utils.toUiModel
 import com.example.ui.view.composables.ErrorScreen
-import com.example.ui.view.composables.ShowLoading
+import com.example.ui.view.composables.LoadingScreen
 import com.example.ui.viewmodel.ViewModelProviderFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -106,7 +106,7 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun showLoading() {
-        viewBinding.loadingErrorCompose.setContent { ShowLoading(isLoading = true) }
+        viewBinding.loadingErrorCompose.setContent { LoadingScreen(isLoading = true) }
         viewBinding.loadingErrorCompose.visibility = View.VISIBLE
     }
 

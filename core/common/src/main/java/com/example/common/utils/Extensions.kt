@@ -64,10 +64,3 @@ inline fun ImageView.loadCaching(
     diskCachePolicy(CachePolicy.ENABLED)
     builder()
 }
-
-fun Int.subscribersCountToPrettyFormat() =
-    when {
-        this < 1000 -> this.toString()
-        this < 1000000 -> {"${this / 1000}k"}
-        else -> {"${this / 1000000}m"}
-    }

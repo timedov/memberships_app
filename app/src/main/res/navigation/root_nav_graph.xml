@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/postDetailsFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.auth.presentation.login.LoginFragment"
@@ -27,4 +27,8 @@
         android:id="@+id/saveTierFragment"
         android:name="com.example.savetier.presentation.SaveTierFragment"
         android:label="SaveTierFragment" />
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.example.postdetails.presentation.PostDetailsFragment"
+        android:label="PostDetailsFragment" />
 </navigation>

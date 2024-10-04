@@ -5,7 +5,9 @@ import com.example.domain.model.UserDetailsDomainModel
 import com.example.ui.model.TierUiModel
 import com.example.ui.model.UserDetailsUiModel
 import android.icu.util.Calendar
+import com.example.domain.model.CommentDomainModel
 import com.example.domain.model.PostDomainModel
+import com.example.ui.model.CommentUiModel
 import com.example.ui.model.PostUiModel
 
 fun TierDomainModel.toUiModel() =
@@ -65,4 +67,32 @@ fun UserDetailsDomainModel.toUiModel() =
         subscribers = subscribers,
         joinedYear = joinedYear,
         about = about
+    )
+
+fun Long.timeShort(): String {
+    val now = Calendar.getInstance().timeInMillis
+    val diffInMillis = now - this
+
+    val seconds = diffInMillis / 1000
+    val minutes = seconds / 60
+    val hours = minutes / 60
+    val days = hours / 24
+
+    return when {
+        seconds < 60 -> "${seconds}s"
+        minutes < 60 -> "${minutes}m"
+        hours < 24 -> "${hours}h"
+        days < 30 -> "${days}d"
+        days < 365 -> "${days / 30}m"
+        else -> "${days / 365}y"
+    }
+}
+
+
+fun CommentDomainModel.toUiModel() =
+    CommentUiModel(
+        username = username,
+        profileImageUrl = profileImageUrl,
+        postedWhen = postedAt.timeShort(),
+        body = body
     )

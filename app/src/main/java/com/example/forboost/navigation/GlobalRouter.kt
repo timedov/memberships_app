@@ -15,4 +15,6 @@ interface GlobalRouter {
     fun navigateToSubscribe()
 
     fun navigateToSaveTier(id: Long)
+
+    fun navigateToProfile(username: String)
 }

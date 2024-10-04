@@ -20,9 +20,10 @@
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/auth" />
             <option value="$PROJECT_DIR$/features/feed" />
+            <option value="$PROJECT_DIR$/features/postdetails" />
             <option value="$PROJECT_DIR$/features/profile" />
-            <option value="$PROJECT_DIR$/features/subscribe" />
             <option value="$PROJECT_DIR$/features/savetier" />
+            <option value="$PROJECT_DIR$/features/subscribe" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

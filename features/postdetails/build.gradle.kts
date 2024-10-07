@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.coil)
     implementation(libs.coil.compose)
+    implementation(libs.richtext.ui.material3)
+    implementation(libs.richtext.commonmark)
 
     //paging3
     implementation(libs.androidx.paging.common.android)

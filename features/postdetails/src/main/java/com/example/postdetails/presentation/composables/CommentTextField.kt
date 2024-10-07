@@ -31,7 +31,10 @@ fun CommentTextField(
         label = { Text(stringResource(R.string.comment)) },
         trailingIcon = {
             IconButton(
-                onClick = { onCommentSend(commentValue) },
+                onClick = {
+                    onCommentSend(commentValue)
+                    commentValue = ""
+                },
                 enabled = commentValue.isNotEmpty()
             ) {
                 Icon(

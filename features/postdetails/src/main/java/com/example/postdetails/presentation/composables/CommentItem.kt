@@ -14,13 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.ui.R
 import com.example.ui.model.CommentUiModel
 import com.example.ui.view.composables.AsyncImageCaching
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.material3.RichText
 
 @Composable
 fun CommentItem(
@@ -49,22 +50,21 @@ fun CommentItem(
             ) {
                 Text(
                     text = comment.username,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                    color = Color.White
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = comment.postedWhen,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = comment.body,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White
-            )
+
+            RichText {
+                Markdown(content = comment.body)
+            }
         }
     }
 }

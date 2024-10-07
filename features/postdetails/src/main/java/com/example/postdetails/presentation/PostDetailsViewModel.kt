@@ -48,7 +48,7 @@ class PostDetailsViewModel @Inject constructor(
             _uiState.value = PostDetailsState.Content(
                 post = PostDataUiModel(
                     title = "Bebalaboba: the greatest app in the world",
-                    content = "риаптап",
+                    content = "",
                     isVideo = false,
                     category = "Android",
                     postedAgo = "2 days ago",

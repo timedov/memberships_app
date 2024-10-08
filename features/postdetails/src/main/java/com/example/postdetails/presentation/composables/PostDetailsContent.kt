@@ -31,7 +31,7 @@ fun PostDetailsContent(
     postStats: PostStatsUiModel,
     isFavorite: Boolean,
     commentsResponse: Flow<PagingData<CommentDomainModel>>,
-    onFavoriteClick: () -> Unit,
+    onFavoriteClick: (Boolean) -> Unit,
     onProfileClick: (String) -> Unit,
     onSendComment: (String) -> Unit,
     modifier: Modifier = Modifier

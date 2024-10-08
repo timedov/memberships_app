@@ -16,7 +16,7 @@ fun PostToolbar(
     favoriteCount: String,
     commentsCount: String,
     isFavorite: Boolean,
-    onFavoriteClick: () -> Unit,
+    onFavoriteClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -27,7 +27,7 @@ fun PostToolbar(
             imageVector = if (isFavorite) Icons.Default.FavoriteBorder else Icons.Default.Favorite,
             contentDescription = null,
             text = favoriteCount,
-            modifier = Modifier.clickable { onFavoriteClick() }
+            modifier = Modifier.clickable { onFavoriteClick(!isFavorite) }
         )
         IconWithText(
             imageVector = Icons.AutoMirrored.Outlined.Comment,

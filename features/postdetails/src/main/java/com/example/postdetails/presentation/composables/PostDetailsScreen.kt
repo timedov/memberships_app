@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.postdetails.R
 import com.example.postdetails.presentation.PostDetailsViewModel
+import com.example.postdetails.presentation.model.PostDetailsAction
 import com.example.postdetails.presentation.model.PostDetailsEvent
 import com.example.ui.view.composables.CenterAlignedTopAppBarWithBackButton
 
@@ -22,8 +23,11 @@ import com.example.ui.view.composables.CenterAlignedTopAppBarWithBackButton
 @Composable
 fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
     val state by viewModel.uiState.collectAsState()
+    val action by viewModel.actionsFlow.collectAsState(initial = PostDetailsAction.Initiate)
 
     var isRefreshing by remember { mutableStateOf(false) }
+    
+    ObserveActions(action = action)
 
     Scaffold(
         topBar = {
@@ -47,7 +51,7 @@ fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
                 state = state,
                 onRefreshingStateChange = { isRefreshing = it },
                 onRetryClick = { viewModel.obtainEvent(PostDetailsEvent.Refresh) },
-                onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick) },
+                onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick(it)) },
                 onProfileClick = { viewModel.obtainEvent(PostDetailsEvent.ProfileClick(it)) },
                 onSendComment = { viewModel.obtainEvent(PostDetailsEvent.SendComment(it)) },
             )

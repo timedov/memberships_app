@@ -6,7 +6,7 @@ class PostDataDomainModel(
     val content: String,
     val isVideo: Boolean,
     val category: String,
-    val postedAgo: String,
+    val postedAt: Long,
     val author: String,
     val body: String,
     val isPaid: Boolean

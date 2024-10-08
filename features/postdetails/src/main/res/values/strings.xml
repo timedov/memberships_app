@@ -2,4 +2,7 @@
 <resources>
     <string name="post_details">Post Details</string>
     <string name="comment">Comment</string>
+    <string name="comment_sent_successfully">Comment sent!</string>
+    <string name="comment_sending_failed">Comment sending failed. Please try again later.</string>
+    <string name="favorite_setting_failed">Failed to set favorite. Please try again later.</string>
 </resources>

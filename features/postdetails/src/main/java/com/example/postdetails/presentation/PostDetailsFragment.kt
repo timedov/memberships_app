@@ -38,7 +38,7 @@ class PostDetailsFragment : BaseFragment() {
 
     companion object {
 
-        private const val ARG_POST_ID = "post_id"
-        private const val ARG_AUTHOR_NAME = "author_name"
+        private const val ARG_POST_ID = "postId"
+        private const val ARG_AUTHOR_NAME = "authorName"
     }
 }

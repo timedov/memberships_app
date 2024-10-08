@@ -14,7 +14,7 @@ fun ObserveState(
     state: PostDetailsState,
     onRefreshingStateChange: (Boolean) -> Unit,
     onRetryClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
+    onFavoriteClick: (Boolean) -> Unit,
     onProfileClick: (String) -> Unit,
     onSendComment: (String) -> Unit
 ) {

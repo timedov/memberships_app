@@ -6,8 +6,12 @@ import com.example.ui.model.TierUiModel
 import com.example.ui.model.UserDetailsUiModel
 import android.icu.util.Calendar
 import com.example.domain.model.CommentDomainModel
+import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
+import com.example.domain.model.PostStatsDomainModel
 import com.example.ui.model.CommentUiModel
+import com.example.ui.model.PostDataUiModel
+import com.example.ui.model.PostStatsUiModel
 import com.example.ui.model.PostUiModel
 
 fun TierDomainModel.toUiModel() =
@@ -92,7 +96,32 @@ fun Long.timeShort(): String {
 fun CommentDomainModel.toUiModel() =
     CommentUiModel(
         username = username,
-        profileImageUrl = profileImageUrl,
+        profileImageUrl = profileImageUrl.orEmpty(),
         postedWhen = postedAt.timeShort(),
         body = body
     )
+
+fun PostDataDomainModel.toUiModel() =
+    PostDataUiModel(
+        title = title,
+        content = content,
+        isVideo = isVideo,
+        category = category,
+        postedAgo = postedAt.timeShort(),
+        author = author,
+        body = body,
+        isPaid = isPaid
+    )
+
+fun PostStatsDomainModel.toUiModel() =
+    PostStatsUiModel(
+        favoriteCount = favoriteCount.statsCountToPrettyFormat(),
+        commentsCount = commentsCount.statsCountToPrettyFormat()
+    )
+
+fun Int.statsCountToPrettyFormat() =
+    when {
+        this < 1000 -> this.toString()
+        this < 1000000 -> {"${this / 1000}k"}
+        else -> {"${this / 1000000}m"}
+    }

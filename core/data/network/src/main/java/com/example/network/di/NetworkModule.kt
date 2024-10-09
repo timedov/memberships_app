@@ -1,9 +1,9 @@
 package com.example.network.di
 
-import com.example.network.remote.di.PostDataModule
+import com.example.network.remote.di.ApiDataModule
 import dagger.Module
 
 @Module(includes = [
-    PostDataModule::class
+    ApiDataModule::class
 ])
-class NetworkModule
+interface NetworkModule

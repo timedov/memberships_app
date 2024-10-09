@@ -6,6 +6,7 @@ import com.example.domain.di.DomainModule
 import com.example.firebase.di.FirebaseModule
 import com.example.forboost.ForBoostApp
 import com.example.forboost.navigation.di.NavigationModule
+import com.example.local.di.LocalModule
 import com.example.network.di.NetworkModule
 import dagger.Module
 import dagger.Provides
@@ -17,6 +18,7 @@ import dagger.Provides
     NavigationModule::class,
     NetworkModule::class,
     FirebaseModule::class,
+    LocalModule::class,
 ])
 class AppModule {
     @AppScope

@@ -11,7 +11,7 @@ import dagger.Module
 import okhttp3.Interceptor
 
 @Module
-interface PostDataBinderModule {
+interface ApiDataBinderModule {
 
     @[Binds NetworkCacheInterceptorQualifier]
     fun bindNetworkCacheInterceptor(networkCacheInterceptor: NetworkCacheInterceptor): Interceptor

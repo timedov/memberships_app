@@ -7,4 +7,5 @@ object Keys {
     const val SUBSCRIBED_TO_KEY = "subscribedTo"
     const val STATUS_KEY = "status"
     const val CACHE_CONTROL_KEY = "Cache-Control"
+    const val POST_DATABASE_KEY = "post_database"
 }

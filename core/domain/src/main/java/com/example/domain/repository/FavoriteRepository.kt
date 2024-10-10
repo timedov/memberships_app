@@ -1,12 +1,10 @@
 package com.example.domain.repository
 
+import com.example.domain.model.FavoriteDomainModel
+
 interface FavoriteRepository {
 
-    suspend fun setPostFavorite(
-        username: String,
-        postId: Long,
-        isFavorite: Boolean
-    )
+    suspend fun setPostFavorite(model: FavoriteDomainModel)
 
     suspend fun getFavoriteCountByPostId(postId: Long): Int
 

@@ -1,5 +1,6 @@
 package com.example.postdetails.usecase
 
+import com.example.domain.model.FavoriteDomainModel
 import com.example.domain.repository.FavoriteRepository
 import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,7 +17,12 @@ class SetPostFavoriteUseCase @Inject constructor(
         withContext(coroutineDispatcher) {
             val username = userRepository.getCurrentUserCredentials()
 
-            favoriteRepository
-                .setPostFavorite(username = username, postId = postId, isFavorite = isFavorite)
+            favoriteRepository.setPostFavorite(
+                model = FavoriteDomainModel(
+                    postId = postId,
+                    username = username,
+                    isFavorite = isFavorite
+                )
+            )
         }
 }

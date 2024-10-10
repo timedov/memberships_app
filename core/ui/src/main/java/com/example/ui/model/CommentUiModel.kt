@@ -4,5 +4,5 @@ class CommentUiModel(
     val username: String,
     val profileImageUrl: String,
     val postedWhen: String,
-    val body: String,
+    val body: CommentBodyUiModel,
 )

@@ -8,15 +8,14 @@ import com.example.ui.model.UserDetailsUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-sealed interface PostDetailsState {
-
-    data object Loading : PostDetailsState
-    data class Content(
-        val userDetails: UserDetailsUiModel = UserDetailsUiModel(),
-        val post: PostDataUiModel = PostDataUiModel(),
-        val postStats: PostStatsUiModel = PostStatsUiModel(),
-        val isFavorite: Boolean = false,
-        val commentsResponse: Flow<PagingData<CommentDomainModel>> = emptyFlow(),
-    ) : PostDetailsState
-    data object Error : PostDetailsState
-}
+data class PostDetailsState(
+    val userDetails: UserDetailsUiModel = UserDetailsUiModel(),
+    val post: PostDataUiModel = PostDataUiModel(),
+    val postStats: PostStatsUiModel = PostStatsUiModel(),
+    val commentsFlow: Flow<PagingData<CommentDomainModel>> = emptyFlow(),
+    val isLoading: Boolean = true,
+    val isRefreshing: Boolean = false,
+    val isFavorite: Boolean = false,
+    val commentValue: String = "",
+    val isError: Boolean = false
+)

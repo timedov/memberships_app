@@ -20,7 +20,7 @@ class SendCommentUseCase @Inject constructor(
                 comment = CommentDomainModel(
                     username = userRepository.getCurrentUserCredentials(),
                     postedAt = System.currentTimeMillis(),
-                    body = comment
+                    text = comment
                 )
             )
         }

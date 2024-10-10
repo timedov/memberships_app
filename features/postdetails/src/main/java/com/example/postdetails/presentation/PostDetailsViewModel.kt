@@ -31,11 +31,11 @@ class PostDetailsViewModel @Inject constructor(
     private val sendCommentUseCase: SendCommentUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<PostDetailsState, PostDetailsEvent, PostDetailsAction>(
-    initialState = PostDetailsState.Loading
+    initialState = PostDetailsState()
 ) {
 
-    var postId: Long = -1L
-    var authorName: String = ""
+    private var postId: Long = -1L
+    private var authorName: String = ""
 
     init {
         loadPostData()
@@ -43,26 +43,39 @@ class PostDetailsViewModel @Inject constructor(
 
     override fun obtainEvent(event: PostDetailsEvent) {
         when (event) {
+            is PostDetailsEvent.Initiate -> {
+                postId = event.postId
+                authorName = event.authorName
+            }
             is PostDetailsEvent.BackClick -> popBackStack()
-            is PostDetailsEvent.FavoriteClick -> onFavoriteClicked(event.isFavorite)
+            is PostDetailsEvent.FavoriteClick -> onFavoriteClicked()
+            is PostDetailsEvent.CommentValueChanged -> onCommentValueChanged(event.value)
             is PostDetailsEvent.ProfileClick -> navigateToProfileScreen()
-            is PostDetailsEvent.SendComment -> sendComment(event.text)
+            is PostDetailsEvent.SendComment -> sendComment()
             is PostDetailsEvent.Refresh -> loadPostData()
         }
     }
 
     private fun loadPostData() {
-        _uiState.value = PostDetailsState.Loading
+        _uiState.value = _uiState.value.copy(isLoading = true, isError = false)
 
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
                 getPostByIdUseCase.invoke(postId)
             }.onSuccess {
-                _uiState.value = PostDetailsState.Content(post = it.toUiModel())
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    post = it.toUiModel()
+                )
 
                 loadAuthorDetails()
             }.onFailure {
-                _uiState.value = PostDetailsState.Error
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    isError = true
+                )
             }
         }
     }
@@ -72,12 +85,13 @@ class PostDetailsViewModel @Inject constructor(
             runSuspendCatching(exceptionHandlerDelegate) {
                 getUserDetailsUseCase.invoke(username = authorName)
             }.onSuccess {
-                _uiState.value =
-                    (_uiState.value as PostDetailsState.Content).copy(userDetails = it.toUiModel())
+                _uiState.value = _uiState.value.copy(
+                    userDetails = it.toUiModel()
+                )
 
                 loadPostStats()
             }.onFailure {
-                _uiState.value = PostDetailsState.Error
+                _uiState.value = _uiState.value.copy(isError = true)
             }
         }
     }
@@ -87,12 +101,11 @@ class PostDetailsViewModel @Inject constructor(
             runSuspendCatching(exceptionHandlerDelegate) {
                 getPostStatsByIdUseCase.invoke(postId)
             }.onSuccess {
-                _uiState.value =
-                    (_uiState.value as PostDetailsState.Content).copy(postStats = it.toUiModel())
+                _uiState.value = _uiState.value.copy(postStats = it.toUiModel())
 
                 isPostFavorite()
             }.onFailure {
-                _uiState.value = PostDetailsState.Error
+                _uiState.value = _uiState.value.copy(isError = true)
             }
         }
     }
@@ -102,41 +115,47 @@ class PostDetailsViewModel @Inject constructor(
             runSuspendCatching(exceptionHandlerDelegate) {
                 isPostFavoriteUseCase.invoke(postId = postId)
             }.onSuccess {
-                _uiState.value =
-                    (_uiState.value as PostDetailsState.Content).copy(isFavorite = it)
+                _uiState.value = _uiState.value.copy(isFavorite = it)
 
                 loadComments()
             }.onFailure {
-                _uiState.value = PostDetailsState.Error
+                _uiState.value = _uiState.value.copy(isError = true)
             }
         }
     }
 
     private fun loadComments() {
-        _uiState.value = (_uiState.value as PostDetailsState.Content).copy(
-            commentsResponse = getCommentsUseCase.invoke(postId = postId).cachedIn(viewModelScope)
+        _uiState.value = _uiState.value.copy(
+            commentsFlow = getCommentsUseCase.invoke(postId).cachedIn(viewModelScope)
         )
     }
 
-    private fun onFavoriteClicked(isFavorite: Boolean) {
+    private fun onFavoriteClicked() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                setPostFavoriteUseCase.invoke(postId = postId, isFavorite = isFavorite)
+                setPostFavoriteUseCase.invoke(
+                    postId = postId,
+                    isFavorite = _uiState.value.isFavorite
+                )
             }.onSuccess {
-                _uiState.value =
-                    (_uiState.value as PostDetailsState.Content).copy(isFavorite = isFavorite)
+                _uiState.value = _uiState.value.copy(isFavorite = _uiState.value.isFavorite.not())
             }.onFailure {
                 _actionsFlow.emit(PostDetailsAction.SetFavoriteFailed)
             }
         }
     }
 
-    private fun sendComment(text: String) {
+    private fun onCommentValueChanged(value: String) {
+        _uiState.value = _uiState.value.copy(commentValue = value)
+    }
+
+    private fun sendComment() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                sendCommentUseCase.invoke(postId = postId, comment = text)
+                sendCommentUseCase.invoke(postId = postId, comment = _uiState.value.commentValue)
             }.onSuccess {
                 _actionsFlow.emit(PostDetailsAction.CommentSent)
+                onCommentValueChanged(value = "")
             }.onFailure {
                 _actionsFlow.emit(PostDetailsAction.CommentSendingFailed)
             }

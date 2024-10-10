@@ -5,5 +5,7 @@ class CommentDomainModel(
     val username: String = "",
     val profileImageUrl: String? = null,
     val postedAt: Long = 0L,
-    val body: String = "",
+    val text: String = "",
+    val content: String = "",
+    val isVideo: Boolean = false,
 )

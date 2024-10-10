@@ -8,10 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -20,22 +16,21 @@ import com.example.ui.themes.Shapes
 
 @Composable
 fun CommentTextField(
-    onCommentSend: (String) -> Unit,
+    value: String,
+    onValueChange: (String) -> Unit,
+    onCommentSend: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var commentValue by remember { mutableStateOf("") }
-
     TextField(
-        value = commentValue,
-        onValueChange = { commentValue = it },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text(stringResource(R.string.comment)) },
         trailingIcon = {
             IconButton(
                 onClick = {
-                    onCommentSend(commentValue)
-                    commentValue = ""
+                    onCommentSend()
                 },
-                enabled = commentValue.isNotEmpty()
+                enabled = value.isNotEmpty()
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.Send,

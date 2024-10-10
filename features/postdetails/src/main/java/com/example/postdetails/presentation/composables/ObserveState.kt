@@ -11,33 +11,33 @@ import com.example.ui.view.composables.LoadingScreen
 
 @Composable
 fun ObserveState(
-    state: PostDetailsState,
-    onRefreshingStateChange: (Boolean) -> Unit,
+    uiState: PostDetailsState,
+    onCommentValueChange: (String) -> Unit,
     onRetryClick: () -> Unit,
-    onFavoriteClick: (Boolean) -> Unit,
+    onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
-    onSendComment: (String) -> Unit
+    onSendComment: () -> Unit
 ) {
 
-    when (state) {
-        is PostDetailsState.Loading -> LoadingScreen(isLoading = true)
-        is PostDetailsState.Content -> {
-            onRefreshingStateChange(false)
+    if (uiState.isError) {
+        ErrorScreen(onRetryClick = onRetryClick)
+    } else {
+        PostDetailsContent(
+            userDetails = uiState.userDetails,
+            post = uiState.post,
+            postStats = uiState.postStats,
+            isFavorite = uiState.isFavorite,
+            commentsFlow = uiState.commentsFlow,
+            commentValue = uiState.commentValue,
+            onCommentValueChange = onCommentValueChange,
+            onFavoriteClick = onFavoriteClick,
+            onProfileClick = onProfileClick,
+            onSendComment = onSendComment,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
 
-            PostDetailsContent(
-                userDetails = state.userDetails,
-                post = state.post,
-                postStats = state.postStats,
-                isFavorite = state.isFavorite,
-                commentsResponse = state.commentsResponse,
-                onFavoriteClick = onFavoriteClick,
-                onProfileClick = onProfileClick,
-                onSendComment = onSendComment,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            )
-        }
-        is PostDetailsState.Error -> ErrorScreen(onRetryClick = onRetryClick)
+        LoadingScreen(isLoading = uiState.isLoading)
     }
 }

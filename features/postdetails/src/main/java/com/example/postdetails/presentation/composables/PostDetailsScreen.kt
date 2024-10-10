@@ -6,13 +6,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.postdetails.R
 import com.example.postdetails.presentation.PostDetailsViewModel
 import com.example.postdetails.presentation.model.PostDetailsAction
@@ -22,11 +19,10 @@ import com.example.ui.view.composables.CenterAlignedTopAppBarWithBackButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
-    val state by viewModel.uiState.collectAsState()
-    val action by viewModel.actionsFlow.collectAsState(initial = PostDetailsAction.Initiate)
-
-    var isRefreshing by remember { mutableStateOf(false) }
-    
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val action by viewModel.actionsFlow.collectAsStateWithLifecycle(
+        initialValue = PostDetailsAction.Initiate
+    )
     ObserveActions(action = action)
 
     Scaffold(
@@ -41,19 +37,18 @@ fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            isRefreshing = isRefreshing,
+            isRefreshing = uiState.isRefreshing,
             onRefresh = {
                 viewModel.obtainEvent(PostDetailsEvent.Refresh)
-                isRefreshing = true
             }
         ) {
             ObserveState(
-                state = state,
-                onRefreshingStateChange = { isRefreshing = it },
+                uiState = uiState,
+                onCommentValueChange = { viewModel.obtainEvent(PostDetailsEvent.CommentValueChanged(it)) },
                 onRetryClick = { viewModel.obtainEvent(PostDetailsEvent.Refresh) },
-                onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick(it)) },
+                onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick) },
                 onProfileClick = { viewModel.obtainEvent(PostDetailsEvent.ProfileClick(it)) },
-                onSendComment = { viewModel.obtainEvent(PostDetailsEvent.SendComment(it)) },
+                onSendComment = { viewModel.obtainEvent(PostDetailsEvent.SendComment) },
             )
         }
     }

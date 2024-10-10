@@ -30,13 +30,15 @@ fun PostDetailsContent(
     post: PostDataUiModel,
     postStats: PostStatsUiModel,
     isFavorite: Boolean,
-    commentsResponse: Flow<PagingData<CommentDomainModel>>,
-    onFavoriteClick: (Boolean) -> Unit,
+    commentsFlow: Flow<PagingData<CommentDomainModel>>,
+    commentValue: String,
+    onCommentValueChange: (String) -> Unit,
+    onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
-    onSendComment: (String) -> Unit,
+    onSendComment: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val comments = commentsResponse.collectAsLazyPagingItems()
+    val comments = commentsFlow.collectAsLazyPagingItems()
 
     LazyColumn(modifier = modifier) {
         item {
@@ -101,6 +103,8 @@ fun PostDetailsContent(
 
         item {
             CommentTextField(
+                value = commentValue,
+                onValueChange = onCommentValueChange,
                 onCommentSend = onSendComment,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.common.di.ComponentDepsProvider
 import com.example.postdetails.di.DaggerPostDetailsComponent
 import com.example.postdetails.presentation.composables.PostDetailsScreen
+import com.example.postdetails.presentation.model.PostDetailsEvent
 import com.example.ui.base.BaseFragment
 import com.example.ui.themes.ForBoostAppTheme
 import com.example.ui.viewmodel.ViewModelProviderFactory
@@ -32,8 +33,12 @@ class PostDetailsFragment : BaseFragment() {
             .create(ComponentDepsProvider.get(requireContext()))
             .apply { inject(this@PostDetailsFragment) }
 
-        viewModel.postId = arguments?.getLong(ARG_POST_ID) ?: -1
-        viewModel.authorName = arguments?.getString(ARG_AUTHOR_NAME).orEmpty()
+        viewModel.obtainEvent(
+            PostDetailsEvent.Initiate(
+                postId = arguments?.getLong(ARG_POST_ID) ?: -1L,
+                authorName = arguments?.getString(ARG_AUTHOR_NAME).orEmpty()
+            )
+        )
     }
 
     companion object {

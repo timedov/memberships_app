@@ -63,7 +63,7 @@ fun CommentItem(
             Spacer(modifier = Modifier.height(4.dp))
 
             RichText {
-                Markdown(content = comment.body)
+                Markdown(content = comment.body.text)
             }
         }
     }

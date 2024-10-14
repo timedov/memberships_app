@@ -8,7 +8,7 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
 import com.example.domain.model.TierType
 import com.example.domain.repository.PostRepository
-import com.example.domain.service.PostLocalDataSource
+import com.example.domain.repository.datasource.PostLocalDataSource
 import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.repository.paging.PostPagingSource

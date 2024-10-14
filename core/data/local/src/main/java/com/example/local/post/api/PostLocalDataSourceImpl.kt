@@ -1,7 +1,7 @@
 package com.example.local.post.api
 
 import com.example.domain.model.PostDataDomainModel
-import com.example.domain.service.PostLocalDataSource
+import com.example.domain.repository.datasource.PostLocalDataSource
 import com.example.local.post.dao.PostDao
 import com.example.local.utils.toDomainModel
 import com.example.local.utils.toEntity

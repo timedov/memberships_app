@@ -34,42 +34,42 @@ class PostDetailsViewModel @Inject constructor(
     initialState = PostDetailsState()
 ) {
 
-    private var postId: Long = -1L
-    private var authorName: String = ""
-
     init {
-        loadPostData()
+        loadPostDetails()
     }
 
     override fun obtainEvent(event: PostDetailsEvent) {
         when (event) {
-            is PostDetailsEvent.Initiate -> {
-                postId = event.postId
-                authorName = event.authorName
-            }
+            is PostDetailsEvent.Initiate -> _uiState.value =
+                _uiState.value.copy(postId = event.postId, authorName = event.authorName)
             is PostDetailsEvent.BackClick -> popBackStack()
             is PostDetailsEvent.FavoriteClick -> onFavoriteClicked()
             is PostDetailsEvent.CommentValueChanged -> onCommentValueChanged(event.value)
             is PostDetailsEvent.ProfileClick -> navigateToProfileScreen()
             is PostDetailsEvent.SendComment -> sendComment()
-            is PostDetailsEvent.Refresh -> loadPostData()
+            is PostDetailsEvent.Refresh -> loadPostDetails()
         }
     }
 
-    private fun loadPostData() {
+    private fun loadPostDetails() {
         _uiState.value = _uiState.value.copy(isLoading = true, isError = false)
 
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                getPostByIdUseCase.invoke(postId)
-            }.onSuccess {
                 _uiState.value = _uiState.value.copy(
+                    post = getPostByIdUseCase.invoke(_uiState.value.postId).toUiModel(),
+                    userDetails = getUserDetailsUseCase
+                        .invoke(username = _uiState.value.authorName)
+                        .toUiModel(),
+                    isFavorite = isPostFavoriteUseCase.invoke(postId = _uiState.value.postId),
+                    commentsFlow = getCommentsUseCase
+                        .invoke(_uiState.value.postId)
+                        .cachedIn(viewModelScope),
                     isLoading = false,
-                    isRefreshing = false,
-                    post = it.toUiModel()
+                    isRefreshing = false
                 )
 
-                loadAuthorDetails()
+                loadPostStats()
             }.onFailure {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -80,65 +80,33 @@ class PostDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun loadAuthorDetails() {
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                getUserDetailsUseCase.invoke(username = authorName)
-            }.onSuccess {
-                _uiState.value = _uiState.value.copy(
-                    userDetails = it.toUiModel()
-                )
-
-                loadPostStats()
-            }.onFailure {
-                _uiState.value = _uiState.value.copy(isError = true)
-            }
-        }
-    }
-
     private fun loadPostStats() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                getPostStatsByIdUseCase.invoke(postId)
+                getPostStatsByIdUseCase.invoke(_uiState.value.postId)
             }.onSuccess {
-                _uiState.value = _uiState.value.copy(postStats = it.toUiModel())
-
-                isPostFavorite()
+                _uiState.value = _uiState.value.copy(
+                    postStats = it.toUiModel(),
+                )
             }.onFailure {
-                _uiState.value = _uiState.value.copy(isError = true)
+                _uiState.value = _uiState.value.copy(
+                    isError = true
+                )
             }
         }
-    }
-
-    private fun isPostFavorite() {
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                isPostFavoriteUseCase.invoke(postId = postId)
-            }.onSuccess {
-                _uiState.value = _uiState.value.copy(isFavorite = it)
-
-                loadComments()
-            }.onFailure {
-                _uiState.value = _uiState.value.copy(isError = true)
-            }
-        }
-    }
-
-    private fun loadComments() {
-        _uiState.value = _uiState.value.copy(
-            commentsFlow = getCommentsUseCase.invoke(postId).cachedIn(viewModelScope)
-        )
     }
 
     private fun onFavoriteClicked() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
                 setPostFavoriteUseCase.invoke(
-                    postId = postId,
-                    isFavorite = _uiState.value.isFavorite
+                    postId = _uiState.value.postId,
+                    isFavorite = _uiState.value.isFavorite.not()
                 )
             }.onSuccess {
                 _uiState.value = _uiState.value.copy(isFavorite = _uiState.value.isFavorite.not())
+
+                loadPostStats()
             }.onFailure {
                 _actionsFlow.emit(PostDetailsAction.SetFavoriteFailed)
             }
@@ -152,10 +120,15 @@ class PostDetailsViewModel @Inject constructor(
     private fun sendComment() {
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                sendCommentUseCase.invoke(postId = postId, comment = _uiState.value.commentValue)
+                sendCommentUseCase.invoke(
+                    postId = _uiState.value.postId,
+                    comment = _uiState.value.commentValue
+                )
             }.onSuccess {
                 _actionsFlow.emit(PostDetailsAction.CommentSent)
                 onCommentValueChanged(value = "")
+
+                loadPostStats()
             }.onFailure {
                 _actionsFlow.emit(PostDetailsAction.CommentSendingFailed)
             }
@@ -163,7 +136,7 @@ class PostDetailsViewModel @Inject constructor(
     }
 
     private fun navigateToProfileScreen() {
-        postDetailsRouter.navigateToProfile(username = authorName)
+        postDetailsRouter.navigateToProfile(username = _uiState.value.authorName)
     }
 
     private fun popBackStack() {

@@ -8,7 +8,7 @@ interface CommentRepository {
 
     fun getCommentsByPostId(postId: Long): Flow<PagingData<CommentDomainModel>>
 
-    suspend fun addComment(postId: Long, comment: CommentDomainModel)
+    suspend fun addComment(comment: CommentDomainModel)
 
     suspend fun getCommentCountByPostId(postId: Long): Int
 }

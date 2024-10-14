@@ -18,9 +18,15 @@ class FavoriteRepositoryImpl @Inject constructor(
                 .await()
         } else {
             db.collection(Keys.FAVORITES_COLLECTION_KEY)
-                .document(model.id)
-                .delete()
+                .whereEqualTo(Keys.POST_ID_KEY, model.postId)
+                .whereEqualTo(Keys.USERNAME_KEY, model.username)
+                .get()
                 .await()
+                .documents
+                .firstOrNull()
+                ?.reference
+                ?.delete()
+                ?.await()
         }
     }
 

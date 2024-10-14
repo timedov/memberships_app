@@ -50,6 +50,7 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-paging = {module = "androidx.room:room-paging", version.ref = "room" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-ui-android = { module = "androidx.compose.ui:ui-android", version.ref = "uiGraphicsAndroid" }
 androidx-ui-graphics-android = { module = "androidx.compose.ui:ui-graphics-android", version.ref = "uiGraphicsAndroid" }

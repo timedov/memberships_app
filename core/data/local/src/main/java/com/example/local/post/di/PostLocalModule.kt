@@ -20,4 +20,8 @@ class PostLocalModule {
             Keys.POST_DATABASE_KEY
         ).build()
     }
+
+    @Provides
+    @AppScope
+    fun providePostDao(postDatabase: PostDatabase) = postDatabase.postDao()
 }

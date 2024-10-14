@@ -24,7 +24,7 @@ fun PostToolbar(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconWithText(
-            imageVector = if (isFavorite) Icons.Default.FavoriteBorder else Icons.Default.Favorite,
+            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
             contentDescription = null,
             text = favoriteCount,
             modifier = Modifier.clickable { onFavoriteClick() }

@@ -36,7 +36,7 @@ class PostDetailsFragment : BaseFragment() {
         viewModel.obtainEvent(
             PostDetailsEvent.Initiate(
                 postId = arguments?.getLong(ARG_POST_ID) ?: -1L,
-                authorName = arguments?.getString(ARG_AUTHOR_NAME).orEmpty()
+                authorName = arguments?.getString(ARG_AUTHOR_NAME) ?: "bebalab"
             )
         )
     }

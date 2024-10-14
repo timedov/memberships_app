@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 data class PostDetailsState(
+    val postId: Long = -1L,
+    val authorName: String = "",
     val userDetails: UserDetailsUiModel = UserDetailsUiModel(),
     val post: PostDataUiModel = PostDataUiModel(),
     val postStats: PostStatsUiModel = PostStatsUiModel(),

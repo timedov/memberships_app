@@ -16,8 +16,8 @@ class SendCommentUseCase @Inject constructor(
     suspend operator fun invoke(postId: Long, comment: String) {
         withContext(coroutineDispatcher) {
             commentRepository.addComment(
-                postId = postId,
                 comment = CommentDomainModel(
+                    postId = postId,
                     username = userRepository.getCurrentUserCredentials(),
                     postedAt = System.currentTimeMillis(),
                     text = comment

@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField("String", "BASE_URL", "\"\"")
+        buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\"")
     }
 
     buildTypes {

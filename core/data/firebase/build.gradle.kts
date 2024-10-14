@@ -42,6 +42,7 @@ dependencies {
 
     implementation(project(":core:domain"))
     implementation(project(":core:common"))
+    implementation(project(":core:data:local"))
 
     //test
     testImplementation(libs.junit)
@@ -52,6 +53,14 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+
+    //paging3
+    implementation(libs.androidx.paging.common.android)
+
+    //room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     //dagger
     ksp(libs.dagger.compiler)

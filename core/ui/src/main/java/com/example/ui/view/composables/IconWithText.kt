@@ -18,7 +18,7 @@ fun IconWithText(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription

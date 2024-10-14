@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
+    implementation(project(":core:data:local"))
     implementation(project(":core:data:network"))
     implementation(project(":core:data:firebase"))
     implementation(project(":features:auth"))

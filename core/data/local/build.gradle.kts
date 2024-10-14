@@ -2,11 +2,10 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.devtools.ksp)
-    alias(libs.plugins.gms.google.services)
 }
 
 android {
-    namespace = "com.example.firebase"
+    namespace = "com.example.local"
     compileSdk = 34
 
     defaultConfig {
@@ -36,33 +35,24 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-
-    implementation(project(":core:domain"))
     implementation(project(":core:common"))
-    implementation(project(":core:data:local"))
+    implementation(project(":core:domain"))
+
+    //dagger
+    ksp(libs.dagger.compiler)
+    implementation(libs.google.dagger)
+
+    //room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+    ksp(libs.androidx.room.compiler)
+
+    //paging3
+    implementation(libs.androidx.paging.common.android)
 
     //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
-
-    //paging3
-    implementation(libs.androidx.paging.common.android)
-
-    //room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    //dagger
-    ksp(libs.dagger.compiler)
-    implementation(libs.google.dagger)
 }

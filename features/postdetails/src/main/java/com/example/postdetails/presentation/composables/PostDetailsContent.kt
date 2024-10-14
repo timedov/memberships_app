@@ -2,6 +2,7 @@ package com.example.postdetails.presentation.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.media3.common.Player
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.domain.model.CommentDomainModel
@@ -29,7 +31,9 @@ fun PostDetailsContent(
     userDetails: UserDetailsUiModel,
     post: PostDataUiModel,
     postStats: PostStatsUiModel,
+    requiresSubscription: Boolean,
     isFavorite: Boolean,
+    player: Player,
     commentsFlow: Flow<PagingData<CommentDomainModel>>,
     commentValue: String,
     onSubscribeClick: () -> Unit,
@@ -42,14 +46,14 @@ fun PostDetailsContent(
 ) {
     val comments = commentsFlow.collectAsLazyPagingItems()
 
-    if (post.requiresSubscription) {
+    if (requiresSubscription) {
         SubscriptionRequiredDialog(
             onSubscribeClick = onSubscribeClick,
             onDismiss = onSubscribeDismiss
         )
     }
 
-    LazyColumn(modifier = modifier.blur(if (post.requiresSubscription) 12.dp else 0.dp)) {
+    LazyColumn(modifier = modifier.blur(if (requiresSubscription) 12.dp else 0.dp)) {
         item {
             if (post.author.isNotEmpty()) {
                 PostProfileHeader(
@@ -77,7 +81,13 @@ fun PostDetailsContent(
         if (post.content.isNotEmpty()) {
             item {
                 if (post.isVideo) {
-                    TODO("Add video player")
+                    VideoPlayer(
+                        player = player,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16 / 9f)
+                            .padding(vertical = 16.dp)
+                    )
                 } else {
                     AsyncImageCaching(
                         model = post.content,

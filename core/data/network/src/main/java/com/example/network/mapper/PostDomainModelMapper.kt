@@ -29,7 +29,7 @@ class PostDomainModelMapper @Inject constructor() {
             postedAt = postDataResponse.postedTimestamp,
             author = postDataResponse.authorName.orEmpty(),
             body = postDataResponse.body.orEmpty(),
-            isPaid = postDataResponse.isPaid
+            isPaid = postDataResponse.requiresSubscription
         )
 
     fun mapResponseListToDomainModelList(postResponseList: List<PostResponse>) =

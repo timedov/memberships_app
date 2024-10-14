@@ -1,6 +1,8 @@
 package com.example.forboost.di.modules
 
 import android.content.Context
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import com.example.common.di.AppScope
 import com.example.domain.di.DomainModule
 import com.example.firebase.di.FirebaseModule
@@ -25,5 +27,12 @@ class AppModule {
     @Provides
     fun provideContext(application: ForBoostApp): Context {
         return application
+    }
+
+    @Provides
+    @AppScope
+    fun provideVideoPlayer(context: Context): Player {
+        return ExoPlayer.Builder(context)
+            .build()
     }
 }

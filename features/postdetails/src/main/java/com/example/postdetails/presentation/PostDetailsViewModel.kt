@@ -1,6 +1,8 @@
 package com.example.postdetails.presentation
 
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
@@ -23,6 +25,7 @@ import javax.inject.Inject
 
 class PostDetailsViewModel @Inject constructor(
     private val postDetailsRouter: PostDetailsRouter,
+    private val player: Player,
     private val getPostByIdUseCase: GetPostByIdUseCase,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getPostStatsByIdUseCase: GetPostStatsByIdUseCase,
@@ -33,10 +36,11 @@ class PostDetailsViewModel @Inject constructor(
     private val sendCommentUseCase: SendCommentUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<PostDetailsState, PostDetailsEvent, PostDetailsAction>(
-    initialState = PostDetailsState()
+    initialState = PostDetailsState(player = player)
 ) {
 
     init {
+        player.prepare()
         loadPostData()
     }
 
@@ -92,6 +96,8 @@ class PostDetailsViewModel @Inject constructor(
                     isRefreshing = false
                 )
 
+                if (_uiState.value.post.isVideo) playVideo()
+
                 loadPostStats()
             }.onFailure {
                 _uiState.value = _uiState.value.copy(
@@ -101,6 +107,10 @@ class PostDetailsViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun playVideo() {
+        player.setMediaItem(MediaItem.fromUri(_uiState.value.post.content))
     }
 
     private fun loadPostStats() {
@@ -172,5 +182,11 @@ class PostDetailsViewModel @Inject constructor(
 
     private fun popBackStack() {
         postDetailsRouter.popBackStack()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        player.release()
     }
 }

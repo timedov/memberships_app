@@ -21,6 +21,6 @@ class PostDataResponse(
     val authorName: String?,
     @SerialName("body")
     val body: String?,
-    @SerialName("isPaid")
-    val isPaid: Boolean = false
+    @SerialName("requiresSubscription")
+    val requiresSubscription: Boolean = false
 )

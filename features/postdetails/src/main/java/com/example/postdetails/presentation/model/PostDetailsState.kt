@@ -1,5 +1,6 @@
 package com.example.postdetails.presentation.model
 
+import androidx.media3.common.Player
 import androidx.paging.PagingData
 import com.example.domain.model.CommentDomainModel
 import com.example.ui.model.PostDataUiModel
@@ -18,6 +19,7 @@ data class PostDetailsState(
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
     val requiresSubscription: Boolean = false,
+    val player: Player,
     val isFavorite: Boolean = false,
     val commentValue: String = "",
     val isError: Boolean = false

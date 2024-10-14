@@ -88,6 +88,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    //media3
+    implementation(libs.androidx.media3.exoplayer)
+
     //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

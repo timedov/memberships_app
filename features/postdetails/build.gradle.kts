@@ -46,6 +46,10 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
 
+    //media3
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.exoplayer)
+
     //compose
     implementation(libs.material)
     implementation(libs.androidx.ui.android)

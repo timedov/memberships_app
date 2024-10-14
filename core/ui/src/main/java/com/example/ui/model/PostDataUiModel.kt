@@ -9,5 +9,5 @@ class PostDataUiModel(
     val postedAgo: String = "",
     val author: String = "",
     val body: String = "",
-    val isPaid: Boolean = false
+    val requiresSubscription: Boolean = false
 )

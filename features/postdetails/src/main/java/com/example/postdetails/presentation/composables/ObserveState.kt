@@ -14,6 +14,8 @@ fun ObserveState(
     uiState: PostDetailsState,
     onCommentValueChange: (String) -> Unit,
     onRetryClick: () -> Unit,
+    onSubscribeClick: () -> Unit,
+    onSubscribeDismiss: () -> Unit,
     onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
     onSendComment: () -> Unit
@@ -29,13 +31,15 @@ fun ObserveState(
             isFavorite = uiState.isFavorite,
             commentsFlow = uiState.commentsFlow,
             commentValue = uiState.commentValue,
+            onSubscribeClick = onSubscribeClick,
+            onSubscribeDismiss = onSubscribeDismiss,
             onCommentValueChange = onCommentValueChange,
             onFavoriteClick = onFavoriteClick,
             onProfileClick = onProfileClick,
             onSendComment = onSendComment,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
         )
 
         LoadingScreen(isLoading = uiState.isLoading)

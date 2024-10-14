@@ -15,4 +15,8 @@ class AdapterPostDetailsRouter @Inject constructor(
     override fun navigateToProfile(username: String) {
         globalRouter.navigateToProfile(username)
     }
+
+    override fun navigateToSubscribe(username: String) {
+        globalRouter.navigateToSubscribe(username)
+    }
 }

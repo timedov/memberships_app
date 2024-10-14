@@ -43,6 +43,7 @@ class PostDetailsViewModel @Inject constructor(
             is PostDetailsEvent.Initiate -> _uiState.value =
                 _uiState.value.copy(postId = event.postId, authorName = event.authorName)
             is PostDetailsEvent.BackClick -> popBackStack()
+            is PostDetailsEvent.SubscribeClick -> navigateToSubscribeScreen()
             is PostDetailsEvent.FavoriteClick -> onFavoriteClicked()
             is PostDetailsEvent.CommentValueChanged -> onCommentValueChanged(event.value)
             is PostDetailsEvent.ProfileClick -> navigateToProfileScreen()
@@ -94,6 +95,10 @@ class PostDetailsViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun navigateToSubscribeScreen() {
+        postDetailsRouter.navigateToSubscribe(_uiState.value.authorName)
     }
 
     private fun onFavoriteClicked() {

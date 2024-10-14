@@ -5,4 +5,6 @@ interface PostDetailsRouter {
     fun popBackStack()
 
     fun navigateToProfile(username: String)
+
+    fun navigateToSubscribe(username: String)
 }

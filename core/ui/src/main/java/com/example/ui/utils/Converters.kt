@@ -70,7 +70,7 @@ fun PostDataDomainModel.toUiModel() =
         postedAgo = postedAt.timeShort(),
         author = author,
         body = body,
-        isPaid = isPaid
+        requiresSubscription = isPaid
     )
 
 fun PostStatsDomainModel.toUiModel() =

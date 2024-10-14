@@ -5,4 +5,8 @@
     <string name="comment_sent_successfully">Comment sent!</string>
     <string name="comment_sending_failed">Comment sending failed. Please try again later.</string>
     <string name="favorite_setting_failed">Failed to set favorite. Please try again later.</string>
+    <string name="requires_subscription">This post requires a subscription to view.</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="subscription_required">Subscription Required</string>
+    <string name="leave">Leave</string>
 </resources>

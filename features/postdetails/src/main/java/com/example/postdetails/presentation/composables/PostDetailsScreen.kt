@@ -44,7 +44,10 @@ fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
         ) {
             ObserveState(
                 uiState = uiState,
-                onCommentValueChange = { viewModel.obtainEvent(PostDetailsEvent.CommentValueChanged(it)) },
+                onCommentValueChange =
+                    { viewModel.obtainEvent(PostDetailsEvent.CommentValueChanged(it)) },
+                onSubscribeClick = { viewModel.obtainEvent(PostDetailsEvent.SubscribeClick) },
+                onSubscribeDismiss = { viewModel.obtainEvent(PostDetailsEvent.BackClick) },
                 onRetryClick = { viewModel.obtainEvent(PostDetailsEvent.Refresh) },
                 onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick) },
                 onProfileClick = { viewModel.obtainEvent(PostDetailsEvent.ProfileClick(it)) },

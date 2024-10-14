@@ -17,7 +17,7 @@ fun PostEntity.toDomainModel(): PostDataDomainModel {
         postedAt = this.postedAt,
         author = this.author.orEmpty(),
         body = this.body.orEmpty(),
-        isPaid = this.isPaid
+        isPaid = this.requiresSubscription
     )
 }
 
@@ -31,7 +31,7 @@ fun PostDataDomainModel.toEntity(): PostEntity {
         postedAt = this.postedAt,
         author = this.author,
         body = this.body,
-        isPaid = this.isPaid
+        requiresSubscription = this.isPaid
     )
 }
 

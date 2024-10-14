@@ -32,6 +32,8 @@ fun PostDetailsContent(
     isFavorite: Boolean,
     commentsFlow: Flow<PagingData<CommentDomainModel>>,
     commentValue: String,
+    onSubscribeClick: () -> Unit,
+    onSubscribeDismiss: () -> Unit,
     onCommentValueChange: (String) -> Unit,
     onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
@@ -40,7 +42,14 @@ fun PostDetailsContent(
 ) {
     val comments = commentsFlow.collectAsLazyPagingItems()
 
-    LazyColumn(modifier = modifier) {
+    if (post.requiresSubscription) {
+        SubscriptionRequiredDialog(
+            onSubscribeClick = onSubscribeClick,
+            onDismiss = onSubscribeDismiss
+        )
+    }
+
+    LazyColumn(modifier = modifier.blur(if (post.requiresSubscription) 12.dp else 0.dp)) {
         item {
             if (post.author.isNotEmpty()) {
                 PostProfileHeader(
@@ -75,8 +84,7 @@ fun PostDetailsContent(
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(Shapes.medium)
-                            .blur(if (post.isPaid) 8.dp else 0.dp),
+                            .clip(Shapes.medium),
                     )
                 }
             }
@@ -86,7 +94,6 @@ fun PostDetailsContent(
             Text(
                 text = post.body,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.blur(if (post.isPaid) 8.dp else 0.dp)
             )
             Spacer(modifier = Modifier.height(12.dp))
         }

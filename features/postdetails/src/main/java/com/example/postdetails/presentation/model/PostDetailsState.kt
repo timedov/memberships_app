@@ -17,6 +17,7 @@ data class PostDetailsState(
     val commentsFlow: Flow<PagingData<CommentDomainModel>> = emptyFlow(),
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
+    val requiresSubscription: Boolean = false,
     val isFavorite: Boolean = false,
     val commentValue: String = "",
     val isError: Boolean = false

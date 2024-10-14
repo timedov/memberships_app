@@ -7,4 +7,6 @@ interface SubscribeRepository {
     suspend fun subscribeToTier(subscribeDomainModel: SubscribeDomainModel)
 
     suspend fun getUserSubscribersCount(username: String): Int
+
+    suspend fun isUserSubscribed(followed: String, subscribedAt: String): Boolean
 }

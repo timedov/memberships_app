@@ -6,6 +6,7 @@ object Keys {
     const val FAVORITES_COLLECTION_KEY = "favorites"
     const val COMMENTS_COLLECTION_KEY = "comments"
     const val USERNAME_KEY = "username"
+    const val FOLLOWED_KEY = "followed"
     const val SUBSCRIBED_TO_KEY = "subscribedTo"
     const val STATUS_KEY = "status"
     const val POST_ID_KEY = "postId"

@@ -26,4 +26,14 @@ class SubscribeRepositoryImpl @Inject constructor(
             .get()
             .await()
             .size()
+
+    override suspend fun isUserSubscribed(followed: String, subscribedTo: String): Boolean {
+        return db.collection(Keys.SUBSCRIBES_COLLECTION_KEY)
+            .whereEqualTo(Keys.FOLLOWED_KEY, followed)
+            .whereEqualTo(Keys.SUBSCRIBED_TO_KEY, subscribedTo)
+            .whereEqualTo(Keys.STATUS_KEY, SubscribeStatus.ACTIVE)
+            .get()
+            .await()
+            .size() > 0
+    }
 }

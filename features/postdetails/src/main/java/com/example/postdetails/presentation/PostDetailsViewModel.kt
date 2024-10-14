@@ -6,6 +6,7 @@ import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
 import com.example.domain.usecase.GetPostByIdUseCase
 import com.example.domain.usecase.GetUserDetailsUseCase
+import com.example.domain.usecase.IsUserSubscribedUseCase
 import com.example.postdetails.navigation.PostDetailsRouter
 import com.example.postdetails.presentation.model.PostDetailsAction
 import com.example.postdetails.presentation.model.PostDetailsEvent
@@ -25,6 +26,7 @@ class PostDetailsViewModel @Inject constructor(
     private val getPostByIdUseCase: GetPostByIdUseCase,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getPostStatsByIdUseCase: GetPostStatsByIdUseCase,
+    private val isUserSubscribedUseCase: IsUserSubscribedUseCase,
     private val isPostFavoriteUseCase: IsPostFavoriteUseCase,
     private val getCommentsUseCase: GetCommentsUseCase,
     private val setPostFavoriteUseCase: SetPostFavoriteUseCase,
@@ -35,7 +37,7 @@ class PostDetailsViewModel @Inject constructor(
 ) {
 
     init {
-        loadPostDetails()
+        loadPostData()
     }
 
     override fun obtainEvent(event: PostDetailsEvent) {
@@ -48,7 +50,27 @@ class PostDetailsViewModel @Inject constructor(
             is PostDetailsEvent.CommentValueChanged -> onCommentValueChanged(event.value)
             is PostDetailsEvent.ProfileClick -> navigateToProfileScreen()
             is PostDetailsEvent.SendComment -> sendComment()
-            is PostDetailsEvent.Refresh -> loadPostDetails()
+            is PostDetailsEvent.Refresh -> loadPostData()
+        }
+    }
+
+    private fun loadPostData() {
+        viewModelScope.launch {
+            runSuspendCatching(exceptionHandlerDelegate) {
+                getPostByIdUseCase.invoke(_uiState.value.postId)
+            }.onSuccess {
+                _uiState.value = _uiState.value.copy(
+                    post = it.toUiModel(),
+                )
+
+                loadPostDetails()
+            }.onFailure {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    isError = true
+                )
+            }
         }
     }
 
@@ -58,10 +80,10 @@ class PostDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
                 _uiState.value = _uiState.value.copy(
-                    post = getPostByIdUseCase.invoke(_uiState.value.postId).toUiModel(),
                     userDetails = getUserDetailsUseCase
                         .invoke(username = _uiState.value.authorName)
                         .toUiModel(),
+                    requiresSubscription = isSubscriptionRequired(),
                     isFavorite = isPostFavoriteUseCase.invoke(postId = _uiState.value.postId),
                     commentsFlow = getCommentsUseCase
                         .invoke(_uiState.value.postId)
@@ -96,6 +118,10 @@ class PostDetailsViewModel @Inject constructor(
             }
         }
     }
+
+    private suspend fun isSubscriptionRequired() =
+        _uiState.value.post.requiresSubscription
+                && isUserSubscribedUseCase.invoke(username = _uiState.value.authorName)
 
     private fun navigateToSubscribeScreen() {
         postDetailsRouter.navigateToSubscribe(_uiState.value.authorName)

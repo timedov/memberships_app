@@ -21,6 +21,7 @@ fun CommentDomainModel.toEntity() =
     CommentEntity(
         id = id,
         postId = postId,
+        parentCommentId = parentCommentId,
         username = username,
         profileImageUrl = profileImageUrl,
         postedAt = postedAt,

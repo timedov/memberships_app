@@ -15,8 +15,8 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalPagingApi::class)
-class CommentRemoteMediator(
-    private val postId: Long,
+class CommentReplyRemoteMediator(
+    private val parentCommentId: String,
     private val commentDatabase: CommentDatabase,
     private val firestore: FirebaseFirestore,
 ) : RemoteMediator<Int, CommentEntity>() {
@@ -27,8 +27,8 @@ class CommentRemoteMediator(
     ): MediatorResult {
         return try {
             val query = firestore.collection(Keys.COMMENTS_COLLECTION_KEY)
-                .whereEqualTo(Keys.POST_ID_KEY, postId)
-                .orderBy(Keys.POSTED_AT_KEY, Query.Direction.DESCENDING)
+                .whereEqualTo(Keys.PARENT_COMMENT_ID_KEY, parentCommentId)
+                .orderBy(Keys.POSTED_AT_KEY, Query.Direction.ASCENDING)
 
             val snapshot = when (loadType) {
                 LoadType.REFRESH -> {
@@ -60,10 +60,9 @@ class CommentRemoteMediator(
                 commentDatabase.commentDao().insertAll(comments)
             }
 
-            MediatorResult.Success(endOfPaginationReached = comments.isEmpty())
+            MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: Exception) {
             MediatorResult.Error(e)
         }
     }
 }
-

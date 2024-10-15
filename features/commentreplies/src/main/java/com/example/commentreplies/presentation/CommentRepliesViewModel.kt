@@ -1,5 +1,6 @@
 package com.example.commentreplies.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.commentreplies.navigation.CommentRepliesRouter
@@ -26,16 +27,14 @@ class CommentRepliesViewModel @Inject constructor(
     initialState = CommentRepliesState()
 ) {
 
-    init {
-        loadParentComment()
-    }
-
     override fun obtainEvent(event: CommentRepliesEvent) {
         when (event) {
-            is CommentRepliesEvent.Initiate ->
+            is CommentRepliesEvent.Initiate -> {
                 _uiState.value = _uiState.value.copy(
                     parentCommentId = event.commentId
                 )
+                loadParentComment()
+            }
             is CommentRepliesEvent.BackClick -> popBackStack()
             is CommentRepliesEvent.ProfileClick -> navigateToProfileScreen(event.username)
             is CommentRepliesEvent.CommentValueChanged -> onCommentValueChanged(event.value)
@@ -65,6 +64,7 @@ class CommentRepliesViewModel @Inject constructor(
                     isRefreshing = false,
                     isError = true
                 )
+                Log.e("CommentRepliesViewModel", it.toString())
             }
         }
     }

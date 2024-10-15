@@ -5,11 +5,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.example.common.exceptions.AppException
 import com.example.common.utils.Constants
 import com.example.common.utils.Keys
 import com.example.domain.model.CommentDomainModel
 import com.example.domain.repository.CommentRepository
 import com.example.firebase.repository.mediator.CommentRemoteMediator
+import com.example.firebase.repository.mediator.CommentReplyRemoteMediator
+import com.example.firebase.utils.toCommentDomainModel
 import com.example.firebase.utils.toFirestoreMap
 import com.example.local.comment.CommentDatabase
 import com.example.local.utils.toDomainModel
@@ -26,8 +29,8 @@ class CommentRepositoryImpl @Inject constructor(
 ) : CommentRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun getCommentsByPostId(postId: Long): Flow<PagingData<CommentDomainModel>> {
-        return Pager(
+    override fun getCommentsByPostId(postId: Long): Flow<PagingData<CommentDomainModel>> =
+        Pager(
             config = PagingConfig(pageSize = Constants.DEFAULT_PAGE_SIZE),
             remoteMediator = CommentRemoteMediator(
                 postId = postId,
@@ -38,7 +41,6 @@ class CommentRepositoryImpl @Inject constructor(
         ).flow.map { pagingData ->
             pagingData.map { it.toDomainModel() }
         }
-    }
 
     override suspend fun addComment(comment: CommentDomainModel) {
         commentDatabase.commentDao().insertComment(comment.toEntity())
@@ -56,11 +58,28 @@ class CommentRepositoryImpl @Inject constructor(
             .await()
             .size()
 
-    override suspend fun getCommentById(id: String): CommentDomainModel {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getCommentById(id: String): CommentDomainModel =
+        firestore.collection(Keys.COMMENTS_COLLECTION_KEY)
+            .document(id)
+            .get()
+            .await()
+            .toCommentDomainModel()
+            ?: throw AppException.EmptyResponseException("Comment not found")
 
-    override suspend fun getCommentsByParentCommentId(parentCommentId: String): Flow<PagingData<CommentDomainModel>> {
-        TODO("Not yet implemented")
-    }
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getCommentsByParentCommentId(
+        parentCommentId: String
+    ): Flow<PagingData<CommentDomainModel>> =
+        Pager(
+            config = PagingConfig(pageSize = Constants.DEFAULT_PAGE_SIZE),
+            remoteMediator = CommentReplyRemoteMediator(
+                parentCommentId = parentCommentId,
+                commentDatabase = commentDatabase,
+                firestore = firestore
+            ),
+            pagingSourceFactory =
+            { commentDatabase.commentDao().getCommentsByParentCommentId(parentCommentId) }
+        ).flow.map { pagingData ->
+            pagingData.map { it.toDomainModel() }
+        }
 }

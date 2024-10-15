@@ -20,4 +20,6 @@ interface GlobalRouter {
     fun navigateToSaveTier(id: Long)
 
     fun navigateToProfile(username: String)
+
+    fun navigateToCommentReplies(commentId: String)
 }

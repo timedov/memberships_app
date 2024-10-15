@@ -1,4 +1,4 @@
-package com.example.postdetails.presentation.composables
+package com.example.ui.view.composables
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Send
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import com.example.postdetails.R
+import com.example.ui.R
 import com.example.ui.themes.Shapes
 
 @Composable

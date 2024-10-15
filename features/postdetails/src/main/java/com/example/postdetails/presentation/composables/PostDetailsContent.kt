@@ -24,6 +24,8 @@ import com.example.ui.model.PostStatsUiModel
 import com.example.ui.model.UserDetailsUiModel
 import com.example.ui.themes.Shapes
 import com.example.ui.view.composables.AsyncImageCaching
+import com.example.ui.view.composables.CommentTextField
+import com.example.ui.view.composables.commentsList
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -41,6 +43,7 @@ fun PostDetailsContent(
     onCommentValueChange: (String) -> Unit,
     onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
+    onReplyClick: (String) -> Unit,
     onSendComment: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -129,6 +132,10 @@ fun PostDetailsContent(
             )
         }
 
-        commentsList(comments = comments, onProfileClick = onProfileClick)
+        commentsList(
+            comments = comments,
+            onProfileClick = onProfileClick,
+            onReplyClick = onReplyClick
+        )
     }
 }

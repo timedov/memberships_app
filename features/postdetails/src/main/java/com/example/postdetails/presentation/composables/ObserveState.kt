@@ -18,6 +18,7 @@ fun ObserveState(
     onSubscribeDismiss: () -> Unit,
     onFavoriteClick: () -> Unit,
     onProfileClick: (String) -> Unit,
+    onReplyClick: (String) -> Unit,
     onSendComment: () -> Unit
 ) {
 
@@ -38,6 +39,7 @@ fun ObserveState(
             onCommentValueChange = onCommentValueChange,
             onFavoriteClick = onFavoriteClick,
             onProfileClick = onProfileClick,
+            onReplyClick = onReplyClick,
             onSendComment = onSendComment,
             modifier = Modifier
                 .fillMaxSize()

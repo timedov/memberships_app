@@ -7,33 +7,31 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.local.comment.entity.CommentEntity
 import com.example.local.post.entity.PostEntity
 
-fun PostEntity.toDomainModel(): PostDataDomainModel {
-    return PostDataDomainModel(
-        id = this.id,
-        title = this.title.orEmpty(),
-        content = this.content.orEmpty(),
-        isVideo = this.isVideo,
-        category = this.category.orEmpty(),
-        postedAt = this.postedAt,
-        author = this.author.orEmpty(),
-        body = this.body.orEmpty(),
-        isPaid = this.requiresSubscription
+fun PostEntity.toDomainModel() =
+    PostDataDomainModel(
+        id = id,
+        title = title.orEmpty(),
+        content = content.orEmpty(),
+        isVideo = isVideo,
+        category = category.orEmpty(),
+        postedAt = postedAt,
+        author = author.orEmpty(),
+        body = body.orEmpty(),
+        isPaid = requiresSubscription
     )
-}
 
-fun PostDataDomainModel.toEntity(): PostEntity {
-    return PostEntity(
-        id = this.id,
-        title = this.title,
-        content = this.content,
-        isVideo = this.isVideo,
-        category = this.category,
-        postedAt = this.postedAt,
-        author = this.author,
-        body = this.body,
-        requiresSubscription = this.isPaid
+fun PostDataDomainModel.toEntity() =
+    PostEntity(
+        id = id,
+        title =title,
+        content = content,
+        isVideo = isVideo,
+        category = category,
+        postedAt = postedAt,
+        author = author,
+        body = body,
+        requiresSubscription = isPaid
     )
-}
 
 fun CommentEntity.toDomainModel() =
     CommentDomainModel(

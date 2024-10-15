@@ -51,6 +51,7 @@ fun PostDetailsScreen(viewModel: PostDetailsViewModel) {
                 onRetryClick = { viewModel.obtainEvent(PostDetailsEvent.Refresh) },
                 onFavoriteClick = { viewModel.obtainEvent(PostDetailsEvent.FavoriteClick) },
                 onProfileClick = { viewModel.obtainEvent(PostDetailsEvent.ProfileClick(it)) },
+                onReplyClick = { viewModel.obtainEvent(PostDetailsEvent.ReplyClick(it)) },
                 onSendComment = { viewModel.obtainEvent(PostDetailsEvent.SendComment) },
             )
         }

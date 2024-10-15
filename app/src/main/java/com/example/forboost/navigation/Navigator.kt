@@ -53,4 +53,8 @@ class Navigator @Inject constructor() : GlobalRouter {
     override fun navigateToProfile(username: String) {
         TODO("Not yet implemented")
     }
+
+    override fun navigateToCommentReplies(commentId: String) {
+        TODO("Not yet implemented")
+    }
 }

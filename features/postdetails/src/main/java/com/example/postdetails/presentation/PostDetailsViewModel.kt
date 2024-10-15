@@ -1,7 +1,6 @@
 package com.example.postdetails.presentation
 
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
@@ -20,6 +19,7 @@ import com.example.postdetails.usecase.SendCommentUseCase
 import com.example.postdetails.usecase.SetPostFavoriteUseCase
 import com.example.ui.base.BaseViewModel
 import com.example.ui.utils.toUiModel
+import com.example.ui.utils.urlToMediaItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -53,6 +53,7 @@ class PostDetailsViewModel @Inject constructor(
             is PostDetailsEvent.FavoriteClick -> onFavoriteClicked()
             is PostDetailsEvent.CommentValueChanged -> onCommentValueChanged(event.value)
             is PostDetailsEvent.ProfileClick -> navigateToProfileScreen()
+            is PostDetailsEvent.ReplyClick -> navigateToCommentRepliesScreen(event.commentId)
             is PostDetailsEvent.SendComment -> sendComment()
             is PostDetailsEvent.Refresh -> loadPostData()
         }
@@ -110,7 +111,7 @@ class PostDetailsViewModel @Inject constructor(
     }
 
     private fun playVideo() {
-        player.setMediaItem(MediaItem.fromUri(_uiState.value.post.content))
+        player.setMediaItem(_uiState.value.post.content.urlToMediaItem())
     }
 
     private fun loadPostStats() {
@@ -178,6 +179,10 @@ class PostDetailsViewModel @Inject constructor(
 
     private fun navigateToProfileScreen() {
         postDetailsRouter.navigateToProfile(username = _uiState.value.authorName)
+    }
+
+    private fun navigateToCommentRepliesScreen(commentId: String) {
+        postDetailsRouter.navigateToCommentReplies(commentId = commentId)
     }
 
     private fun popBackStack() {

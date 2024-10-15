@@ -1,6 +1,7 @@
 package com.example.ui.utils
 
 import android.icu.util.Calendar
+import androidx.media3.common.MediaItem
 
 private fun Long.getTimeDifference(): Pair<Long, String> {
     val now = Calendar.getInstance().timeInMillis
@@ -52,3 +53,6 @@ fun Int.statsCountToPrettyFormat() =
         this < 1000000 -> {"${this / 1000}k"}
         else -> {"${this / 1000000}m"}
     }
+
+fun String.urlToMediaItem() =
+    MediaItem.fromUri(this)

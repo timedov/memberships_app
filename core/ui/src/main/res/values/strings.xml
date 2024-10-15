@@ -5,4 +5,6 @@
     <string name="check_connection_suggest">Check your connection and try again later</string>
     <string name="retry">Retry</string>
     <string name="back">Back</string>
+    <string name="reply">Reply</string>
+    <string name="comment">Comment</string>
 </resources>

@@ -18,8 +18,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 
-@Module(includes = [PostDataBinderModule::class])
-class PostDataModule {
+@Module(includes = [ApiDataBinderModule::class])
+class ApiDataModule {
 
     @Provides
     @AppScope

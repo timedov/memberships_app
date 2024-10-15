@@ -56,11 +56,13 @@ dependencies {
     implementation(project(":core:data:local"))
     implementation(project(":core:data:network"))
     implementation(project(":core:data:firebase"))
+    implementation(project(":core:data:local"))
     implementation(project(":features:auth"))
     implementation(project(":features:feed"))
     implementation(project(":features:profile"))
     implementation(project(":features:savetier"))
     implementation(project(":features:subscribe"))
+    implementation(project(":features:postdetails"))
 
     //dagger
     ksp(libs.dagger.compiler)
@@ -86,6 +88,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+    //media3
+    implementation(libs.androidx.media3.exoplayer)
 
     //test
     testImplementation(libs.junit)

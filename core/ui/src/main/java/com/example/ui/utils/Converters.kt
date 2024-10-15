@@ -2,11 +2,15 @@ package com.example.ui.utils
 
 import com.example.domain.model.CommentDomainModel
 import com.example.domain.model.ContentType
+import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
+import com.example.domain.model.PostStatsDomainModel
 import com.example.domain.model.TierDomainModel
 import com.example.domain.model.UserDetailsDomainModel
 import com.example.ui.model.CommentBodyUiModel
 import com.example.ui.model.CommentUiModel
+import com.example.ui.model.PostDataUiModel
+import com.example.ui.model.PostStatsUiModel
 import com.example.ui.model.PostUiModel
 import com.example.ui.model.TierUiModel
 import com.example.ui.model.UserDetailsUiModel
@@ -47,6 +51,7 @@ fun UserDetailsDomainModel.toUiModel() =
 
 fun CommentDomainModel.toUiModel() =
     CommentUiModel(
+        id = id,
         username = username,
         profileImageUrl = profileImageUrl.orEmpty(),
         postedWhen = postedAt.timeShort(),
@@ -55,4 +60,22 @@ fun CommentDomainModel.toUiModel() =
             content = content,
             isVideo = contentType == ContentType.VIDEO,
         ),
+    )
+
+fun PostDataDomainModel.toUiModel() =
+    PostDataUiModel(
+        title = title,
+        content = content,
+        isVideo = isVideo,
+        category = category,
+        postedAgo = postedAt.timeShort(),
+        author = author,
+        body = body,
+        requiresSubscription = isPaid
+    )
+
+fun PostStatsDomainModel.toUiModel() =
+    PostStatsUiModel(
+        favoriteCount = favoriteCount.statsCountToPrettyFormat(),
+        commentsCount = commentsCount.statsCountToPrettyFormat()
     )

@@ -56,14 +56,15 @@ dependencies {
     implementation(libs.richtext.ui.material3)
     implementation(libs.richtext.commonmark)
 
-    //paging3
-    implementation(libs.androidx.paging.common.android)
-    implementation(libs.androidx.paging.compose)
-
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.media3.exoplayer)
+
+    //paging3
+    implementation(libs.androidx.paging.common.android)
+    implementation (libs.androidx.paging.compose)
 
     implementation(project(":core:common"))
     implementation(project(":core:domain"))

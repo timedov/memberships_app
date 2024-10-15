@@ -1,5 +1,6 @@
 package com.example.network.remote.datasource
 
+import com.example.network.remote.datasource.responses.PostDataResponse
 import com.example.network.remote.datasource.responses.PostResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -8,7 +9,7 @@ import retrofit2.http.Query
 interface PostApi {
 
     @GET("posts/{id}")
-    suspend fun getPostById(@Path("id") id: Long): PostResponse
+    suspend fun getPostById(@Path("id") id: Long): PostDataResponse
 
     @GET("posts")
     suspend fun getPosts(@Query("page") page: Int, @Query("size") size: Int): List<PostResponse>

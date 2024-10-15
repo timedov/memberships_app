@@ -12,7 +12,14 @@ interface GlobalRouter {
 
     fun navigateToPostDetails(id: Long)
 
+    // TODO: remove
     fun navigateToSubscribe()
 
+    fun navigateToSubscribe(username: String)
+
     fun navigateToSaveTier(id: Long)
+
+    fun navigateToProfile(username: String)
+
+    fun navigateToCommentReplies(commentId: String)
 }

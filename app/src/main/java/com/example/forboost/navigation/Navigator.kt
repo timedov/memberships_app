@@ -37,11 +37,24 @@ class Navigator @Inject constructor() : GlobalRouter {
         TODO("Not yet implemented")
     }
 
+    // TODO: remove
     override fun navigateToSubscribe() {
         TODO("Not yet implemented")
     }
 
+    override fun navigateToSubscribe(username: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun navigateToSaveTier(id: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToProfile(username: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToCommentReplies(commentId: String) {
         TODO("Not yet implemented")
     }
 }

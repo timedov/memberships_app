@@ -1,4 +1,4 @@
-package com.example.domain.usecase
+package com.example.commentreplies.usecase
 
 import com.example.domain.model.CommentDomainModel
 import com.example.domain.repository.CommentRepository
@@ -7,20 +7,21 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SendCommentUseCase @Inject constructor(
+class SendCommentReplyUseCase @Inject constructor(
     private val commentRepository: CommentRepository,
     private val userRepository: UserRepository,
-    private val coroutineDispatcher: CoroutineDispatcher
+    private val coroutineDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(postId: Long, comment: String) {
+    suspend operator fun invoke(parentCommentId: String, comment: String) {
         withContext(coroutineDispatcher) {
+
             commentRepository.addComment(
                 comment = CommentDomainModel(
-                    postId = postId,
+                    parentCommentId = parentCommentId,
                     username = userRepository.getCurrentUserCredentials(),
                     postedAt = System.currentTimeMillis(),
-                    text = comment
+                    text = comment,
                 )
             )
         }

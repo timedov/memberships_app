@@ -48,6 +48,7 @@ fun UserDetailsDomainModel.toUiModel() =
 fun CommentDomainModel.toUiModel() =
     CommentUiModel(
         username = username,
+        parentCommentId = parentCommentId,
         profileImageUrl = profileImageUrl.orEmpty(),
         postedWhen = postedAt.timeShort(),
         body = CommentBodyUiModel(

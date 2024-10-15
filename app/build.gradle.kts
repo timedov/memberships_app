@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":core:data:network"))
     implementation(project(":core:data:firebase"))
     implementation(project(":features:auth"))
+    implementation(project(":features:commentreplies"))
     implementation(project(":features:feed"))
     implementation(project(":features:profile"))
     implementation(project(":features:savetier"))

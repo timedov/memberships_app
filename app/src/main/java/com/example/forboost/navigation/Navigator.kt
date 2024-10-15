@@ -44,4 +44,8 @@ class Navigator @Inject constructor() : GlobalRouter {
     override fun navigateToSaveTier(id: Long) {
         TODO("Not yet implemented")
     }
+
+    override fun navigateToProfile(username: String) {
+        TODO("Not yet implemented")
+    }
 }

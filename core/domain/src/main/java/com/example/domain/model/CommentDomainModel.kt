@@ -5,6 +5,7 @@ import java.util.UUID
 class CommentDomainModel(
     val id: String = UUID.randomUUID().toString(),
     val postId: Long = -1L,
+    val parentCommentId: String = "",
     val username: String = "",
     val profileImageUrl: String? = null,
     val postedAt: Long = 0L,

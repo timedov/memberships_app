@@ -55,4 +55,12 @@ class CommentRepositoryImpl @Inject constructor(
             .get()
             .await()
             .size()
+
+    override suspend fun getCommentById(id: String): CommentDomainModel {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCommentsByParentCommentId(parentCommentId: String): Flow<PagingData<CommentDomainModel>> {
+        TODO("Not yet implemented")
+    }
 }

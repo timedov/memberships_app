@@ -2,6 +2,7 @@ package com.example.savetier.presentation.model
 
 sealed interface SaveTierEvent {
 
+    data class Initiate(val tierId: Long) : SaveTierEvent
     data object BackClick : SaveTierEvent
     data class NameChange(val name: String) : SaveTierEvent
     data class PriceChange(val price: Double) : SaveTierEvent

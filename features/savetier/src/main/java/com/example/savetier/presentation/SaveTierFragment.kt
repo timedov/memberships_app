@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.common.di.ComponentDepsProvider
 import com.example.savetier.di.DaggerSaveTierComponent
 import com.example.savetier.presentation.composables.SaveTierScreen
+import com.example.savetier.presentation.model.SaveTierEvent
 import com.example.ui.base.BaseFragment
 import com.example.ui.themes.ForBoostAppTheme
 import com.example.ui.viewmodel.ViewModelProviderFactory
@@ -32,7 +33,7 @@ class SaveTierFragment : BaseFragment() {
             .create(ComponentDepsProvider.get(requireContext()))
             .apply { inject(this@SaveTierFragment) }
 
-        viewModel.tierId = arguments?.getLong(TIER_ID) ?: -1
+        viewModel.obtainEvent(SaveTierEvent.Initiate(arguments?.getLong(TIER_ID) ?: -1))
     }
 
     companion object {

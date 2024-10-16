@@ -22,59 +22,66 @@ class SaveTierViewModel @Inject constructor(
     private val validateTierFormUseCase: ValidateTierFormUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SaveTierState, SaveTierEvent, SaveTierAction>(
-    initialState = SaveTierState.Loading
+    initialState = SaveTierState()
 ) {
-
-    var tierId: Long = -1L
-
-    init {
-        loadTier()
-    }
 
     override fun obtainEvent(event: SaveTierEvent) {
         when (event) {
+            is SaveTierEvent.Initiate -> {
+                _uiState.value = _uiState.value.copy(tierId = event.tierId)
+                loadTier()
+            }
             is SaveTierEvent.BackClick -> popBackStack()
-            is SaveTierEvent.NameChange -> _uiState.value =
-                (_uiState.value as SaveTierState.Form).copy(name = event.name)
-            is SaveTierEvent.PriceChange -> _uiState.value =
-                (_uiState.value as SaveTierState.Form).copy(price = event.price)
-            is SaveTierEvent.DescriptionChange -> _uiState.value =
-                (_uiState.value as SaveTierState.Form).copy(description = event.description)
+            is SaveTierEvent.NameChange ->
+                _uiState.value = _uiState.value.copy(name = event.name)
+            is SaveTierEvent.PriceChange ->
+                _uiState.value = _uiState.value.copy(price = event.price)
+            is SaveTierEvent.DescriptionChange ->
+                _uiState.value = _uiState.value.copy(description = event.description)
             is SaveTierEvent.SaveTier -> saveTier()
             SaveTierEvent.RetryClick -> loadTier()
         }
     }
 
     private fun loadTier() {
-        _uiState.value = SaveTierState.Loading
+        _uiState.value = _uiState.value.copy(
+            isLoading = true,
+            isError = false
+        )
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                getTierUseCase.invoke(tierId)
+                getTierUseCase.invoke(_uiState.value.tierId)
             }.onSuccess {
-                _uiState.value = SaveTierState.Form(
-                    name = it?.name.orEmpty(),
-                    price = it?.price ?: 0.0,
-                    description = it?.description.orEmpty()
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    name = it.name,
+                    price = it.price,
+                    description = it.description
                 )
             }.onFailure {
-                _uiState.value = SaveTierState.Error
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isError = true
+                )
             }
         }
     }
 
     private fun saveTier() {
-        val form = (_uiState.value as SaveTierState.Form)
-
-        if (!validateForm(form)) return
+        if (!validateForm(
+                name = _uiState.value.name,
+                price = _uiState.value.price,
+                description = _uiState.value.description
+            )) return
 
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
                 saveTierUseCase.invoke(
                     TierDomainModel(
-                        id = tierId,
-                        name = form.name,
-                        price = form.price,
-                        description = form.description
+                        id = _uiState.value.tierId,
+                        name = _uiState.value.name,
+                        price = _uiState.value.price,
+                        description = _uiState.value.description
                     )
                 )
             }.onSuccess {
@@ -86,10 +93,14 @@ class SaveTierViewModel @Inject constructor(
         }
     }
 
-    private fun validateForm(form: SaveTierState.Form): Boolean {
-        val nameResult = validateTierFormUseCase.validateName(form.name)
-        val priceResult = validateTierFormUseCase.validatePrice(form.price)
-        val descriptionResult = validateTierFormUseCase.validateDescription(form.description)
+    private fun validateForm(
+        name: String,
+        price: Double,
+        description: String
+    ): Boolean {
+        val nameResult = validateTierFormUseCase.validateName(name)
+        val priceResult = validateTierFormUseCase.validatePrice(price)
+        val descriptionResult = validateTierFormUseCase.validateDescription(description)
 
         val hasError = listOf(
             nameResult,
@@ -98,7 +109,7 @@ class SaveTierViewModel @Inject constructor(
         ).any { it.isValid.not() }
 
         if (hasError) {
-            _uiState.value = (_uiState.value as SaveTierState.Form).copy(
+            _uiState.value = _uiState.value.copy(
                 nameError = nameResult.errorMessage,
                 priceError = priceResult.errorMessage,
                 descriptionError = descriptionResult.errorMessage

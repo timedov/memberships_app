@@ -1,32 +1,31 @@
 package com.example.profile.presentation.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.profile.presentation.ProfileViewModel
-import com.example.profile.presentation.model.ProfileEvent
+import androidx.compose.ui.unit.dp
 import com.example.profile.presentation.model.ProfileState
 import com.example.ui.view.composables.ErrorScreen
-import com.example.ui.view.composables.LoadingScreen
 
 @Composable
 fun ObserveState(
     state: ProfileState,
-    viewModel: ProfileViewModel
+    onPostClick: (Long) -> Unit,
+    onSubscribeClick: () -> Unit,
+    onRetryClick: () -> Unit
 ) {
 
-    when (state) {
-        is ProfileState.Loading -> LoadingScreen(isLoading = true)
-        is ProfileState.Content -> {
-            ProfileContent(
-                userDetails = state.userDetails,
-                subscribers = state.subscribers,
-                response = state.posts,
-                onSubscribeClick = { viewModel.obtainEvent(ProfileEvent.SubscribeClick) },
-                onPostClick = { viewModel.obtainEvent(ProfileEvent.PostClick(it)) },
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-        is ProfileState.Error -> ErrorScreen { viewModel.obtainEvent(ProfileEvent.Refresh) }
-    }
+   if (state.isError) {
+       ErrorScreen(onRetryClick = onRetryClick)
+   } else {
+       ProfileContent(
+           userDetails = state.userDetails,
+           subscribers = state.subscribers,
+           postsFlow = state.postsFlow,
+           onSubscribeClick = onSubscribeClick,
+           onPostClick = onPostClick,
+           modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp)
+       )
+   }
 }

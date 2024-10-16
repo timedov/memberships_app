@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.common.di.ComponentDepsProvider
 import com.example.profile.di.DaggerProfileComponent
 import com.example.profile.presentation.composables.ProfileScreen
+import com.example.profile.presentation.model.ProfileEvent
 import com.example.ui.base.BaseFragment
 import com.example.ui.themes.ForBoostAppTheme
 import com.example.ui.viewmodel.ViewModelProviderFactory
@@ -33,7 +34,7 @@ class ProfileFragment : BaseFragment() {
             .create(ComponentDepsProvider.get(requireContext()))
             .apply { inject(this@ProfileFragment) }
 
-        viewModel.username = requireArguments().getString(USERNAME).orEmpty()
+        viewModel.obtainEvent(ProfileEvent.Initiate(arguments?.getString(USERNAME).orEmpty()))
     }
 
     companion object {

@@ -6,5 +6,5 @@ interface ProfileRouter {
 
     fun popBackStack()
 
-    fun navigateToSubscribe()
+    fun navigateToSubscribe(username: String)
 }

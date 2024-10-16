@@ -3,14 +3,15 @@ package com.example.profile.presentation
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
-import com.example.domain.repository.PostRepository
 import com.example.profile.navigation.ProfileRouter
 import com.example.profile.presentation.model.ProfileAction
 import com.example.profile.presentation.model.ProfileEvent
 import com.example.profile.presentation.model.ProfileState
+import com.example.profile.usecase.GetPostsOfUserUseCase
 import com.example.profile.usecase.GetSubscribersUseCase
 import com.example.profile.usecase.GetUserDetailsUseCase
 import com.example.ui.base.BaseViewModel
+import com.example.ui.utils.toUiModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,53 +19,50 @@ class ProfileViewModel @Inject constructor(
     private val profileRouter: ProfileRouter,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getSubscribersUseCase: GetSubscribersUseCase,
-    private val postRepository: PostRepository,
+    private val getPostsOfUserUseCase: GetPostsOfUserUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<ProfileState, ProfileEvent, ProfileAction>(
-    initialState = ProfileState.Loading
+    initialState = ProfileState()
 ) {
-
-    var username: String = ""
-
-    init {
-        loadUserDetails()
-    }
 
     override fun obtainEvent(event: ProfileEvent) {
         when (event) {
-            ProfileEvent.Refresh -> loadUserDetails()
-            ProfileEvent.SubscribeClick -> profileRouter.navigateToSubscribe()
+            is ProfileEvent.Initiate -> {
+                _uiState.value = _uiState.value.copy(
+                    username = event.username
+                )
+                loadUserDetails()
+            }
+            is ProfileEvent.Refresh -> loadUserDetails()
+            is ProfileEvent.SubscribeClick ->
+                profileRouter.navigateToSubscribe(username = _uiState.value.username)
             is ProfileEvent.PostClick -> profileRouter.navigateToPostDetails(event.postId)
-            ProfileEvent.BackClick -> profileRouter.popBackStack()
+            is ProfileEvent.BackClick -> profileRouter.popBackStack()
         }
     }
 
     private fun loadUserDetails() {
+        _uiState.value = _uiState.value.copy(
+            isLoading = true,
+            isRefreshing = false,
+            isError = false
+        )
         viewModelScope.launch {
             runSuspendCatching(exceptionHandlerDelegate) {
-                getUserDetailsUseCase.invoke(username)
+                getUserDetailsUseCase.invoke(_uiState.value.username)
             }.onSuccess {
-                _uiState.value = ProfileState.Content(
-                    userDetails = it,
-                    posts = postRepository.getPostsOfUser(username)
-                )
-                loadSubscribers()
-            }.onFailure {
-                _uiState.value = ProfileState.Error(it.message.orEmpty())
-            }
-        }
-    }
-
-    private fun loadSubscribers() {
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                getSubscribersUseCase.invoke(username)
-            }.onSuccess {
-                _uiState.value = (_uiState.value as ProfileState.Content).copy(
-                    subscribers = it
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    userDetails = it.toUiModel(),
+                    postsFlow = getPostsOfUserUseCase.invoke(_uiState.value.username),
+                    subscribers = getSubscribersUseCase.invoke(_uiState.value.username),
                 )
             }.onFailure {
-                _uiState.value = ProfileState.Error(it.message.orEmpty())
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    isError = true
+                )
             }
         }
     }

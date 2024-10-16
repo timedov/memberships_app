@@ -15,7 +15,7 @@ class AdapterProfileRouter @Inject constructor(
         globalRouter.popBackStack()
     }
 
-    override fun navigateToSubscribe() {
-        globalRouter.navigateToSubscribe()
+    override fun navigateToSubscribe(username: String) {
+        globalRouter.navigateToSubscribe(username)
     }
 }

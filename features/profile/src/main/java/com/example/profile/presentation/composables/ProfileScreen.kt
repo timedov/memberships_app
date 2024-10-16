@@ -32,10 +32,15 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            isRefreshing = false,
+            isRefreshing = state.isRefreshing,
             onRefresh = { viewModel.obtainEvent(ProfileEvent.Refresh) }
         ) {
-            ObserveState(state, viewModel)
+            ObserveState(
+                state = state,
+                onPostClick = { viewModel.obtainEvent(ProfileEvent.PostClick(it)) },
+                onSubscribeClick = { viewModel.obtainEvent(ProfileEvent.SubscribeClick) },
+                onRetryClick = { viewModel.obtainEvent(ProfileEvent.Initiate(state.username)) },
+            )
         }
     }
 }

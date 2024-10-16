@@ -12,19 +12,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.domain.model.PostDomainModel
-import com.example.domain.model.UserDetailsDomainModel
+import com.example.ui.model.UserDetailsUiModel
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun ProfileContent(
-    userDetails: UserDetailsDomainModel,
+    userDetails: UserDetailsUiModel,
     subscribers: String,
-    response: Flow<PagingData<PostDomainModel>>,
+    postsFlow: Flow<PagingData<PostDomainModel>>,
     onSubscribeClick: () -> Unit,
     onPostClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val posts = postsFlow.collectAsLazyPagingItems()
+
     Column(modifier = modifier) {
         ProfileHeader(
             name = userDetails.username,
@@ -44,9 +47,11 @@ fun ProfileContent(
 
         when (selectedTabIndex) {
             0 -> PostsList(
-                response = response,
+                posts = posts,
                 onPostClick = onPostClick,
-                modifier = Modifier.fillMaxSize().padding(vertical = 12.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 12.dp)
             )
             1 -> AboutScreen(text = userDetails.about, modifier = Modifier.padding(20.dp))
         }

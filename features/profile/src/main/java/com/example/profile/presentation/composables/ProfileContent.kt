@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 fun ProfileContent(
     userDetails: UserDetailsUiModel,
     subscribers: String,
+    subscribeButtonTitle: String,
     postsFlow: Flow<PagingData<PostDomainModel>>,
     onSubscribeClick: () -> Unit,
     onPostClick: (Long) -> Unit,
@@ -34,6 +35,7 @@ fun ProfileContent(
             imageUrl = userDetails.imageUrl,
             subscribers = subscribers,
             joinedYear = userDetails.joinedYear,
+            subscribeButtonTitle = subscribeButtonTitle,
             onSubscribeClick = onSubscribeClick
         )
 

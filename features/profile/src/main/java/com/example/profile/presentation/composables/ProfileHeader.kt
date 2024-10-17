@@ -27,6 +27,7 @@ fun ProfileHeader(
     imageUrl: String?,
     subscribers: String,
     joinedYear: Int,
+    subscribeButtonTitle: String,
     onSubscribeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -69,7 +70,7 @@ fun ProfileHeader(
         shape = Shapes.large,
     ) {
         Text(
-            text = stringResource(com.example.profile.R.string.subscribe),
+            text = subscribeButtonTitle,
             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             modifier = modifier.padding(vertical = 4.dp)
         )

@@ -3,6 +3,7 @@ package com.example.profile.presentation
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
+import com.example.domain.usecase.IsCurrentUserUseCase
 import com.example.profile.navigation.ProfileRouter
 import com.example.profile.presentation.model.ProfileAction
 import com.example.profile.presentation.model.ProfileEvent
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val profileRouter: ProfileRouter,
+    private val isCurrentUserUseCase: IsCurrentUserUseCase,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getSubscribersUseCase: GetSubscribersUseCase,
     private val getPostsOfUserUseCase: GetPostsOfUserUseCase,
@@ -31,9 +33,9 @@ class ProfileViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(
                     username = event.username
                 )
-                loadUserDetails()
+                loadData()
             }
-            is ProfileEvent.Refresh -> loadUserDetails()
+            is ProfileEvent.Refresh -> loadData()
             is ProfileEvent.SubscribeClick ->
                 profileRouter.navigateToSubscribe(username = _uiState.value.username)
             is ProfileEvent.PostClick -> profileRouter.navigateToPostDetails(event.postId)
@@ -41,7 +43,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun loadUserDetails() {
+    private fun loadData() {
         _uiState.value = _uiState.value.copy(
             isLoading = true,
             isRefreshing = false,
@@ -53,6 +55,7 @@ class ProfileViewModel @Inject constructor(
             }.onSuccess {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
+                    isCurrentUser = isCurrentUserUseCase.invoke(_uiState.value.username),
                     userDetails = it.toUiModel(),
                     postsFlow = getPostsOfUserUseCase.invoke(_uiState.value.username),
                     subscribers = getSubscribersUseCase.invoke(_uiState.value.username),

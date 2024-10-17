@@ -4,9 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,10 +18,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.example.ui.model.PostUiModel
 import com.example.ui.themes.OnSurfaceTextAlpha
 import com.example.ui.themes.Shapes
+import com.example.ui.view.composables.AsyncImageCaching
 import com.example.ui.R as UiR
 
 @Composable
@@ -45,7 +46,7 @@ fun PostItem(post: PostUiModel, onClick: (Long) -> Unit) {
                 text = post.title,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(top = 4.dp, bottom = 4.dp, end = 4.dp)
             )
             Text(
                 text = post.author,
@@ -53,15 +54,17 @@ fun PostItem(post: PostUiModel, onClick: (Long) -> Unit) {
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = OnSurfaceTextAlpha)
             )
         }
-        AsyncImage(
+        AsyncImageCaching(
             model = post.image,
             contentDescription = null,
             placeholder = painterResource(id = UiR.drawable.no_image),
-            error = painterResource(id = UiR.drawable.empty_profile_pic),
+            error = painterResource(id = UiR.drawable.no_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(width = 120.dp, height = 72.dp)
+                .sizeIn(maxHeight = 80.dp)
+                .aspectRatio(16f / 9f)
                 .clip(Shapes.large)
+
         )
     }
 }

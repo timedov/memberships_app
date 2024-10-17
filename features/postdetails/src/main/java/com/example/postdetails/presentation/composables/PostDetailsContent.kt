@@ -88,8 +88,8 @@ fun PostDetailsContent(
                         player = player,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(16 / 9f)
                             .padding(vertical = 16.dp)
+                            .aspectRatio(16 / 9f)
                     )
                 } else {
                     AsyncImageCaching(

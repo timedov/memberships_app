@@ -18,42 +18,61 @@ class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<LoginState, LoginEvent, LoginAction>(
-    initialState = LoginState.Initial
+    initialState = LoginState()
 ) {
+
+    init {
+        checkUserAuthorized()
+    }
 
     override fun obtainEvent(event: LoginEvent) {
         when (event) {
-            is LoginEvent.LogInClick -> handleLogIn(event.email, event.password)
+            is LoginEvent.LogInClick -> logIn()
             is LoginEvent.ForgotPasswordClick -> navigateToForgotPasswordScreen()
             is LoginEvent.SignUpClick -> navigateToSignUp()
+            is LoginEvent.EmailChanged -> onEmailChanged(event.email)
+            is LoginEvent.PasswordChanged -> onPasswordChanged(event.password)
         }
     }
 
-    private fun handleLogIn(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
-            _uiState.value = LoginState.InvalidCredentials
-            return
-        }
-
+    private fun checkUserAuthorized() {
         viewModelScope.launch {
-            _uiState.value = LoginState.Loading
             runSuspendCatching(exceptionHandlerDelegate) {
-                userRepository.signIn(email, password)
+                userRepository.getCurrentUserId()
             }.onSuccess {
-                _uiState.value = LoginState.Initial
-                navigateToHomeScreen()
-            }.onFailure { error ->
-                when (error) {
-                    is AppException.AuthInvalidCredentialsException -> {
-                        _uiState.value = LoginState.InvalidCredentials
-                    }
-                    else -> {
-                        _uiState.value = LoginState.Error(error)
-                    }
-                }
-                _actionsFlow.emit(LoginAction.ShowMessage(error.message.toString()))
+                if (!it.isNullOrEmpty()) navigateToHomeScreen()
             }
         }
+    }
+
+    private fun logIn() {
+        _uiState.value = _uiState.value.copy(isLoading = true)
+
+        viewModelScope.launch {
+            runSuspendCatching(exceptionHandlerDelegate) {
+                userRepository.signIn(_uiState.value.email, _uiState.value.password)
+            }.onSuccess {
+                _uiState.value = _uiState.value.copy(isLoading = false)
+
+                navigateToHomeScreen()
+            }.onFailure {
+                _uiState.value = _uiState.value.copy(isLoading = false)
+
+                if (it is AppException.AuthInvalidCredentialsException) {
+                    _uiState.value = _uiState.value.copy(isInvalidCredentials = true)
+                }
+
+                _actionsFlow.emit(LoginAction.ShowMessage(it.message.orEmpty()))
+            }
+        }
+    }
+
+    private fun onEmailChanged(email: String) {
+        _uiState.value = _uiState.value.copy(email = email, isInvalidCredentials = false)
+    }
+
+    private fun onPasswordChanged(password: String) {
+        _uiState.value = _uiState.value.copy(password = password, isInvalidCredentials = false)
     }
 
     private fun navigateToForgotPasswordScreen() {

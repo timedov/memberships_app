@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import com.example.auth.di.AuthComponent
 import com.example.auth.di.DaggerAuthComponent
+import com.example.auth.presentation.login.composables.LoginScreen
 import com.example.common.di.ComponentDepsProvider
 import com.example.ui.base.BaseFragment
 import com.example.ui.themes.ForBoostAppTheme

@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,18 +19,19 @@ import com.example.ui.view.composables.TextFieldWithIcon
 
 @Composable
 fun CredentialsAndLogIn(
+    email: String,
+    password: String,
     isInvalidCredentials: Boolean,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     onForgotPasswordClick: () -> Unit,
-    onSignInClick: (String, String) -> Unit,
+    onLogInClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     TextFieldWithIcon(
         value = email,
-        onValueChange = { email = it },
+        onValueChange = onEmailChange,
         label = stringResource(R.string.email),
         modifier = modifier
             .fillMaxWidth(),
@@ -43,7 +40,7 @@ fun CredentialsAndLogIn(
     Spacer(modifier = modifier.height(16.dp))
     TextFieldWithIcon(
         value = password,
-        onValueChange = { password = it },
+        onValueChange = onPasswordChange,
         label = stringResource(R.string.password),
         modifier = modifier.fillMaxWidth(),
         isPassword = true,
@@ -72,7 +69,7 @@ fun CredentialsAndLogIn(
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
             ),
-            modifier = modifier.clickable {  onSignInClick(email, password) }
+            modifier = modifier.clickable { onLogInClick() }
         )
     }
 }

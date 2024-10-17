@@ -1,36 +1,27 @@
 package com.example.auth.presentation.login.composables
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import com.example.auth.presentation.login.model.LoginState
+import com.example.ui.view.composables.LoadingScreen
 
 @Composable
 fun ObserveState(
     uiState: LoginState,
-    snackbarHostState: SnackbarHostState,
-    isInvalidCredentialsSetter: (Boolean) -> Unit,
-    isLoadingSetter: (Boolean) -> Unit
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onForgotPasswordClick: () -> Unit,
+    onSignUpClick: () -> Unit,
+    onLogInClick: () -> Unit,
 ) {
-    LaunchedEffect(uiState) {
-        when (uiState) {
-            is LoginState.Initial -> {
-                isInvalidCredentialsSetter(false)
-                isLoadingSetter(false)
-            }
-            is LoginState.InvalidCredentials -> {
-                isInvalidCredentialsSetter(true)
-                isLoadingSetter(false)
-            }
-            is LoginState.Loading -> {
-                isInvalidCredentialsSetter(false)
-                isLoadingSetter(true)
-            }
-            is LoginState.Error -> {
-                isInvalidCredentialsSetter(false)
-                isLoadingSetter(false)
-                snackbarHostState.showSnackbar(uiState.error.message.toString())
-            }
-        }
-    }
+    LoginContent(
+        email = uiState.email,
+        password = uiState.password,
+        isInvalidCredentials = uiState.isInvalidCredentials,
+        onEmailChange = onEmailChange,
+        onPasswordChange = onPasswordChange,
+        onForgotPasswordClick = onForgotPasswordClick,
+        onSignUpClick = onSignUpClick,
+        onLogInClick = onLogInClick)
+
+    LoadingScreen(isLoading = uiState.isLoading)
 }

@@ -1,6 +1,6 @@
 package com.example.savetier.usecase
 
-import com.example.savetier.presentation.model.ValidationResult
+import com.example.domain.model.ValidationResult
 import javax.inject.Inject
 
 class ValidateTierFormUseCase @Inject constructor() {

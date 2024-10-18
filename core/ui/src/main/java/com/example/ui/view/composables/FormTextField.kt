@@ -1,4 +1,4 @@
-package com.example.savetier.presentation.composables
+package com.example.ui.view.composables
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,31 +9,30 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
 import com.example.ui.themes.Shapes
 
 @Composable
 fun FormTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String = "",
+    label: @Composable () -> Unit,
     error: String?,
-    keyboardType: KeyboardType = KeyboardType.Text,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     maxLines: Int = 1,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     TextField(
         value = value,
-        onValueChange = { onValueChange(it) },
-        label = { Text(label) },
-        isError = error != null,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+        onValueChange = onValueChange,
+        label = label,
+        isError = error.isNullOrEmpty().not(),
+        keyboardOptions = keyboardOptions,
         maxLines = maxLines,
         shape = Shapes.large,
         colors = TextFieldDefaults.colors(
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
-            errorIndicatorColor = Color.Red,
+            errorIndicatorColor = MaterialTheme.colorScheme.error,
             unfocusedIndicatorColor = Color.Transparent
         ),
         modifier = modifier

@@ -1,4 +1,4 @@
-package com.example.savetier.presentation.model
+package com.example.domain.model
 
 class ValidationResult(
     val isValid: Boolean,

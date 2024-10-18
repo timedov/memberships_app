@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.savetier.R
+import com.example.ui.view.composables.FormTextField
 
 @Composable
 fun TierForm(
@@ -39,7 +41,7 @@ fun TierForm(
         FormTextField(
             value = name,
             onValueChange = onNameChange,
-            label = stringResource(id = R.string.name),
+            label = { Text(text = stringResource(id = R.string.name)) },
             error = nameError,
             modifier = Modifier.fillMaxWidth()
         )
@@ -47,16 +49,16 @@ fun TierForm(
         FormTextField(
             value = if (price == 0.0) "" else price.toString(),
             onValueChange = onPriceChange,
-            label = stringResource(id = R.string.price),
+            label = { Text(text = stringResource(id = R.string.price)) },
             error = priceError,
-            keyboardType = KeyboardType.Number,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         FormTextField(
             value = description,
             onValueChange = onDescriptionChange,
-            label = stringResource(id = R.string.description),
+            label = { Text(text = stringResource(id = R.string.description)) },
             error = descriptionError,
             modifier = Modifier.fillMaxWidth()
         )

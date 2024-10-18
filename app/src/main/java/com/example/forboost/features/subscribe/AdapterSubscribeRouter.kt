@@ -1,4 +1,4 @@
-package com.example.forboost.di.features.subscribe
+package com.example.forboost.features.subscribe
 
 import com.example.forboost.navigation.GlobalRouter
 import com.example.subscribe.navigation.SubscribeRouter

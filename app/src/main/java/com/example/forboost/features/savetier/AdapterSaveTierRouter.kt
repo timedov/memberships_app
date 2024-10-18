@@ -1,4 +1,4 @@
-package com.example.forboost.di.features.savetier
+package com.example.forboost.features.savetier
 
 import com.example.forboost.navigation.GlobalRouter
 import com.example.savetier.navigation.SaveTierRouter

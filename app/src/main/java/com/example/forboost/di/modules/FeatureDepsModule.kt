@@ -8,6 +8,7 @@ import com.example.forboost.di.components.AppComponent
 import com.example.forboost.di.dependencies.DepsMap
 import com.example.postdetails.di.PostDetailsDeps
 import com.example.profile.di.ProfileDeps
+import com.example.savepost.di.SavePostDeps
 import com.example.subscribe.di.SubscribeDeps
 import com.example.savetier.di.SaveTierDeps
 import dagger.Binds
@@ -39,4 +40,7 @@ interface FeatureDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(SaveTierDeps::class)]
     fun bindsSaveTierDeps(appComponent: AppComponent): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(SavePostDeps::class)]
+    fun bindsSavePostDeps(appComponent: AppComponent): ComponentDeps
 }

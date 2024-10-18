@@ -1,4 +1,4 @@
-package com.example.forboost.di.features.profile
+package com.example.forboost.features.profile
 
 import com.example.forboost.navigation.GlobalRouter
 import com.example.profile.navigation.ProfileRouter

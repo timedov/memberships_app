@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/features/feed" />
             <option value="$PROJECT_DIR$/features/postdetails" />
             <option value="$PROJECT_DIR$/features/profile" />
+            <option value="$PROJECT_DIR$/features/savepost" />
             <option value="$PROJECT_DIR$/features/savetier" />
             <option value="$PROJECT_DIR$/features/subscribe" />
           </set>

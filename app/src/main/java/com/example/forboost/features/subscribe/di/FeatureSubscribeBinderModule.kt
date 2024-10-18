@@ -1,6 +1,6 @@
-package com.example.forboost.di.features.subscribe.di
+package com.example.forboost.features.subscribe.di
 
-import com.example.forboost.di.features.subscribe.AdapterSubscribeRouter
+import com.example.forboost.features.subscribe.AdapterSubscribeRouter
 import com.example.subscribe.navigation.SubscribeRouter
 import dagger.Binds
 import dagger.Module

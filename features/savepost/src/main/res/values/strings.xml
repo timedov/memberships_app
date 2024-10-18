@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save_post">Save Post</string>
+    <string name="post_saved_successfully">Post saved successfully!</string>
+    <string name="post_saving_failed">Failed to save post</string>
+</resources>

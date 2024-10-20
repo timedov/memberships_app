@@ -110,9 +110,9 @@ class SaveTierViewModel @Inject constructor(
 
         if (hasError) {
             _uiState.value = _uiState.value.copy(
-                nameError = nameResult.errorMessage,
-                priceError = priceResult.errorMessage,
-                descriptionError = descriptionResult.errorMessage
+                nameError = nameResult.errorMessage.orEmpty(),
+                priceError = priceResult.errorMessage.orEmpty(),
+                descriptionError = descriptionResult.errorMessage.orEmpty()
             )
         }
 

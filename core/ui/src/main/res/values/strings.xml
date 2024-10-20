@@ -9,4 +9,5 @@
     <string name="comment">Comment</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="text_length_counter">%1$s / %2$s</string>
 </resources>

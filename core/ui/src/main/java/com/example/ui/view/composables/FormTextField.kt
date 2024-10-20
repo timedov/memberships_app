@@ -16,7 +16,7 @@ fun FormTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
-    error: String?,
+    error: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     maxLines: Int = 1,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
@@ -25,7 +25,7 @@ fun FormTextField(
         value = value,
         onValueChange = onValueChange,
         label = label,
-        isError = error.isNullOrEmpty().not(),
+        isError = error.isNotEmpty(),
         keyboardOptions = keyboardOptions,
         maxLines = maxLines,
         shape = Shapes.large,
@@ -37,7 +37,5 @@ fun FormTextField(
         ),
         modifier = modifier
     )
-    if (error != null) {
-        Text(text = error, color = MaterialTheme.colorScheme.error, modifier = modifier)
-    }
+    Text(text = error, color = MaterialTheme.colorScheme.error, modifier = modifier)
 }

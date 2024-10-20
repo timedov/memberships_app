@@ -1,5 +1,9 @@
 package com.example.savepost.presentation.composables
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,17 +29,28 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
         topBar = {
             CenterAlignedTopAppBarWithBackButton(
                 title = stringResource(R.string.save_post),
-                onBackClick = { viewModel.obtainEvent(SavePostEvent.BackClick) }
+                onBackClick = { viewModel.obtainEvent(SavePostEvent.BackClick) },
+                actions = {
+                    IconButton(
+                        onClick = { viewModel.obtainEvent(SavePostEvent.SavePost) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Send,
+                            contentDescription = stringResource(R.string.save_post),
+                        )
+                    }
+                }
             )
-        }
+        },
     ) { paddingValues ->
         ObserveState(
             uiState = uiState,
             paddingValues = paddingValues,
-            onTitleChange = { viewModel.obtainEvent(SavePostEvent.TitleChange(it)) },
-            onDescriptionChange = { viewModel.obtainEvent(SavePostEvent.DescriptionChange(it)) },
-            onSaveClick = { viewModel.obtainEvent(SavePostEvent.SavePost) },
-            onRetryClick = { viewModel.obtainEvent(SavePostEvent.RetryClick) }
+            onTitleChange = { viewModel.obtainEvent(SavePostEvent.TitleValueChange(it)) },
+            onDescriptionChange =
+                { viewModel.obtainEvent(SavePostEvent.DescriptionValueChange(it)) },
+            onImageIconClick = { viewModel.obtainEvent(SavePostEvent.Initiate) },
+            onVideoIconClick = { viewModel.obtainEvent(SavePostEvent.Initiate) }
         )
     }
 }

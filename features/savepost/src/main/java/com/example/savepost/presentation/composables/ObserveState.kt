@@ -1,9 +1,11 @@
 package com.example.savepost.presentation.composables
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.example.savepost.presentation.model.SavePostState
-import com.example.ui.view.composables.ErrorScreen
 import com.example.ui.view.composables.LoadingScreen
 
 @Composable
@@ -12,14 +14,21 @@ fun ObserveState(
     paddingValues: PaddingValues,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
-    onSaveClick: () -> Unit,
-    onRetryClick: () -> Unit,
+    onImageIconClick: () -> Unit,
+    onVideoIconClick: () -> Unit
 ) {
 
-    if (uiState.isError) {
-        ErrorScreen(onRetryClick = onRetryClick)
-    } else {
+    PostForm(
+        title = uiState.title,
+        titleError = uiState.titleError,
+        onTitleChange = onTitleChange,
+        description = uiState.description,
+        descriptionError = uiState.descriptionError,
+        onDescriptionChange = onDescriptionChange,
+        onImageIconClick = onImageIconClick,
+        onVideoIconClick = onVideoIconClick,
+        modifier = Modifier.fillMaxWidth().padding(paddingValues)
+    )
 
-        LoadingScreen(isLoading = uiState.isLoading)
-    }
+    LoadingScreen(isLoading = uiState.isLoading)
 }

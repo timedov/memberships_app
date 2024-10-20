@@ -18,6 +18,15 @@ class SavePostViewModel @Inject constructor(
     override fun obtainEvent(event: SavePostEvent) {
         when (event) {
             is SavePostEvent.Initiate -> {}
+            is SavePostEvent.BackClick -> savePostRouter.popBackStack()
+            is SavePostEvent.TitleValueChange ->
+                _uiState.value = _uiState.value.copy(title = event.title)
+            is SavePostEvent.DescriptionValueChange ->
+                _uiState.value = _uiState.value.copy(description = event.description)
+            is SavePostEvent.SavePost -> savePost()
         }
+    }
+
+    private fun savePost() {
     }
 }

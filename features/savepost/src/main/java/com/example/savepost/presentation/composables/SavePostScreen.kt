@@ -32,7 +32,8 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
                 onBackClick = { viewModel.obtainEvent(SavePostEvent.BackClick) },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.obtainEvent(SavePostEvent.SavePost) }
+                        onClick = { viewModel.obtainEvent(SavePostEvent.SavePost) },
+                        enabled = uiState.titleError.isEmpty() && uiState.descriptionError.isEmpty()
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Send,

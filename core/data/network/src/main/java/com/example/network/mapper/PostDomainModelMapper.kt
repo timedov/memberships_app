@@ -24,12 +24,12 @@ class PostDomainModelMapper @Inject constructor() {
             id = postDataResponse.id,
             title = postDataResponse.title.orEmpty(),
             content = postDataResponse.content.orEmpty(),
-            isVideo = postDataResponse.contentType == ContentType.VIDEO.code,
+            contentType = ContentType.entries.find { it.code == postDataResponse.contentType } ?: ContentType.NONE,
             category = postDataResponse.category.orEmpty(),
             postedAt = postDataResponse.postedTimestamp,
             author = postDataResponse.authorName.orEmpty(),
             body = postDataResponse.body.orEmpty(),
-            isPaid = postDataResponse.requiresSubscription
+            requiresSubscription = postDataResponse.requiresSubscription
         )
 
     fun mapResponseListToDomainModelList(postResponseList: List<PostResponse>) =

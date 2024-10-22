@@ -12,25 +12,25 @@ fun PostEntity.toDomainModel() =
         id = id,
         title = title.orEmpty(),
         content = content.orEmpty(),
-        isVideo = isVideo,
+        contentType = ContentType.entries.find { it.code == contentType } ?: NONE,
         category = category.orEmpty(),
         postedAt = postedAt,
         author = author.orEmpty(),
         body = body.orEmpty(),
-        isPaid = requiresSubscription
+        requiresSubscription = requiresSubscription
     )
 
 fun PostDataDomainModel.toEntity() =
     PostEntity(
         id = id,
-        title =title,
+        title = title,
         content = content,
-        isVideo = isVideo,
+        contentType = contentType.code,
         category = category,
         postedAt = postedAt,
         author = author,
         body = body,
-        requiresSubscription = isPaid
+        requiresSubscription = requiresSubscription
     )
 
 fun CommentEntity.toDomainModel() =

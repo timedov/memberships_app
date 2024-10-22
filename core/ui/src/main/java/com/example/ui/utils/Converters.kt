@@ -66,12 +66,29 @@ fun PostDataDomainModel.toUiModel() =
     PostDataUiModel(
         title = title,
         content = content,
-        isVideo = isVideo,
+        isVideo = contentType == ContentType.VIDEO,
         category = category,
         postedAgo = postedAt.timeShort(),
         author = author,
         body = body,
-        requiresSubscription = isPaid
+        requiresSubscription = requiresSubscription
+    )
+
+fun PostDataUiModel.toDomainModel() =
+    PostDataDomainModel(
+        id = id,
+        title = title,
+        content = content,
+        contentType = when {
+            isVideo -> ContentType.VIDEO
+            !isVideo -> ContentType.IMAGE
+            else -> ContentType.NONE
+        },
+        category = category,
+        postedAt = if (postedAgo.isNotEmpty()) -1L else System.currentTimeMillis(),
+        author = author,
+        body = body,
+        requiresSubscription = requiresSubscription
     )
 
 fun PostStatsDomainModel.toUiModel() =

@@ -16,6 +16,7 @@ import com.example.ui.R
 fun TextLengthCounter(
     textLength: Int,
     maxLength: Int,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
@@ -27,8 +28,7 @@ fun TextLengthCounter(
     ) {
         Text(
             text = stringResource(R.string.text_length_counter, textLength, maxLength),
-            color = if (textLength > maxLength) MaterialTheme.colorScheme.error
-            else Color.Gray
+            color = textColor,
         )
     }
 }

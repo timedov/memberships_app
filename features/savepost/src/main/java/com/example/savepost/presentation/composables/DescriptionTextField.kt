@@ -34,18 +34,19 @@ fun DescriptionTextField(
         TextField(
             value = description,
             onValueChange = onDescriptionChange,
-            placeholder = {
+            label = {
                 Text(
                     text = stringResource(R.string.post_description_placeholder),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
+            isError = descriptionError.isNotEmpty(),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                unfocusedIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -55,7 +56,12 @@ fun DescriptionTextField(
             )
         )
 
-        ContentToolbar(onImageIconClick = onImageIconClick, onVideoIconClick = onVideoIconClick)
+        ContentToolbar(
+            textLength = description.length,
+            onImageIconClick = onImageIconClick,
+            onVideoIconClick = onVideoIconClick,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
     Text(
         text = descriptionError,

@@ -2,11 +2,11 @@ package com.example.local.post
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.local.post.dao.PostDao
-import com.example.local.post.entity.PostEntity
+import com.example.local.post.dao.PostDataDao
+import com.example.local.post.entity.PostDataEntity
 
-@Database(entities = [PostEntity::class], version = 1)
+@Database(entities = [PostDataEntity::class], version = 1)
 abstract class PostDatabase : RoomDatabase() {
 
-    abstract fun postDao(): PostDao
+    abstract fun postDao(): PostDataDao
 }

@@ -23,7 +23,7 @@ class PostRepositoryImpl @Inject constructor(
 ) : PostRepository {
 
     override suspend fun getPostById(id: Long): PostDataDomainModel {
-        val cachedPost = postLocalDataSource.getPostById(id)
+        val cachedPost = postLocalDataSource.getPostDataById(id)
         if (cachedPost != null) {
             return cachedPost
         }
@@ -31,7 +31,7 @@ class PostRepositoryImpl @Inject constructor(
         val postDataResponse = postApi.getPostById(id)
         val domainModel = postDomainModelMapper.mapDataResponseToDataDomainModel(postDataResponse)
 
-        postLocalDataSource.savePost(domainModel)
+        postLocalDataSource.savePostData(domainModel)
 
         return domainModel
     }

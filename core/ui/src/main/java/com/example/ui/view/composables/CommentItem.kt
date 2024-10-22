@@ -1,5 +1,6 @@
 package com.example.ui.view.composables
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +21,7 @@ fun CommentItem(
     comment: CommentUiModel,
     onProfileClick: (String) -> Unit,
     onReplyClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier,

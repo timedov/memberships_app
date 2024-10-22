@@ -50,11 +50,13 @@ fun CommentBody(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(
-            text = stringResource(R.string.reply),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.clickable { onReplyClick() }
+        if (onReplyClick != {}) {
+            Text(
+                text = stringResource(R.string.reply),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable { onReplyClick() }
             )
+        }
     }
 }

@@ -4,7 +4,7 @@ class PostDataDomainModel(
     val id: Long,
     val title: String,
     val content: String,
-    val isVideo: Boolean,
+    val contentType: ContentType,
     val category: String,
     val postedAt: Long,
     val author: String,

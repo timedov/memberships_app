@@ -67,7 +67,7 @@ fun PostDataDomainModel.toUiModel() =
     PostDataUiModel(
         title = title,
         content = content,
-        isVideo = isVideo,
+        contentType = contentType,
         category = category,
         postedAgo = postedAt.timeShort(),
         author = author,

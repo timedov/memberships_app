@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.local.post.entity.PostEntity
+import com.example.local.post.entity.PostDataEntity
 
 @Dao
-interface PostDao {
+interface PostDataDao {
     @Query("SELECT * FROM posts WHERE id = :id")
-    suspend fun getPostById(id: Long): PostEntity?
+    suspend fun getPostDataById(id: Long): PostDataEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPost(post: PostEntity)
+    suspend fun insertPostData(postData: PostDataEntity)
 }

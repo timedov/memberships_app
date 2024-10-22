@@ -14,7 +14,7 @@ import com.example.ui.utils.toUiModel
 
 fun LazyListScope.commentsList(
     comments: LazyPagingItems<CommentDomainModel>,
-    onReplyClick: (String) -> Unit,
+    onReplyClick: (String) -> Unit = {},
     onProfileClick: (String) -> Unit,
 ) {
     comments.apply {

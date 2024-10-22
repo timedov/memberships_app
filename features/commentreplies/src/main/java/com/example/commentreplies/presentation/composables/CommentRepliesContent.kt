@@ -34,6 +34,7 @@ fun CommentRepliesContent(
         CommentItem(
             comment = parentComment,
             onProfileClick = onProfileClick,
+            onReplyClick = {},
             modifier = Modifier
                 .padding(4.dp)
                 .fillMaxWidth()

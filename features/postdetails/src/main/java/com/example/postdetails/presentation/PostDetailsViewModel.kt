@@ -5,6 +5,7 @@ import androidx.media3.common.Player
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
+import com.example.domain.model.ContentType
 import com.example.domain.usecase.GetPostByIdUseCase
 import com.example.domain.usecase.GetUserDetailsUseCase
 import com.example.domain.usecase.IsUserSubscribedUseCase
@@ -97,7 +98,7 @@ class PostDetailsViewModel @Inject constructor(
                     isRefreshing = false
                 )
 
-                if (_uiState.value.post.isVideo) playVideo()
+                if (_uiState.value.post.contentType == ContentType.VIDEO) playVideo()
 
                 loadPostStats()
             }.onFailure {

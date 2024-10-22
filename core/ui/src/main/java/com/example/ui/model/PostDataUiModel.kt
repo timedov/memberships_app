@@ -1,10 +1,12 @@
 package com.example.ui.model
 
+import com.example.domain.model.ContentType
+
 class PostDataUiModel(
     val id: Long = -1L,
     val title: String = "",
     val content: String = "",
-    val isVideo: Boolean = false,
+    val contentType: ContentType = ContentType.NONE,
     val category: String = "",
     val postedAgo: String = "",
     val author: String = "",

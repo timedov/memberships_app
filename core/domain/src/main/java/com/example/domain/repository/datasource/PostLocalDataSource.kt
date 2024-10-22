@@ -4,7 +4,7 @@ import com.example.domain.model.PostDataDomainModel
 
 interface PostLocalDataSource {
 
-    suspend fun getPostById(id: Long): PostDataDomainModel?
+    suspend fun getPostDataById(id: Long): PostDataDomainModel?
 
-    suspend fun savePost(post: PostDataDomainModel)
+    suspend fun savePostData(postData: PostDataDomainModel)
 }

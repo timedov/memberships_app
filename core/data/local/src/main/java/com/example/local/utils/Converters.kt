@@ -5,14 +5,14 @@ import com.example.domain.model.ContentType
 import com.example.domain.model.ContentType.NONE
 import com.example.domain.model.PostDataDomainModel
 import com.example.local.comment.entity.CommentEntity
-import com.example.local.post.entity.PostEntity
+import com.example.local.post.entity.PostDataEntity
 
-fun PostEntity.toDomainModel() =
+fun PostDataEntity.toDomainModel() =
     PostDataDomainModel(
         id = id,
         title = title.orEmpty(),
         content = content.orEmpty(),
-        isVideo = isVideo,
+        contentType = ContentType.entries.find { it.code == contentType } ?: NONE,
         category = category.orEmpty(),
         postedAt = postedAt,
         author = author.orEmpty(),
@@ -21,11 +21,11 @@ fun PostEntity.toDomainModel() =
     )
 
 fun PostDataDomainModel.toEntity() =
-    PostEntity(
+    PostDataEntity(
         id = id,
-        title =title,
+        title = title,
         content = content,
-        isVideo = isVideo,
+        contentType = contentType.code,
         category = category,
         postedAt = postedAt,
         author = author,

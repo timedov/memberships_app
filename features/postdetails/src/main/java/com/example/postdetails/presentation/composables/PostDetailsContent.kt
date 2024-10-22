@@ -19,6 +19,7 @@ import androidx.media3.common.Player
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.domain.model.CommentDomainModel
+import com.example.domain.model.ContentType
 import com.example.ui.model.PostDataUiModel
 import com.example.ui.model.PostStatsUiModel
 import com.example.ui.model.UserDetailsUiModel
@@ -83,22 +84,26 @@ fun PostDetailsContent(
 
         if (post.content.isNotEmpty()) {
             item {
-                if (post.isVideo) {
-                    VideoPlayer(
-                        player = player,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp)
-                            .aspectRatio(16 / 9f)
-                    )
-                } else {
-                    AsyncImageCaching(
-                        model = post.content,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(Shapes.medium),
-                    )
+                when (post.contentType) {
+                    ContentType.VIDEO -> {
+                        VideoPlayer(
+                            player = player,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp)
+                                .aspectRatio(16 / 9f)
+                        )
+                    }
+                    ContentType.IMAGE -> {
+                        AsyncImageCaching(
+                            model = post.content,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(Shapes.medium),
+                        )
+                    }
+                    else -> Unit
                 }
             }
         }

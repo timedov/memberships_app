@@ -1,6 +1,7 @@
 package com.example.forboost.di.modules
 
 import com.example.auth.di.AuthDeps
+import com.example.commentreplies.di.CommentRepliesDeps
 import com.example.common.di.ComponentDeps
 import com.example.common.di.ComponentDepsKey
 import com.example.feed.di.FeedDeps
@@ -40,6 +41,9 @@ interface FeatureDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(SaveTierDeps::class)]
     fun bindsSaveTierDeps(appComponent: AppComponent): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(CommentRepliesDeps::class)]
+    fun bindsCommentRepliesDeps(appComponent: AppComponent): ComponentDeps
 
     @[Binds IntoMap ComponentDepsKey(SavePostDeps::class)]
     fun bindsSavePostDeps(appComponent: AppComponent): ComponentDeps

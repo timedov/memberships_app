@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/auth" />
+            <option value="$PROJECT_DIR$/features/commentreplies" />
             <option value="$PROJECT_DIR$/features/feed" />
             <option value="$PROJECT_DIR$/features/postdetails" />
             <option value="$PROJECT_DIR$/features/profile" />

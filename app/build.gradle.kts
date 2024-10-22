@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":core:data:firebase"))
     implementation(project(":core:data:local"))
     implementation(project(":features:auth"))
+    implementation(project(":features:commentreplies"))
     implementation(project(":features:feed"))
     implementation(project(":features:profile"))
     implementation(project(":features:savepost"))

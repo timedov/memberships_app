@@ -11,4 +11,8 @@ interface CommentRepository {
     suspend fun addComment(comment: CommentDomainModel)
 
     suspend fun getCommentCountByPostId(postId: Long): Int
+
+    suspend fun getCommentById(id: String): CommentDomainModel
+
+    suspend fun getCommentsByParentCommentId(parentCommentId: String): Flow<PagingData<CommentDomainModel>>
 }

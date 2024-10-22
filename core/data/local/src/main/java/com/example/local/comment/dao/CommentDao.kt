@@ -13,6 +13,9 @@ interface CommentDao {
     @Query("SELECT * FROM comments WHERE postId = :postId ORDER BY postedAt DESC")
     fun getCommentsByPostId(postId: Long): PagingSource<Int, CommentEntity>
 
+    @Query("SELECT * FROM comments WHERE parentCommentId = :parentCommentId ORDER BY postedAt ASC")
+    fun getCommentsByParentCommentId(parentCommentId: String): PagingSource<Int, CommentEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertComment(comment: CommentEntity)
 
@@ -21,6 +24,7 @@ interface CommentDao {
 
     @Query("DELETE FROM comments WHERE cachedAt < :expirationTime")
     suspend fun clearExpiredComments(expirationTime: Long)
+
 }
 
 

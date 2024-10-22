@@ -5,6 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.example.common.utils.Constants
 import com.example.common.utils.Keys
 import com.example.firebase.utils.toCommentEntity
 import com.example.local.comment.CommentDatabase
@@ -51,7 +52,10 @@ class CommentRemoteMediator(
 
             commentDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    commentDatabase.commentDao().clearExpiredComments(postId)
+                    commentDatabase.commentDao().clearExpiredComments(
+                        expirationTime = System.currentTimeMillis()
+                                - Constants.CACHE_EXPIRATION * 60 * 1000
+                    )
                 }
                 commentDatabase.commentDao().insertAll(comments)
             }

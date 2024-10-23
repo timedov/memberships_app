@@ -32,7 +32,7 @@ fun FormTextField(
         colors = TextFieldDefaults.colors(
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
-            errorIndicatorColor = MaterialTheme.colorScheme.error,
+            errorIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
         modifier = modifier

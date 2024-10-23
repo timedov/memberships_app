@@ -13,4 +13,6 @@ interface PostRepository {
     fun getPostsByTier(tier: TierType): Flow<PagingData<PostDomainModel>>
 
     fun getPostsOfUser(username: String): Flow<PagingData<PostDomainModel>>
+
+    suspend fun savePost(post: PostDataDomainModel, username: String)
 }

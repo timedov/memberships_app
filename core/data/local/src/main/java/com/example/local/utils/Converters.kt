@@ -17,7 +17,7 @@ fun PostDataEntity.toDomainModel() =
         postedAt = postedAt,
         author = author.orEmpty(),
         body = body.orEmpty(),
-        isPaid = requiresSubscription
+        requiresSubscription = requiresSubscription
     )
 
 fun PostDataDomainModel.toEntity() =
@@ -30,7 +30,7 @@ fun PostDataDomainModel.toEntity() =
         postedAt = postedAt,
         author = author,
         body = body,
-        requiresSubscription = isPaid
+        requiresSubscription = requiresSubscription
     )
 
 fun CommentEntity.toDomainModel() =

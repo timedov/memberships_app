@@ -24,12 +24,18 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 }
 
@@ -44,6 +50,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.ui.android)
     implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.coil)
     implementation(libs.coil.compose)
 

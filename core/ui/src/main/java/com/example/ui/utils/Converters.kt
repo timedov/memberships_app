@@ -72,7 +72,20 @@ fun PostDataDomainModel.toUiModel() =
         postedAgo = postedAt.timeShort(),
         author = author,
         body = body,
-        requiresSubscription = isPaid
+        requiresSubscription = requiresSubscription
+    )
+
+fun PostDataUiModel.toDomainModel() =
+    PostDataDomainModel(
+        id = id,
+        title = title,
+        content = content,
+        contentType = contentType,
+        category = category,
+        postedAt = if (postedAgo.isNotEmpty()) -1L else System.currentTimeMillis(),
+        author = author,
+        body = body,
+        requiresSubscription = requiresSubscription
     )
 
 fun PostStatsDomainModel.toUiModel() =

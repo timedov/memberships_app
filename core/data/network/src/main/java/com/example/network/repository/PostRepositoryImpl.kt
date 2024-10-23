@@ -53,4 +53,8 @@ class PostRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { postPagingSource.apply { author = username } }
         ).flow
+
+    override suspend fun savePost(post: PostDataDomainModel, username: String) {
+        TODO("Not yet implemented")
+    }
 }

@@ -37,4 +37,9 @@
         android:id="@+id/commentRepliesFragment"
         android:name="com.example.commentreplies.presentation.CommentRepliesFragment"
         android:label="CommentRepliesFragment" />
+
+    <fragment
+        android:id="@+id/savePostFragment"
+        android:name="com.example.savepost.presentation.SavePostFragment"
+        android:label="SavePostFragment" />
 </navigation>

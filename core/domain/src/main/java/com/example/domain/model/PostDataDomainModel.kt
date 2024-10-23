@@ -9,5 +9,5 @@ class PostDataDomainModel(
     val postedAt: Long,
     val author: String,
     val body: String,
-    val isPaid: Boolean
+    val requiresSubscription: Boolean
 )

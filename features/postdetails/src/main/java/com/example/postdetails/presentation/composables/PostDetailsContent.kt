@@ -26,6 +26,7 @@ import com.example.ui.model.UserDetailsUiModel
 import com.example.ui.themes.Shapes
 import com.example.ui.view.composables.AsyncImageCaching
 import com.example.ui.view.composables.CommentTextField
+import com.example.ui.view.composables.VideoPlayer
 import com.example.ui.view.composables.commentsList
 import kotlinx.coroutines.flow.Flow
 

@@ -1,4 +1,4 @@
-package com.example.postdetails.presentation.composables
+package com.example.ui.view.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

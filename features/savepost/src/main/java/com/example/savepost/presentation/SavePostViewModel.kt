@@ -50,7 +50,7 @@ class SavePostViewModel @Inject constructor(
                     PostDataUiModel(
                         title = _uiState.value.title,
                         content = _uiState.value.content,
-                        isVideo = _uiState.value.isVideo,
+                        contentType = _uiState.value.contentType,
                         body = _uiState.value.description,
                         requiresSubscription = _uiState.value.requiresSubscription
                     ).toDomainModel()

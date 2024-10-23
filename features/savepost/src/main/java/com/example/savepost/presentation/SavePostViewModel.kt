@@ -7,6 +7,7 @@ import com.example.savepost.navigation.SavePostRouter
 import com.example.savepost.presentation.model.SavePostAction
 import com.example.savepost.presentation.model.SavePostEvent
 import com.example.savepost.presentation.model.SavePostState
+import com.example.savepost.usecase.GetContentTypeUseCase
 import com.example.savepost.usecase.SavePostUseCase
 import com.example.savepost.usecase.ValidatePostFormUseCase
 import com.example.ui.base.BaseViewModel
@@ -19,6 +20,7 @@ class SavePostViewModel @Inject constructor(
     private val savePostRouter: SavePostRouter,
     private val validatePostFormUseCase: ValidatePostFormUseCase,
     private val savePostUseCase: SavePostUseCase,
+    private val getContentTypeUseCase: GetContentTypeUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SavePostState, SavePostEvent, SavePostAction>(
     initialState = SavePostState()
@@ -30,6 +32,11 @@ class SavePostViewModel @Inject constructor(
             is SavePostEvent.BackClick -> savePostRouter.popBackStack()
             is SavePostEvent.TitleValueChange -> _uiState.value =
                 _uiState.value.copy(title = event.title, titleError = "")
+            is SavePostEvent.ContentValueChange -> _uiState.value =
+                _uiState.value.copy(
+                    content = event.uri,
+                    contentType = getContentTypeUseCase.invoke(event.uri)
+                )
             is SavePostEvent.DescriptionValueChange -> _uiState.value =
                     _uiState.value.copy(description = event.description, descriptionError = "")
             is SavePostEvent.SavePost -> savePost()
@@ -37,30 +44,25 @@ class SavePostViewModel @Inject constructor(
     }
 
     private fun savePost() {
-        if (
-            !validateForm(
-                title = _uiState.value.title,
-                description = _uiState.value.description
-            )
-        ) return
-
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                savePostUseCase.invoke(
-                    PostDataUiModel(
-                        title = _uiState.value.title,
-                        content = _uiState.value.content,
-                        contentType = _uiState.value.contentType,
-                        body = _uiState.value.description,
-                        requiresSubscription = _uiState.value.requiresSubscription
-                    ).toDomainModel()
-                )
-            }.onSuccess {
-                _actionsFlow.emit(SavePostAction.SaveSuccess)
-            }.onFailure {
-                _actionsFlow.emit(SavePostAction.SaveError)
+        if (validateForm(title = _uiState.value.title, description = _uiState.value.description)) {
+            viewModelScope.launch {
+                runSuspendCatching(exceptionHandlerDelegate) {
+                    savePostUseCase.invoke(
+                        PostDataUiModel(
+                            title = _uiState.value.title,
+                            content = _uiState.value.content.toString(),
+                            contentType = _uiState.value.contentType,
+                            body = _uiState.value.description,
+                            requiresSubscription = _uiState.value.requiresSubscription
+                        ).toDomainModel()
+                    )
+                }.onSuccess {
+                    _actionsFlow.emit(SavePostAction.SaveSuccess)
+                }.onFailure {
+                    _actionsFlow.emit(SavePostAction.SaveError)
+                }
+                savePostRouter.popBackStack()
             }
-            savePostRouter.popBackStack()
         }
     }
 

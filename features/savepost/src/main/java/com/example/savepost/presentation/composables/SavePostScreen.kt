@@ -1,5 +1,8 @@
 package com.example.savepost.presentation.composables
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Icon
@@ -9,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.common.utils.Constants
 import com.example.savepost.R
 import com.example.savepost.presentation.SavePostViewModel
 import com.example.savepost.presentation.model.SavePostAction
@@ -22,6 +26,10 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
     val action by viewModel.actionsFlow.collectAsStateWithLifecycle(
         initialValue = SavePostAction.Initiate
     )
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri -> uri?.let { viewModel.obtainEvent(SavePostEvent.ContentValueChange(it)) } }
 
     ObserveActions(action)
 
@@ -50,8 +58,11 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
             onTitleChange = { viewModel.obtainEvent(SavePostEvent.TitleValueChange(it)) },
             onDescriptionChange =
                 { viewModel.obtainEvent(SavePostEvent.DescriptionValueChange(it)) },
-            onImageIconClick = { viewModel.obtainEvent(SavePostEvent.Initiate) },
-            onVideoIconClick = { viewModel.obtainEvent(SavePostEvent.Initiate) }
+            onRemoveClick = {
+                viewModel.obtainEvent(SavePostEvent.ContentValueChange(Uri.EMPTY))
+            },
+            onImageIconClick = { launcher.launch(Constants.IMAGE_MIME_TYPE) },
+            onVideoIconClick = { launcher.launch(Constants.VIDEO_MIME_TYPE) }
         )
     }
 }

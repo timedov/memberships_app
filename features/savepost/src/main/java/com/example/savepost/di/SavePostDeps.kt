@@ -1,5 +1,6 @@
 package com.example.savepost.di
 
+import android.content.ContentResolver
 import com.example.common.di.ComponentDeps
 import com.example.domain.repository.PostRepository
 import com.example.domain.repository.UserRepository
@@ -13,6 +14,8 @@ interface SavePostDeps : ComponentDeps {
     fun postRepository(): PostRepository
 
     fun userRepository(): UserRepository
+
+    fun getContentResolver(): ContentResolver
 
     fun ioDispatcher(): CoroutineDispatcher
 }

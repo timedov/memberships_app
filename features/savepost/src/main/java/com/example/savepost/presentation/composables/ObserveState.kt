@@ -14,6 +14,7 @@ fun ObserveState(
     paddingValues: PaddingValues,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
+    onRemoveClick: () -> Unit,
     onImageIconClick: () -> Unit,
     onVideoIconClick: () -> Unit
 ) {
@@ -22,9 +23,12 @@ fun ObserveState(
         title = uiState.title,
         titleError = uiState.titleError,
         onTitleChange = onTitleChange,
+        content = uiState.content,
+        contentType = uiState.contentType,
         description = uiState.description,
         descriptionError = uiState.descriptionError,
         onDescriptionChange = onDescriptionChange,
+        onRemoveClick = onRemoveClick,
         onImageIconClick = onImageIconClick,
         onVideoIconClick = onVideoIconClick,
         modifier = Modifier.fillMaxWidth().padding(paddingValues)

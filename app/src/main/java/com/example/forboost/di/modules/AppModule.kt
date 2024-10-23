@@ -1,5 +1,6 @@
 package com.example.forboost.di.modules
 
+import android.content.ContentResolver
 import android.content.Context
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -26,14 +27,15 @@ import dagger.Provides
 class AppModule {
     @AppScope
     @Provides
-    fun provideContext(application: ForBoostApp): Context {
-        return application
-    }
+    fun provideContext(application: ForBoostApp): Context = application
 
     @Provides
     @AppScope
-    fun provideVideoPlayer(context: Context): Player {
-        return ExoPlayer.Builder(context)
-            .build()
-    }
+    fun provideVideoPlayer(context: Context): Player =
+        ExoPlayer.Builder(context).build()
+
+    @Provides
+    @AppScope
+    fun provideContentResolver(context: Context): ContentResolver =
+        context.contentResolver
 }

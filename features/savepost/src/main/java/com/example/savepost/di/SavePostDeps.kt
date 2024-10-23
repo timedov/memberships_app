@@ -1,6 +1,7 @@
 package com.example.savepost.di
 
 import android.content.ContentResolver
+import androidx.media3.common.Player
 import com.example.common.di.ComponentDeps
 import com.example.domain.repository.PostRepository
 import com.example.domain.repository.UserRepository
@@ -16,6 +17,8 @@ interface SavePostDeps : ComponentDeps {
     fun userRepository(): UserRepository
 
     fun getContentResolver(): ContentResolver
+
+    fun player(): Player
 
     fun ioDispatcher(): CoroutineDispatcher
 }

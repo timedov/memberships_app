@@ -1,8 +1,11 @@
 package com.example.savepost.presentation
 
+import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.Player
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
+import com.example.domain.model.ContentType
 import com.example.savepost.navigation.SavePostRouter
 import com.example.savepost.presentation.model.SavePostAction
 import com.example.savepost.presentation.model.SavePostEvent
@@ -13,18 +16,22 @@ import com.example.savepost.usecase.ValidatePostFormUseCase
 import com.example.ui.base.BaseViewModel
 import com.example.ui.model.PostDataUiModel
 import com.example.ui.utils.toDomainModel
+import com.example.ui.utils.toMediaItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SavePostViewModel @Inject constructor(
     private val savePostRouter: SavePostRouter,
+    private val player: Player,
     private val validatePostFormUseCase: ValidatePostFormUseCase,
     private val savePostUseCase: SavePostUseCase,
     private val getContentTypeUseCase: GetContentTypeUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SavePostState, SavePostEvent, SavePostAction>(
-    initialState = SavePostState()
+    initialState = SavePostState(player = player)
 ) {
+
+    init { player.prepare() }
 
     override fun obtainEvent(event: SavePostEvent) {
         when (event) {
@@ -32,14 +39,24 @@ class SavePostViewModel @Inject constructor(
             is SavePostEvent.BackClick -> savePostRouter.popBackStack()
             is SavePostEvent.TitleValueChange -> _uiState.value =
                 _uiState.value.copy(title = event.title, titleError = "")
-            is SavePostEvent.ContentValueChange -> _uiState.value =
-                _uiState.value.copy(
-                    content = event.uri,
-                    contentType = getContentTypeUseCase.invoke(event.uri)
-                )
+            is SavePostEvent.ContentValueChange -> onContentValueChanged(event.uri)
             is SavePostEvent.DescriptionValueChange -> _uiState.value =
                     _uiState.value.copy(description = event.description, descriptionError = "")
             is SavePostEvent.SavePost -> savePost()
+        }
+    }
+
+    private fun onContentValueChanged(uri: Uri) {
+        val contentType = getContentTypeUseCase.invoke(uri)
+
+        _uiState.value =
+            _uiState.value.copy(
+                content = uri,
+                contentType = contentType
+            )
+
+        if (contentType == ContentType.VIDEO) {
+            player.setMediaItem(_uiState.value.content.toMediaItem())
         }
     }
 
@@ -83,5 +100,11 @@ class SavePostViewModel @Inject constructor(
         }
 
         return hasError.not()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        player.release()
     }
 }

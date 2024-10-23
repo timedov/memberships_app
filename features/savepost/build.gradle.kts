@@ -59,6 +59,9 @@ dependencies {
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
 
+    //media3
+    implementation(libs.androidx.media3.exoplayer)
+
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
     implementation(project(":core:common"))

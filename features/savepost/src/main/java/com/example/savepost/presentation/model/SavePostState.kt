@@ -1,6 +1,7 @@
 package com.example.savepost.presentation.model
 
 import android.net.Uri
+import androidx.media3.common.Player
 import com.example.domain.model.ContentType
 
 data class SavePostState(
@@ -11,6 +12,7 @@ data class SavePostState(
     val contentType: ContentType = ContentType.NONE,
     val description: String = "",
     val descriptionError: String = "",
+    val player: Player,
     val requiresSubscription: Boolean = false,
     val isError: Boolean = false
 )

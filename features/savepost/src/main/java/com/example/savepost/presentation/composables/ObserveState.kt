@@ -22,11 +22,12 @@ fun ObserveState(
     PostForm(
         title = uiState.title,
         titleError = uiState.titleError,
-        onTitleChange = onTitleChange,
         content = uiState.content,
         contentType = uiState.contentType,
         description = uiState.description,
         descriptionError = uiState.descriptionError,
+        player = uiState.player,
+        onTitleChange = onTitleChange,
         onDescriptionChange = onDescriptionChange,
         onRemoveClick = onRemoveClick,
         onImageIconClick = onImageIconClick,

@@ -2,6 +2,7 @@ package com.example.savepost.presentation.composables
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -12,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.media3.common.Player
 import com.example.domain.model.ContentType
 import com.example.savepost.R
 import com.example.ui.themes.Shapes
 import com.example.ui.view.composables.AsyncImageCaching
 import com.example.ui.view.composables.FormTextField
+import com.example.ui.view.composables.VideoPlayer
 
 @Composable
 fun PostForm(
@@ -26,6 +29,7 @@ fun PostForm(
     contentType: ContentType,
     description: String,
     descriptionError: String,
+    player: Player,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
     onRemoveClick: () -> Unit,
@@ -64,7 +68,14 @@ fun PostForm(
                                 .padding(4.dp)
                                 .clip(Shapes.large)
                         )
-                    ContentType.VIDEO -> {}
+                    ContentType.VIDEO ->
+                        VideoPlayer(
+                            player = player,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(16 / 9f)
+
+                        )
                     else -> Unit
                 }
             }

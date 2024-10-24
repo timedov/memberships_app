@@ -42,6 +42,8 @@ class SavePostViewModel @Inject constructor(
             is SavePostEvent.ContentValueChange -> onContentValueChanged(event.uri)
             is SavePostEvent.DescriptionValueChange -> _uiState.value =
                     _uiState.value.copy(description = event.description, descriptionError = "")
+            is SavePostEvent.RequireSubscriptionChange -> _uiState.value =
+                _uiState.value.copy(requiresSubscription = event.requiresSubscription)
             is SavePostEvent.SavePost -> savePost()
         }
     }

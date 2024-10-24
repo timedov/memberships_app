@@ -16,4 +16,5 @@ object Keys {
     const val CACHE_CONTROL_KEY = "Cache-Control"
     const val POST_DATABASE_KEY = "post_database"
     const val COMMENT_DATABASE_KEY = "comment_database"
+    const val MEDIA_PICKER_KEY = "MediaPicker"
 }

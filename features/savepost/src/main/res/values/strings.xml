@@ -6,4 +6,5 @@
     <string name="post_title_placeholder">Post title (required)</string>
     <string name="post_description_placeholder">Post description (optional)</string>
     <string name="description_length_counter">%1$s/500</string>
+    <string name="requires_subscription">Requires subscription</string>
 </resources>

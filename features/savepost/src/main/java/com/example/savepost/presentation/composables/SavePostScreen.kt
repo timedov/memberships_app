@@ -29,7 +29,9 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ) { uri -> uri?.let { viewModel.obtainEvent(SavePostEvent.ContentValueChange(it)) } }
+    ) { uri ->
+        uri?.let { viewModel.obtainEvent(SavePostEvent.ContentValueChange(it)) }
+    }
 
     ObserveActions(action)
 
@@ -62,7 +64,9 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
                 viewModel.obtainEvent(SavePostEvent.ContentValueChange(Uri.EMPTY))
             },
             onImageIconClick = { launcher.launch(Constants.IMAGE_MIME_TYPE) },
-            onVideoIconClick = { launcher.launch(Constants.VIDEO_MIME_TYPE) }
+            onVideoIconClick = { launcher.launch(Constants.VIDEO_MIME_TYPE) },
+            onRequireSubscriptionChange =
+                { viewModel.obtainEvent(SavePostEvent.RequireSubscriptionChange(it)) }
         )
     }
 }

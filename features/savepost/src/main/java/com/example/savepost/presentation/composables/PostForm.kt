@@ -30,18 +30,20 @@ fun PostForm(
     description: String,
     descriptionError: String,
     player: Player,
+    requiresSubscription: Boolean,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
     onRemoveClick: () -> Unit,
     onImageIconClick: () -> Unit,
     onVideoIconClick: () -> Unit,
+    onRequireSubscriptionChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier.verticalScroll(scrollState)
+        modifier = modifier.verticalScroll(scrollState).padding(horizontal = 4.dp)
     ) {
         FormTextField(
             value = title,
@@ -50,13 +52,13 @@ fun PostForm(
             error = titleError,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 4.dp)
         )
 
         if (content != Uri.EMPTY) {
             ContentItem(
                 onRemoveClick = onRemoveClick,
-                modifier = Modifier.fillMaxWidth().padding(4.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
                 when (contentType) {
                     ContentType.IMAGE ->
@@ -65,7 +67,7 @@ fun PostForm(
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(4.dp)
+                                .padding(bottom = 8.dp)
                                 .clip(Shapes.large)
                         )
                     ContentType.VIDEO ->
@@ -89,7 +91,12 @@ fun PostForm(
             onVideoIconClick = onVideoIconClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp)
+        )
+
+        RequireSubscriptionCheckbox(
+            requiresSubscription = requiresSubscription,
+            onRequireSubscriptionChange = onRequireSubscriptionChange,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

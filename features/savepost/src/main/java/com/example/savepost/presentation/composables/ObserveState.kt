@@ -16,7 +16,8 @@ fun ObserveState(
     onDescriptionChange: (String) -> Unit,
     onRemoveClick: () -> Unit,
     onImageIconClick: () -> Unit,
-    onVideoIconClick: () -> Unit
+    onVideoIconClick: () -> Unit,
+    onRequireSubscriptionChange: (Boolean) -> Unit
 ) {
 
     PostForm(
@@ -26,12 +27,14 @@ fun ObserveState(
         contentType = uiState.contentType,
         description = uiState.description,
         descriptionError = uiState.descriptionError,
+        requiresSubscription = uiState.requiresSubscription,
         player = uiState.player,
         onTitleChange = onTitleChange,
         onDescriptionChange = onDescriptionChange,
         onRemoveClick = onRemoveClick,
         onImageIconClick = onImageIconClick,
         onVideoIconClick = onVideoIconClick,
+        onRequireSubscriptionChange = onRequireSubscriptionChange,
         modifier = Modifier.fillMaxWidth().padding(paddingValues)
     )
 

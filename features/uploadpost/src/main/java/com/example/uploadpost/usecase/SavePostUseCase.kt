@@ -1,4 +1,4 @@
-package com.example.savepost.usecase
+package com.example.uploadpost.usecase
 
 import com.example.domain.model.PostDataDomainModel
 import com.example.domain.repository.PostRepository

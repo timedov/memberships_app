@@ -1,4 +1,4 @@
-package com.example.forboost.di.features.commentreplies
+package com.example.forboost.features.commentreplies
 
 import com.example.commentreplies.navigation.CommentRepliesRouter
 import com.example.forboost.navigation.GlobalRouter

@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.common.utils.Constants
+import com.example.domain.model.ContentType
 import com.example.savepost.R
 import com.example.savepost.presentation.SavePostViewModel
 import com.example.savepost.presentation.model.SavePostAction
@@ -20,7 +21,7 @@ import com.example.savepost.presentation.model.SavePostEvent
 import com.example.ui.view.composables.CenterAlignedTopAppBarWithBackButton
 
 @Composable
-fun SavePostScreen(viewModel: SavePostViewModel) {
+fun SavePostScreen(viewModel: SavePostViewModel, getContentType: (Uri) -> ContentType) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val action by viewModel.actionsFlow.collectAsStateWithLifecycle(
@@ -30,7 +31,14 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
-        uri?.let { viewModel.obtainEvent(SavePostEvent.ContentValueChange(it)) }
+        uri?.let {
+            viewModel.obtainEvent(
+                SavePostEvent.ContentValueChange(
+                    uri = it,
+                    contentType = getContentType(it)
+                )
+            )
+        }
     }
 
     ObserveActions(action)
@@ -61,7 +69,7 @@ fun SavePostScreen(viewModel: SavePostViewModel) {
             onDescriptionChange =
                 { viewModel.obtainEvent(SavePostEvent.DescriptionValueChange(it)) },
             onRemoveClick = {
-                viewModel.obtainEvent(SavePostEvent.ContentValueChange(Uri.EMPTY))
+                viewModel.obtainEvent(SavePostEvent.ContentValueChange(Uri.EMPTY, ContentType.NONE))
             },
             onImageIconClick = { launcher.launch(Constants.IMAGE_MIME_TYPE) },
             onVideoIconClick = { launcher.launch(Constants.VIDEO_MIME_TYPE) },

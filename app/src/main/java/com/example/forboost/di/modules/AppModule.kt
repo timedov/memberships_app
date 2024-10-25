@@ -1,6 +1,5 @@
 package com.example.forboost.di.modules
 
-import android.content.ContentResolver
 import android.content.Context
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -33,9 +32,4 @@ class AppModule {
     @AppScope
     fun provideVideoPlayer(context: Context): Player =
         ExoPlayer.Builder(context).build()
-
-    @Provides
-    @AppScope
-    fun provideContentResolver(context: Context): ContentResolver =
-        context.contentResolver
 }

@@ -5,7 +5,6 @@ object Keys {
     const val SUBSCRIBES_COLLECTION_KEY = "subscribes"
     const val FAVORITES_COLLECTION_KEY = "favorites"
     const val COMMENTS_COLLECTION_KEY = "comments"
-    const val ID_KEY = "id"
     const val USERNAME_KEY = "username"
     const val FOLLOWED_KEY = "followed"
     const val SUBSCRIBED_TO_KEY = "subscribedTo"
@@ -16,5 +15,5 @@ object Keys {
     const val CACHE_CONTROL_KEY = "Cache-Control"
     const val POST_DATABASE_KEY = "post_database"
     const val COMMENT_DATABASE_KEY = "comment_database"
-    const val MEDIA_PICKER_KEY = "MediaPicker"
+    const val UPLOAD_POST_CHANNEL_KEY = "UploadPostChannel"
 }

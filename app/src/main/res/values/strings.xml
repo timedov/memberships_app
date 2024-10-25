@@ -6,4 +6,5 @@
     <string name="subscriptions">Subscriptions</string>
     <string name="profile">Profile</string>
     <string name="inbox">Inbox</string>
+    <string name="upload_post">Upload Post</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="post_upload">Post Upload</string>
+    <string name="uploading_post">Uploading Post</string>
+    <string name="post_uploaded_successfully">Post uploaded successfully</string>
+</resources>

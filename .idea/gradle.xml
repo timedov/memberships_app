@@ -27,6 +27,7 @@
             <option value="$PROJECT_DIR$/features/savepost" />
             <option value="$PROJECT_DIR$/features/savetier" />
             <option value="$PROJECT_DIR$/features/subscribe" />
+            <option value="$PROJECT_DIR$/features/uploadpost" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

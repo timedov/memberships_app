@@ -11,11 +11,8 @@ import com.example.savepost.presentation.model.SavePostAction
 import com.example.savepost.presentation.model.SavePostEvent
 import com.example.savepost.presentation.model.SavePostState
 import com.example.savepost.usecase.GetContentTypeUseCase
-import com.example.savepost.usecase.SavePostUseCase
 import com.example.savepost.usecase.ValidatePostFormUseCase
 import com.example.ui.base.BaseViewModel
-import com.example.ui.model.PostDataUiModel
-import com.example.ui.utils.toDomainModel
 import com.example.ui.utils.toMediaItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +21,6 @@ class SavePostViewModel @Inject constructor(
     private val savePostRouter: SavePostRouter,
     private val player: Player,
     private val validatePostFormUseCase: ValidatePostFormUseCase,
-    private val savePostUseCase: SavePostUseCase,
     private val getContentTypeUseCase: GetContentTypeUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SavePostState, SavePostEvent, SavePostAction>(
@@ -66,15 +62,15 @@ class SavePostViewModel @Inject constructor(
         if (validateForm(title = _uiState.value.title, description = _uiState.value.description)) {
             viewModelScope.launch {
                 runSuspendCatching(exceptionHandlerDelegate) {
-                    savePostUseCase.invoke(
-                        PostDataUiModel(
-                            title = _uiState.value.title,
-                            content = _uiState.value.content.toString(),
-                            contentType = _uiState.value.contentType,
-                            body = _uiState.value.description,
-                            requiresSubscription = _uiState.value.requiresSubscription
-                        ).toDomainModel()
-                    )
+    //                savePostUseCase.invoke(
+    //                    PostDataUiModel(
+    //                        title = _uiState.value.title,
+    //                        content = _uiState.value.content,
+    //                        contentType = _uiState.value.contentType,
+    //                        body = _uiState.value.description,
+    //                        requiresSubscription = _uiState.value.requiresSubscription
+    //                    ).toDomainModel()
+    //                )
                 }.onSuccess {
                     _actionsFlow.emit(SavePostAction.SaveSuccess)
                 }.onFailure {

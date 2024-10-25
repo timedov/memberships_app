@@ -8,6 +8,7 @@ import com.example.profile.di.ProfileDeps
 import com.example.savepost.di.SavePostDeps
 import com.example.subscribe.di.SubscribeDeps
 import com.example.savetier.di.SaveTierDeps
+import com.example.uploadpost.di.UploadPostDeps
 
 interface FeatureComponentsDeps :
     AuthDeps,
@@ -17,4 +18,5 @@ interface FeatureComponentsDeps :
     ProfileDeps,
     SubscribeDeps,
     SavePostDeps,
-    SaveTierDeps
+    SaveTierDeps,
+    UploadPostDeps

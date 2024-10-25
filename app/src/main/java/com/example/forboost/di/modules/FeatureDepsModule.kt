@@ -12,6 +12,7 @@ import com.example.profile.di.ProfileDeps
 import com.example.savepost.di.SavePostDeps
 import com.example.subscribe.di.SubscribeDeps
 import com.example.savetier.di.SaveTierDeps
+import com.example.uploadpost.di.UploadPostDeps
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -47,4 +48,7 @@ interface FeatureDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(SavePostDeps::class)]
     fun bindsSavePostDeps(appComponent: AppComponent): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(UploadPostDeps::class)]
+    fun bindsUploadPostDeps(appComponent: AppComponent): ComponentDeps
 }

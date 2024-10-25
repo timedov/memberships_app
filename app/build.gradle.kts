@@ -65,6 +65,7 @@ dependencies {
     implementation(project(":features:savetier"))
     implementation(project(":features:subscribe"))
     implementation(project(":features:postdetails"))
+    implementation(project(":features:uploadpost"))
 
     //dagger
     ksp(libs.dagger.compiler)

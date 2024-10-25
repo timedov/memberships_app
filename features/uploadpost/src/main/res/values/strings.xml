@@ -2,5 +2,8 @@
 <resources>
     <string name="post_upload">Post Upload</string>
     <string name="uploading_post">Uploading Post</string>
-    <string name="post_uploaded_successfully">Post uploaded successfully</string>
+    <string name="upload_successful">Upload Successful</string>
+    <string name="successful_post_upload_message">Your post has been successfully uploaded!</string>
+    <string name="upload_failed">Upload Failed</string>
+    <string name="failed_post_upload_message">There was an error uploading your post. Please try again later.</string>
 </resources>

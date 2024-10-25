@@ -13,6 +13,7 @@ import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.repository.paging.PostPagingSource
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
@@ -54,7 +55,12 @@ class PostRepositoryImpl @Inject constructor(
             pagingSourceFactory = { postPagingSource.apply { author = username } }
         ).flow
 
-    override suspend fun savePost(post: PostDataDomainModel, username: String) {
+    override suspend fun savePost(
+        post: PostDataDomainModel,
+        content: File,
+        mimeType: String,
+        username: String
+    ) {
         TODO("Not yet implemented")
     }
 
@@ -63,6 +69,10 @@ class PostRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPostDraft(): PostDataDomainModel {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun removePostDraft() {
         TODO("Not yet implemented")
     }
 }

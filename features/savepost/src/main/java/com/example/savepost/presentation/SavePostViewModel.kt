@@ -26,7 +26,7 @@ class SavePostViewModel @Inject constructor(
     override fun obtainEvent(event: SavePostEvent) {
         when (event) {
             is SavePostEvent.Initiate -> if (event.loadDraft) getPostDraft()
-            is SavePostEvent.BackClick -> savePost()
+            is SavePostEvent.BackClick -> savePostDraft()
             is SavePostEvent.TitleValueChange -> _uiState.value =
                 _uiState.value.copy(title = event.title, titleError = "")
             is SavePostEvent.ContentValueChange -> _uiState.value =
@@ -35,13 +35,7 @@ class SavePostViewModel @Inject constructor(
                     _uiState.value.copy(description = event.description, descriptionError = "")
             is SavePostEvent.RequireSubscriptionChange -> _uiState.value =
                 _uiState.value.copy(requiresSubscription = event.requiresSubscription)
-            is SavePostEvent.SavePost -> {
-                if (validateForm(
-                        title = _uiState.value.title,
-                        description = _uiState.value.description
-                    )
-                ) savePost()
-            }
+            is SavePostEvent.SavePost -> uploadPost()
             is SavePostEvent.Retry -> getPostDraft()
         }
     }
@@ -66,6 +60,24 @@ class SavePostViewModel @Inject constructor(
         }
     }
 
+    private fun savePostDraft() {
+        viewModelScope.launch {
+            runSuspendCatching(exceptionHandlerDelegate) {
+                interactor.savePostDraft(
+                    PostDataUiModel(
+                        title = _uiState.value.title,
+                        body = _uiState.value.description,
+                        content = _uiState.value.content.toString(),
+                        contentType = _uiState.value.contentType,
+                        requiresSubscription = _uiState.value.requiresSubscription
+                    ).toDomainModel()
+                )
+
+                interactor.popBackStack()
+            }
+        }
+    }
+
     private fun validateForm(
         title: String,
         description: String
@@ -85,22 +97,30 @@ class SavePostViewModel @Inject constructor(
         return hasError.not()
     }
 
-    private fun savePost() {
-        viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                interactor.savePostDraft(
-                    PostDataUiModel(
-                        title = _uiState.value.title,
-                        body = _uiState.value.description,
-                        content = _uiState.value.content.toString(),
-                        contentType = _uiState.value.contentType,
-                        requiresSubscription = _uiState.value.requiresSubscription
-                    ).toDomainModel()
-                )
-            }.onFailure {
-                _actionsFlow.emit(SavePostAction.SaveError)
+    private fun uploadPost() {
+        if (validateForm(
+                title = _uiState.value.title,
+                description = _uiState.value.description
+            )
+        ) {
+            viewModelScope.launch {
+                runSuspendCatching(exceptionHandlerDelegate) {
+//                    interactor.savePostDraft(
+//                        PostDataUiModel(
+//                            title = _uiState.value.title,
+//                            body = _uiState.value.description,
+//                            content = _uiState.value.content.toString(),
+//                            contentType = _uiState.value.contentType,
+//                            requiresSubscription = _uiState.value.requiresSubscription
+//                        ).toDomainModel()
+//                    )
+                }.onSuccess {
+                    _actionsFlow.emit(SavePostAction.SaveSuccess)
+                }.onFailure {
+                    _actionsFlow.emit(SavePostAction.SaveError)
+                }
+                interactor.popBackStack()
             }
-            interactor.popBackStack()
         }
     }
 

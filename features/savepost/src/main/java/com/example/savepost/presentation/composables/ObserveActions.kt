@@ -10,8 +10,6 @@ import com.example.ui.view.composables.ShowToast
 fun ObserveActions(action: SavePostAction) {
 
     when (action) {
-        SavePostAction.SaveSuccess ->
-            ShowToast(stringResource(R.string.post_saved_successfully))
         SavePostAction.SaveError ->
             ShowToast(stringResource(R.string.post_saving_failed))
 

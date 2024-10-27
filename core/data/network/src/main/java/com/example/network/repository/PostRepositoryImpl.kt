@@ -14,6 +14,13 @@ import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.repository.paging.PostPagingSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
@@ -59,11 +66,24 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun savePost(
         post: PostDataDomainModel,
-        content: File,
-        mimeType: String,
+        content: File?,
+        mimeType: String?,
         username: String
     ) {
-        TODO("Not yet implemented")
+        val postDataJson =
+            Json.encodeToString(postDomainModelMapper.mapDataDomainModelToRequest(post, username))
+        val postDataRequestBody =
+            postDataJson.toRequestBody(Constants.JSON_CONTENT_TYPE.toMediaType())
+
+        val contentPart = content?.let {
+            val requestFile = it.asRequestBody(mimeType?.toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("content", it.name, requestFile)
+        }
+
+        postApi.savePost(
+            postData = postDataRequestBody,
+            content = contentPart
+        )
     }
 
     override suspend fun savePostDraft(post: PostDataDomainModel) {

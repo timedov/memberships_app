@@ -41,8 +41,6 @@ fun PostDraftEntity.toDomainModel() =
         content = content.orEmpty(),
         contentType = ContentType.entries.find { it.code == contentType } ?: NONE,
         category = category.orEmpty(),
-        postedAt = System.currentTimeMillis(),
-        author = "",
         body = body.orEmpty(),
         requiresSubscription = requiresSubscription
     )

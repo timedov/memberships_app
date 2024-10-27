@@ -5,6 +5,7 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
 import com.example.domain.model.TierType
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 
 interface PostRepository {
 
@@ -14,5 +15,16 @@ interface PostRepository {
 
     fun getPostsOfUser(username: String): Flow<PagingData<PostDomainModel>>
 
-    suspend fun savePost(post: PostDataDomainModel, username: String)
+    suspend fun savePost(
+        post: PostDataDomainModel,
+        content: File,
+        mimeType: String,
+        username: String
+    )
+
+    suspend fun savePostDraft(post: PostDataDomainModel)
+
+    suspend fun getPostDraft(): PostDataDomainModel
+
+    suspend fun removePostDraft(postDraft: PostDataDomainModel)
 }

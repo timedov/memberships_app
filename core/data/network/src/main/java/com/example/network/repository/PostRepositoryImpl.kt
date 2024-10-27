@@ -8,17 +8,20 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
 import com.example.domain.model.TierType
 import com.example.domain.repository.PostRepository
+import com.example.domain.repository.datasource.PostDraftLocalDataSource
 import com.example.domain.repository.datasource.PostLocalDataSource
 import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.repository.paging.PostPagingSource
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
     private val postApi: PostApi,
     private val postPagingSource: PostPagingSource,
     private val postLocalDataSource: PostLocalDataSource,
+    private val postDraftLocalDataSource: PostDraftLocalDataSource,
     private val postDomainModelMapper: PostDomainModelMapper
 ) : PostRepository {
 
@@ -54,7 +57,23 @@ class PostRepositoryImpl @Inject constructor(
             pagingSourceFactory = { postPagingSource.apply { author = username } }
         ).flow
 
-    override suspend fun savePost(post: PostDataDomainModel, username: String) {
+    override suspend fun savePost(
+        post: PostDataDomainModel,
+        content: File,
+        mimeType: String,
+        username: String
+    ) {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun savePostDraft(post: PostDataDomainModel) {
+        postDraftLocalDataSource.savePostDraft(post)
+    }
+
+    override suspend fun getPostDraft(): PostDataDomainModel =
+        postDraftLocalDataSource.getPostDraft() ?: PostDataDomainModel()
+
+    override suspend fun removePostDraft(postDraft: PostDataDomainModel) {
+        postDraftLocalDataSource.removePostDraft(postDraft)
     }
 }

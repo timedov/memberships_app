@@ -5,6 +5,7 @@ import com.example.domain.repository.PostRepository
 import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 class SavePostUseCase @Inject constructor(
@@ -13,11 +14,13 @@ class SavePostUseCase @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
 
-    suspend operator fun invoke(post: PostDataDomainModel) {
+    suspend operator fun invoke(post: PostDataDomainModel, content: File, mimeType: String) {
         withContext(coroutineDispatcher) {
             postRepository.savePost(
                 post = post,
-                username = userRepository.getCurrentUserCredentials()
+                username = userRepository.getCurrentUserCredentials(),
+                content = content,
+                mimeType = mimeType
             )
         }
     }

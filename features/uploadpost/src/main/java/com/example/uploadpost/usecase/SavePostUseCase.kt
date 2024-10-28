@@ -14,7 +14,7 @@ class SavePostUseCase @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
 
-    suspend operator fun invoke(post: PostDataDomainModel, content: File, mimeType: String) {
+    suspend operator fun invoke(post: PostDataDomainModel, content: File?, mimeType: String?) {
         withContext(coroutineDispatcher) {
             postRepository.savePost(
                 post = post,

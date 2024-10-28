@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.example.profile.R
 import com.example.profile.presentation.model.ProfileState
 import com.example.ui.view.composables.ErrorScreen
+import com.example.ui.view.composables.LoadingScreen
 
 @Composable
 fun ObserveState(
@@ -25,7 +26,11 @@ fun ObserveState(
            userDetails = state.userDetails,
            subscribers = state.subscribers,
            subscribeButtonTitle = stringResource(
-               id = if (state.isCurrentUser) R.string.edit_tiers else R.string.subscribe
+               id = when {
+                   state.isCurrentUser -> R.string.edit_tiers
+                   state.isSubscribed -> R.string.you_are_subscribed
+                   else -> R.string.subscribe
+               }
            ),
            postsFlow = state.postsFlow,
            onSubscribeClick = onSubscribeClick,
@@ -34,5 +39,7 @@ fun ObserveState(
                .fillMaxSize()
                .padding(horizontal = 4.dp)
        )
+       
+       LoadingScreen(isLoading = state.isLoading)
    }
 }

@@ -38,35 +38,35 @@ fun ProfileHeader(
         contentDescription = stringResource(com.example.profile.R.string.profile_image),
         contentScale = ContentScale.Fit,
         modifier = modifier
-            .padding(horizontal = 20.dp, vertical = 8.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp)
             .size(130.dp)
             .clip(CircleShape)
     )
     Text(
         text = name,
         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-        modifier = modifier.padding(horizontal = 20.dp)
+        modifier = modifier.padding(horizontal = 12.dp)
     )
     if (subscribers.isNotEmpty()) {
         Text(
             text = stringResource(com.example.profile.R.string.count_subscribers, subscribers),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = OnSurfaceTextAlpha),
-            modifier = modifier.padding(vertical = 4.dp, horizontal = 20.dp)
+            modifier = modifier.padding(vertical = 4.dp, horizontal = 12.dp)
         )
     }
     Text(
         text = stringResource(com.example.profile.R.string.joined_in_year, joinedYear),
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onBackground.copy(alpha = OnSurfaceTextAlpha),
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 20.dp)
+        modifier = modifier.padding(vertical = 4.dp, horizontal = 12.dp)
     )
     Button(
         onClick = onSubscribeClick,
         colors = ButtonDefaults.filledTonalButtonColors(),
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 12.dp),
+            .padding(12.dp),
         shape = Shapes.large,
     ) {
         Text(

@@ -8,5 +8,5 @@ interface SubscribeRepository {
 
     suspend fun getUserSubscribersCount(username: String): Int
 
-    suspend fun isUserSubscribed(followed: String, subscribedAt: String): Boolean
+    suspend fun isUserSubscribed(followed: String, subscribedTo: String): Boolean
 }

@@ -31,19 +31,10 @@ fun PostDomainModel.toUiModel() = PostUiModel(
     author = author
 )
 
-fun TierUiModel.toDomainModel() =
-    TierDomainModel(
-        id = id,
-        name = name,
-        price = price.removePrefix("$").toDouble(),
-        description = description
-    )
-
 fun UserDetailsDomainModel.toUiModel() =
     UserDetailsUiModel(
         username = username,
         imageUrl = imageUrl,
-        subscribers = subscribers,
         joinedYear = joinedYear,
         about = about
     )

@@ -16,7 +16,7 @@ class IsUserSubscribedUseCase @Inject constructor(
         withContext(coroutineDispatcher) {
             subscribeRepository.isUserSubscribed(
                 followed = userRepository.getCurrentUserCredentials(),
-                subscribedAt = username
+                subscribedTo = username
             )
         }
 }

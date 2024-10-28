@@ -55,7 +55,7 @@ fun ProfileContent(
                     .fillMaxSize()
                     .padding(vertical = 12.dp)
             )
-            1 -> AboutScreen(text = userDetails.about, modifier = Modifier.padding(20.dp))
+            1 -> AboutScreen(text = userDetails.about, modifier = Modifier.padding(vertical = 20.dp))
         }
     }
 }

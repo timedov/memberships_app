@@ -11,6 +11,7 @@ data class ProfileState(
     val isRefreshing: Boolean = false,
     val username: String = "",
     val isCurrentUser: Boolean = false,
+    val isSubscribed: Boolean = false,
     val userDetails: UserDetailsUiModel = UserDetailsUiModel(),
     val subscribers: String = "",
     val postsFlow: Flow<PagingData<PostDomainModel>> = emptyFlow(),

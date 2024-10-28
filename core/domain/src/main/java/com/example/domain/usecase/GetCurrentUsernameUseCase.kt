@@ -1,17 +1,17 @@
-package com.example.profile.usecase
+package com.example.domain.usecase
 
 import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetSubscribersUseCase @Inject constructor(
+class GetCurrentUsernameUseCase @Inject constructor(
     private val userRepository: UserRepository,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun invoke(username: String): Int =
+    suspend operator fun invoke(): String =
         withContext(coroutineDispatcher) {
-            userRepository.getUserSubscribersCount(username)
+            userRepository.getCurrentUserCredentials()
         }
 }

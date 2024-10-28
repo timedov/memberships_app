@@ -81,8 +81,8 @@ class UploadPostService : Service() {
             runSuspendCatching(exceptionHandlerDelegate) {
                 uploadPostUseCase.invoke(
                     post = post,
-                    content = File(post.content),
-                    mimeType = contentResolver.getType(post.content.toUri()).orEmpty()
+                    content = if (post.content.isNotEmpty()) File(post.content) else null,
+                    mimeType = contentResolver.getType(post.content.toUri())
                 )
             }.onSuccess {
                 sendSuccessNotification()

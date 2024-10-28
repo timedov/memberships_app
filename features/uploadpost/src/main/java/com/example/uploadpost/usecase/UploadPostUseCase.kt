@@ -11,7 +11,7 @@ class UploadPostUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
 
-    suspend operator fun invoke(post: PostDataDomainModel, content: File, mimeType: String) {
+    suspend operator fun invoke(post: PostDataDomainModel, content: File?, mimeType: String?) {
         postRepository.savePost(
             post = post,
             content = content,

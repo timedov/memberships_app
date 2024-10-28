@@ -16,7 +16,6 @@ fun ObserveActions(action: SavePostAction) {
         SavePostAction.SaveError ->
             ShowToast(stringResource(R.string.post_saving_failed))
 
-        //Hardcoded for now
         SavePostAction.SaveSuccess -> {
             ShowToast(stringResource(R.string.post_saved_successfully))
             LocalContext.current.apply {

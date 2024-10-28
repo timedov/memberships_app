@@ -1,18 +1,17 @@
 package com.example.savepost.presentation.model
 
-import android.net.Uri
-import androidx.media3.common.Player
 import com.example.domain.model.ContentType
+import com.example.ui.player.MediaPlayer
 
 data class SavePostState(
     val isLoading: Boolean = false,
     val title: String = "",
     val titleError: String = "",
-    val content: Uri = Uri.EMPTY,
+    val content: String = "",
     val contentType: ContentType = ContentType.NONE,
     val description: String = "",
     val descriptionError: String = "",
-    val player: Player,
+    val player: MediaPlayer,
     val requiresSubscription: Boolean = false,
     val isError: Boolean = false
 )

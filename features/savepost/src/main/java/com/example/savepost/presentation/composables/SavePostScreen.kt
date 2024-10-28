@@ -34,7 +34,7 @@ fun SavePostScreen(viewModel: SavePostViewModel, getContentType: (Uri) -> Conten
         uri?.let {
             viewModel.obtainEvent(
                 SavePostEvent.ContentValueChange(
-                    uri = it,
+                    content = it.toString(),
                     contentType = getContentType(it)
                 )
             )
@@ -69,7 +69,7 @@ fun SavePostScreen(viewModel: SavePostViewModel, getContentType: (Uri) -> Conten
             onDescriptionChange =
                 { viewModel.obtainEvent(SavePostEvent.DescriptionValueChange(it)) },
             onRemoveClick = {
-                viewModel.obtainEvent(SavePostEvent.ContentValueChange(Uri.EMPTY, ContentType.NONE))
+                viewModel.obtainEvent(SavePostEvent.ContentValueChange("", ContentType.NONE))
             },
             onImageIconClick = { launcher.launch(Constants.IMAGE_MIME_TYPE) },
             onVideoIconClick = { launcher.launch(Constants.VIDEO_MIME_TYPE) },

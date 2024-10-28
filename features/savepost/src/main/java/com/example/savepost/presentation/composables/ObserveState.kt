@@ -28,7 +28,7 @@ fun ObserveState(
         description = uiState.description,
         descriptionError = uiState.descriptionError,
         requiresSubscription = uiState.requiresSubscription,
-        player = uiState.player,
+        player = uiState.player.getPlayer(),
         onTitleChange = onTitleChange,
         onDescriptionChange = onDescriptionChange,
         onRemoveClick = onRemoveClick,

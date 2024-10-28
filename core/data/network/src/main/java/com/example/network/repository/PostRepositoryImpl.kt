@@ -57,8 +57,8 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun savePost(
         post: PostDataDomainModel,
-        content: File,
-        mimeType: String,
+        content: File?,
+        mimeType: String?,
         username: String
     ) {
         TODO("Not yet implemented")

@@ -17,7 +17,7 @@ fun RequireSubscriptionCheckbox(
     onRequireSubscriptionChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(modifier = Modifier) {
         Checkbox(
             checked = requiresSubscription,
             onCheckedChange = onRequireSubscriptionChange,

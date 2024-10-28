@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="save_post">Save Post</string>
-    <string name="post_saved_successfully">Post saved successfully!</string>
+    <string name="post_saved_successfully">Post draft saved</string>
     <string name="post_saving_failed">Failed to save post</string>
     <string name="post_title_placeholder">Post title (required)</string>
     <string name="post_description_placeholder">Post description (optional)</string>

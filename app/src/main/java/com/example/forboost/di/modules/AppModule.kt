@@ -10,6 +10,7 @@ import com.example.forboost.ForBoostApp
 import com.example.forboost.navigation.di.NavigationModule
 import com.example.local.di.LocalModule
 import com.example.network.di.NetworkModule
+import com.example.ui.player.PlayerModule
 import dagger.Module
 import dagger.Provides
 
@@ -22,6 +23,7 @@ import dagger.Provides
     NetworkModule::class,
     FirebaseModule::class,
     LocalModule::class,
+    PlayerModule::class,
 ])
 class AppModule {
     @AppScope

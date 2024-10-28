@@ -5,7 +5,7 @@ object Keys {
     const val SUBSCRIBES_COLLECTION_KEY = "subscribes"
     const val FAVORITES_COLLECTION_KEY = "favorites"
     const val COMMENTS_COLLECTION_KEY = "comments"
-    const val ID_KEY = "id"
+    const val TIER_ID_KEY = "tierId"
     const val USERNAME_KEY = "username"
     const val FOLLOWED_KEY = "followed"
     const val SUBSCRIBED_TO_KEY = "subscribedTo"

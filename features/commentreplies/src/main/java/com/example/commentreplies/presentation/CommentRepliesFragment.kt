@@ -34,12 +34,11 @@ class CommentRepliesFragment : BaseFragment() {
             .apply { inject(this@CommentRepliesFragment) }
 
         viewModel.obtainEvent(CommentRepliesEvent.Initiate(
-            commentId = arguments?.getString(PARENT_COMMENT_ID) ?: "a099a69a-2932-4d83-a3e1-2da64951bce2"
+            commentId = arguments?.getString(PARENT_COMMENT_ID).orEmpty()
         ))
     }
 
     companion object {
-
-        const val PARENT_COMMENT_ID = "parentCommentId"
+        private const val PARENT_COMMENT_ID = "parentCommentId"
     }
 }

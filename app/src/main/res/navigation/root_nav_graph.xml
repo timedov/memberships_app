@@ -16,27 +16,52 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.profile.presentation.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/subscribeFragment"
         android:name="com.example.subscribe.presentation.SubscribeFragment"
-        android:label="SubscribeFragment" />
+        android:label="SubscribeFragment">
+
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/saveTierFragment"
         android:name="com.example.savetier.presentation.SaveTierFragment"
-        android:label="SaveTierFragment" />
+        android:label="SaveTierFragment">
+
+        <argument
+            android:name="tierId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.example.postdetails.presentation.PostDetailsFragment"
-        android:label="PostDetailsFragment" />
+        android:label="PostDetailsFragment">
+
+        <argument
+            android:name="postId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/commentRepliesFragment"
         android:name="com.example.commentreplies.presentation.CommentRepliesFragment"
-        android:label="CommentRepliesFragment" />
+        android:label="CommentRepliesFragment">
+
+        <argument
+            android:name="parentCommentId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/savePostFragment"

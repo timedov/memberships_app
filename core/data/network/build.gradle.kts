@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\"")
+        buildConfigField("String", "BASE_URL", "\"https://api.forboost.com/\"")
     }
 
     buildTypes {

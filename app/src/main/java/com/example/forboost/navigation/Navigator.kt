@@ -1,6 +1,9 @@
 package com.example.forboost.navigation
 
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
+import com.example.common.utils.Keys
+import com.example.forboost.R
 import javax.inject.Inject
 
 class Navigator @Inject constructor() : GlobalRouter {
@@ -22,7 +25,7 @@ class Navigator @Inject constructor() : GlobalRouter {
     }
 
     override fun navigateToMain() {
-        TODO("Not yet implemented")
+        navController?.navigate(R.id.feedFragment)
     }
 
     override fun navigateToSignUp() {
@@ -33,23 +36,38 @@ class Navigator @Inject constructor() : GlobalRouter {
         TODO("Not yet implemented")
     }
 
-    override fun navigateToPostDetails(id: Long) {
-        TODO("Not yet implemented")
+    override fun navigateToPostDetails(postId: Long) {
+        navController?.navigate(
+            R.id.postDetailsFragment,
+            bundleOf(Keys.POST_ID_KEY to postId)
+        )
     }
 
     override fun navigateToSubscribe(username: String) {
-        TODO("Not yet implemented")
+        navController?.navigate(
+            R.id.subscribeFragment,
+            bundleOf(Keys.USERNAME_KEY to username)
+        )
     }
 
-    override fun navigateToSaveTier(id: Long) {
-        TODO("Not yet implemented")
+    override fun navigateToSaveTier(tierId: Long) {
+        navController?.navigate(
+            R.id.saveTierFragment,
+            bundleOf(Keys.TIER_ID_KEY to tierId)
+        )
     }
 
     override fun navigateToProfile(username: String) {
-        TODO("Not yet implemented")
+        navController?.navigate(
+            R.id.profileFragment,
+            bundleOf(Keys.USERNAME_KEY to username)
+        )
     }
 
-    override fun navigateToCommentReplies(commentId: String) {
-        TODO("Not yet implemented")
+    override fun navigateToCommentReplies(parentCommentId: String) {
+        navController?.navigate(
+            R.id.commentRepliesFragment,
+            bundleOf(Keys.PARENT_COMMENT_ID_KEY to parentCommentId)
+        )
     }
 }

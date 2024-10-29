@@ -2,8 +2,8 @@ package com.example.savepost.di
 
 import com.example.common.di.ComponentDeps
 import com.example.domain.repository.PostRepository
-import com.example.domain.repository.UserRepository
 import com.example.savepost.navigation.SavePostRouter
+import com.example.ui.player.MediaPlayer
 import kotlinx.coroutines.CoroutineDispatcher
 
 interface SavePostDeps : ComponentDeps {
@@ -12,7 +12,7 @@ interface SavePostDeps : ComponentDeps {
 
     fun postRepository(): PostRepository
 
-    fun userRepository(): UserRepository
+    fun mediaPlayer(): MediaPlayer
 
     fun ioDispatcher(): CoroutineDispatcher
 }

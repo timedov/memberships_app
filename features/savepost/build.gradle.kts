@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.android)
 
     //compose
@@ -57,6 +58,9 @@ dependencies {
     //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)
+
+    //media3
+    implementation(libs.androidx.media3.exoplayer)
 
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))

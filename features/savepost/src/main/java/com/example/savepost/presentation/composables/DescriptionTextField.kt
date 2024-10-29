@@ -63,9 +63,10 @@ fun DescriptionTextField(
             modifier = Modifier.fillMaxWidth()
         )
     }
-    Text(
-        text = descriptionError,
-        color = MaterialTheme.colorScheme.error,
-        modifier = modifier
-    )
+    if (descriptionError.isNotEmpty())
+        Text(
+            text = descriptionError,
+            color = MaterialTheme.colorScheme.error,
+            modifier = modifier
+        )
 }

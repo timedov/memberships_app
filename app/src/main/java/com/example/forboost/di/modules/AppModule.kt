@@ -10,6 +10,7 @@ import com.example.forboost.ForBoostApp
 import com.example.forboost.navigation.di.NavigationModule
 import com.example.local.di.LocalModule
 import com.example.network.di.NetworkModule
+import com.example.ui.player.PlayerModule
 import dagger.Module
 import dagger.Provides
 
@@ -22,18 +23,15 @@ import dagger.Provides
     NetworkModule::class,
     FirebaseModule::class,
     LocalModule::class,
+    PlayerModule::class,
 ])
 class AppModule {
     @AppScope
     @Provides
-    fun provideContext(application: ForBoostApp): Context {
-        return application
-    }
+    fun provideContext(application: ForBoostApp): Context = application
 
     @Provides
     @AppScope
-    fun provideVideoPlayer(context: Context): Player {
-        return ExoPlayer.Builder(context)
-            .build()
-    }
+    fun provideVideoPlayer(context: Context): Player =
+        ExoPlayer.Builder(context).build()
 }

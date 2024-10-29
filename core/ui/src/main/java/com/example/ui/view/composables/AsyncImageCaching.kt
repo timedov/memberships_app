@@ -25,8 +25,7 @@ fun AsyncImageCaching(
     contentScale: ContentScale = ContentScale.Crop,
     builder: ImageRequest.Builder.() -> Unit = {},
 ) {
-    val context = LocalContext.current
-    val request = ImageRequest.Builder(context)
+    val request = ImageRequest.Builder(LocalContext.current)
         .data(model)
         .memoryCachePolicy(CachePolicy.ENABLED)
         .diskCachePolicy(CachePolicy.ENABLED)

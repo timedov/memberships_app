@@ -14,19 +14,27 @@ fun ObserveState(
     paddingValues: PaddingValues,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
+    onRemoveClick: () -> Unit,
     onImageIconClick: () -> Unit,
-    onVideoIconClick: () -> Unit
+    onVideoIconClick: () -> Unit,
+    onRequireSubscriptionChange: (Boolean) -> Unit
 ) {
 
     PostForm(
         title = uiState.title,
         titleError = uiState.titleError,
-        onTitleChange = onTitleChange,
+        content = uiState.content,
+        contentType = uiState.contentType,
         description = uiState.description,
         descriptionError = uiState.descriptionError,
+        requiresSubscription = uiState.requiresSubscription,
+        player = uiState.player.getPlayer(),
+        onTitleChange = onTitleChange,
         onDescriptionChange = onDescriptionChange,
+        onRemoveClick = onRemoveClick,
         onImageIconClick = onImageIconClick,
         onVideoIconClick = onVideoIconClick,
+        onRequireSubscriptionChange = onRequireSubscriptionChange,
         modifier = Modifier.fillMaxWidth().padding(paddingValues)
     )
 

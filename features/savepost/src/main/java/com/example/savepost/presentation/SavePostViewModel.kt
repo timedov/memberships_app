@@ -10,18 +10,20 @@ import com.example.savepost.presentation.model.SavePostState
 import com.example.savepost.usecase.SavePostInteractor
 import com.example.ui.base.BaseViewModel
 import com.example.ui.model.PostDataUiModel
+import com.example.ui.player.MediaPlayer
 import com.example.ui.utils.toDomainModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SavePostViewModel @Inject constructor(
+    private val mediaPlayer: MediaPlayer,
     private val interactor: SavePostInteractor,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<SavePostState, SavePostEvent, SavePostAction>(
-    initialState = SavePostState(player = interactor.getPlayer())
+    initialState = SavePostState(player = mediaPlayer)
 ) {
 
-    init { interactor.preparePlayer() }
+    init { mediaPlayer.prepare()}
 
     override fun obtainEvent(event: SavePostEvent) {
         when (event) {
@@ -115,12 +117,12 @@ class SavePostViewModel @Inject constructor(
         _uiState.value =
             _uiState.value.copy(content = content, contentType = contentType)
 
-        interactor.playVideo(content)
+        mediaPlayer.play(content)
     }
 
     override fun onCleared() {
         super.onCleared()
 
-        interactor.releasePlayer()
+        mediaPlayer.release()
     }
 }

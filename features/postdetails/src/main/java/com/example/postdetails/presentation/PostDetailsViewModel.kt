@@ -1,7 +1,6 @@
 package com.example.postdetails.presentation
 
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.Player
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
 import com.example.common.utils.runSuspendCatching
@@ -19,14 +18,14 @@ import com.example.postdetails.usecase.IsPostFavoriteUseCase
 import com.example.postdetails.usecase.SendCommentUseCase
 import com.example.postdetails.usecase.SetPostFavoriteUseCase
 import com.example.ui.base.BaseViewModel
+import com.example.ui.player.MediaPlayer
 import com.example.ui.utils.toUiModel
-import com.example.ui.utils.urlToMediaItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostDetailsViewModel @Inject constructor(
     private val postDetailsRouter: PostDetailsRouter,
-    private val player: Player,
+    private val mediaPlayer: MediaPlayer,
     private val getPostByIdUseCase: GetPostByIdUseCase,
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val getPostStatsByIdUseCase: GetPostStatsByIdUseCase,
@@ -37,11 +36,11 @@ class PostDetailsViewModel @Inject constructor(
     private val sendCommentUseCase: SendCommentUseCase,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<PostDetailsState, PostDetailsEvent, PostDetailsAction>(
-    initialState = PostDetailsState(player = player)
+    initialState = PostDetailsState(player = mediaPlayer)
 ) {
 
     init {
-        player.prepare()
+        mediaPlayer.prepare()
         loadPostData()
     }
 
@@ -98,7 +97,8 @@ class PostDetailsViewModel @Inject constructor(
                     isRefreshing = false
                 )
 
-                if (_uiState.value.post.contentType == ContentType.VIDEO) playVideo()
+                if (_uiState.value.post.contentType == ContentType.VIDEO)
+                    playVideo(_uiState.value.post.content)
 
                 loadPostStats()
             }.onFailure {
@@ -111,8 +111,8 @@ class PostDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun playVideo() {
-        player.setMediaItem(_uiState.value.post.content.urlToMediaItem())
+    private fun playVideo(content: String) {
+        mediaPlayer.play(content)
     }
 
     private fun loadPostStats() {
@@ -193,6 +193,6 @@ class PostDetailsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
 
-        player.release()
+        mediaPlayer.release()
     }
 }

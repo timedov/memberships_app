@@ -31,7 +31,7 @@ fun ObserveState(
             postStats = uiState.postStats,
             requiresSubscription = uiState.requiresSubscription,
             isFavorite = uiState.isFavorite,
-            player = uiState.player,
+            player = uiState.player.getPlayer(),
             commentsFlow = uiState.commentsFlow,
             commentValue = uiState.commentValue,
             onSubscribeClick = onSubscribeClick,

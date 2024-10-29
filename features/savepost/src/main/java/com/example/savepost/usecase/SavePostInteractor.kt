@@ -5,27 +5,15 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.ValidationResult
 import com.example.domain.repository.PostRepository
 import com.example.savepost.navigation.SavePostRouter
-import com.example.ui.player.MediaPlayer
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SavePostInteractor @Inject constructor(
     private val savePostRouter: SavePostRouter,
-    private val mediaPlayer: MediaPlayer,
     private val postRepository: PostRepository,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
-
-    fun getPlayer() = mediaPlayer
-
-    fun preparePlayer() {
-        mediaPlayer.prepare()
-    }
-
-    fun playVideo(content: String) {
-        mediaPlayer.play(content)
-    }
 
     suspend fun getPostDraft(): PostDataDomainModel =
         withContext(coroutineDispatcher) {
@@ -60,9 +48,5 @@ class SavePostInteractor @Inject constructor(
 
     fun popBackStack() {
         savePostRouter.popBackStack()
-    }
-
-    fun releasePlayer() {
-        mediaPlayer.release()
     }
 }

@@ -1,8 +1,9 @@
-package com.example.feed.presentation.holder
+package com.example.ui.view.holders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.utils.loadCaching
-import com.example.feed.databinding.ItemPostBinding
+import com.example.ui.R
+import com.example.ui.databinding.ItemPostBinding
 import com.example.ui.model.PostUiModel
 
 class PostViewHolder(
@@ -10,13 +11,16 @@ class PostViewHolder(
     private val onClick: (Long) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(post: PostUiModel) {
+    fun bind(post: PostUiModel) {
         with(binding) {
-            titleTv.text = post.title
-            categoryTv.text = post.category
-            postImageIv.loadCaching(post.image)
             authorTv.text = post.author
             postedAgoTv.text = post.postedAgo
+            titleTv.text = post.title
+            postImageIv.loadCaching(post.image)
+            bodyTv.text = post.body
+            infoTv.text = binding.root.context
+                .getString(R.string.post_info, post.category, post.viewsCount.toString())
+            commentCountTv.text = post.commentsCount.toString()
             root.setOnClickListener { onClick(post.id) }
         }
     }

@@ -3,7 +3,7 @@ package com.example.domain.repository
 import androidx.paging.PagingData
 import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
-import com.example.domain.model.TierType
+import com.example.common.model.TierType
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 

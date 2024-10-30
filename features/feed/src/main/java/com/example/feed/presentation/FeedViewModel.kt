@@ -3,9 +3,7 @@ package com.example.feed.presentation
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.common.utils.ExceptionHandlerDelegate
-import com.example.common.utils.runSuspendCatching
-import com.example.domain.model.TierType
-import com.example.domain.repository.PostRepository
+import com.example.domain.usecase.GetPostsUseCase
 import com.example.feed.navigation.FeedRouter
 import com.example.feed.presentation.model.FeedAction
 import com.example.feed.presentation.model.FeedEvent
@@ -15,60 +13,50 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
-    private val postRepository: PostRepository,
+    private val getPostsUseCase: GetPostsUseCase,
     private val router: FeedRouter,
     private val exceptionHandlerDelegate: ExceptionHandlerDelegate
 ) : BaseViewModel<FeedState, FeedEvent, FeedAction>(
-    initialState = FeedState.Loading
+    initialState = FeedState()
 ) {
-
-    private var selectedTier: TierType = TierType.ALL_TIERS
 
     init {
         loadPostsByTier()
     }
 
     private fun loadPostsByTier() {
+        _uiState.value = _uiState.value.copy(
+            isLoading = true,
+            isRefreshing = false,
+        )
         viewModelScope.launch {
-            runSuspendCatching(exceptionHandlerDelegate) {
-                postRepository.getPostsByTier(selectedTier)
-            }.onSuccess {
-                it.cachedIn(viewModelScope)
-                    .collect { pagingData ->
-                        _uiState.value =
-                            FeedState.Content(posts = pagingData, selectedTier = selectedTier)
-                    }
-            }.onFailure {
-                _uiState.value = FeedState.Error(it)
-            }
+            getPostsUseCase.invoke(tier = _uiState.value.selectedTier)
+                .cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _uiState.value = _uiState.value.copy(
+                        posts = pagingData,
+                        isLoading = false
+                    )
+                }
         }
     }
 
     override fun obtainEvent(event: FeedEvent) {
         when (event) {
             is FeedEvent.TierClick -> {
-                selectedTier = event.tier
-                _uiState.value = FeedState.Loading
+                _uiState.value = _uiState.value.copy(
+                    selectedTier = event.tier
+                )
                 loadPostsByTier()
             }
             is FeedEvent.Refresh -> {
-                _uiState.value = FeedState.Loading
+                _uiState.value = _uiState.value.copy(
+                    isRefreshing = true
+                )
                 loadPostsByTier()
             }
-            is FeedEvent.PostClick -> {
-                navigateToDetailsScreen(event.id)
-            }
-            is FeedEvent.ProfileClick -> {
-                navigateToProfileScreen()
-            }
+            is FeedEvent.PostClick -> router.navigateToDetailsScreen(event.id)
+            is FeedEvent.ProfileClick -> router.navigateToProfile()
         }
-    }
-
-    private fun navigateToProfileScreen() {
-        router.navigateToProfile()
-    }
-
-    private fun navigateToDetailsScreen(id: Long) {
-        router.navigateToDetailsScreen(id)
     }
 }

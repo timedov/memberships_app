@@ -1,19 +1,19 @@
-package com.example.feed.presentation.adapter
+package com.example.ui.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.model.TierType
-import com.example.feed.R
-import com.example.feed.databinding.ItemPostBinding
-import com.example.feed.databinding.ItemTiersBinding
-import com.example.feed.presentation.holder.PostViewHolder
-import com.example.feed.presentation.holder.TiersViewHolder
+import com.example.common.model.TierType
+import com.example.ui.view.holders.PostViewHolder
+import com.example.ui.databinding.ItemPostBinding
 import com.example.ui.model.PostUiModel
+import com.example.ui.R
+import com.example.ui.databinding.ItemTiersBinding
+import com.example.ui.view.holders.TiersViewHolder
 
-class PostAdapter(
+class PostPagingDataAdapter(
     private val onPostClick: (Long) -> Unit,
     private val onTierClick: (TierType) -> Unit
 ) : PagingDataAdapter<PostUiModel, RecyclerView.ViewHolder>(POST_COMPARATOR) {
@@ -41,7 +41,7 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PostViewHolder) {
-            getItem(position - 1)?.let { holder.onBind(it) }
+            getItem(position - 1)?.let { holder.bind(it) }
         } else if (holder is TiersViewHolder) {
             holder.onBind()
         }

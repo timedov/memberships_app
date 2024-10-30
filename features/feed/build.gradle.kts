@@ -44,6 +44,7 @@ dependencies {
 
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
+    implementation(project(":core:domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -55,8 +56,7 @@ dependencies {
 
     //Paging3
     implementation(libs.androidx.paging.runtime.ktx)
-    implementation(project(":core:domain"))
-
+    
     //dagger
     ksp(libs.dagger.compiler)
     implementation(libs.google.dagger)

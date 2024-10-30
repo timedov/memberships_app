@@ -68,6 +68,7 @@ dependencies {
     //paging3
     implementation(libs.androidx.paging.common.android)
     implementation (libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime.ktx)
 
     implementation(project(":core:common"))
     implementation(project(":core:domain"))

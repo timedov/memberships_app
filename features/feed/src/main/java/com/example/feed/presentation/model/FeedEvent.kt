@@ -1,6 +1,6 @@
 package com.example.feed.presentation.model
 
-import com.example.domain.model.TierType
+import com.example.common.model.TierType
 
 sealed interface FeedEvent {
     data object ProfileClick: FeedEvent

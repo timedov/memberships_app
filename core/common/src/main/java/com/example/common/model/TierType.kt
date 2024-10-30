@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.common.model
 
 enum class TierType(val code: Int) {
     ALL_TIERS(-1),

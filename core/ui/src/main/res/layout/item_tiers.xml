@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tier_btn_group"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="48dp"
     android:padding="4dp"
     android:orientation="horizontal"
     app:singleSelection="true"
@@ -14,7 +14,7 @@
         android:id="@+id/all_tiers_btn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/all_tiers"
+        android:text="@string/all"
         style="@style/ButtonStyle"
         android:checkable="true" />
 

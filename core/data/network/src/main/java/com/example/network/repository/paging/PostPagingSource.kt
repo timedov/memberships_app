@@ -3,7 +3,7 @@ package com.example.network.repository.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.domain.model.PostDomainModel
-import com.example.domain.model.TierType
+import com.example.common.model.TierType
 import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.remote.datasource.responses.isResponseEmpty

@@ -1,8 +1,8 @@
-package com.example.feed.presentation.holder
+package com.example.ui.view.holders
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.model.TierType
-import com.example.feed.databinding.ItemTiersBinding
+import com.example.common.model.TierType
+import com.example.ui.databinding.ItemTiersBinding
 
 class TiersViewHolder(
     private val binding: ItemTiersBinding,

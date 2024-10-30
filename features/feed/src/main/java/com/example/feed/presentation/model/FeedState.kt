@@ -1,14 +1,12 @@
 package com.example.feed.presentation.model
 
 import androidx.paging.PagingData
-import com.example.domain.model.PostDomainModel
-import com.example.domain.model.TierType
+import com.example.common.model.TierType
+import com.example.domain.model.PostWithStatsDomainModel
 
-sealed interface FeedState {
-    data object Loading: FeedState
-    data class Content(
-        val posts: PagingData<PostDomainModel>,
-        val selectedTier: TierType
-    ): FeedState
-    data class Error(val error: Throwable): FeedState
-}
+data class FeedState(
+    val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
+    val posts: PagingData<PostWithStatsDomainModel> = PagingData.empty(),
+    val selectedTier: TierType = TierType.ALL_TIERS,
+)

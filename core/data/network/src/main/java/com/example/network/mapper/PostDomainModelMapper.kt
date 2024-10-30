@@ -14,9 +14,12 @@ class PostDomainModelMapper @Inject constructor() {
             id = postResponse.id,
             title = postResponse.title.orEmpty(),
             image = postResponse.image.orEmpty(),
+            body = postResponse.body.orEmpty(),
             category = postResponse.category.orEmpty(),
+            viewsCount = postResponse.views,
             postedAt = postResponse.postedTimestamp,
-            author = postResponse.authorName.orEmpty()
+            author = postResponse.authorName.orEmpty(),
+            requiresSubscription = postResponse.requiresSubscription
         )
 
     fun mapDataResponseToDataDomainModel(postDataResponse: PostDataResponse) =

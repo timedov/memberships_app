@@ -5,6 +5,7 @@ import com.example.domain.model.ContentType
 import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
 import com.example.domain.model.PostStatsDomainModel
+import com.example.domain.model.PostWithStatsDomainModel
 import com.example.domain.model.TierDomainModel
 import com.example.domain.model.UserDetailsDomainModel
 import com.example.ui.model.CommentBodyUiModel
@@ -22,14 +23,34 @@ fun TierDomainModel.toUiModel() =
         price = "$$price",
         description = description
     )
-fun PostDomainModel.toUiModel() = PostUiModel(
-    id = id,
-    title = title,
-    image = image,
-    category = category,
-    postedAgo = postedAt.timeAgo(),
-    author = author
-)
+
+fun PostDomainModel.toUiModel() =
+    PostUiModel(
+        id = id,
+        title = title,
+        image = image,
+        body = body,
+        category = category,
+        viewsCount = viewsCount,
+        commentsCount = 0,
+        postedAgo = postedAt.timeAgo(),
+        author = author,
+        requiresSubscription = requiresSubscription
+    )
+
+fun PostWithStatsDomainModel.toUiModel() =
+    PostUiModel(
+        id = id,
+        title = title,
+        image = image,
+        body = body,
+        category = category,
+        viewsCount = viewsCount,
+        commentsCount = commentsCount,
+        postedAgo = postedAt.timeAgo(),
+        author = author,
+        requiresSubscription = requiresSubscription
+    )
 
 fun UserDetailsDomainModel.toUiModel() =
     UserDetailsUiModel(

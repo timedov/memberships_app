@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.example.common.utils.Constants
 import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
-import com.example.domain.model.TierType
+import com.example.common.model.TierType
 import com.example.domain.repository.PostRepository
 import com.example.domain.repository.datasource.PostLocalDataSource
 import com.example.network.mapper.PostDomainModelMapper

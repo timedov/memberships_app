@@ -10,4 +10,14 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="text_length_counter">%1$s / %2$s</string>
+    <string name="no_title">No title</string>
+    <string name="all">All</string>
+    <string name="no_author">No Author</string>
+    <string name="posted_now">Posted now</string>
+    <string name="post_body_prompt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus rhoncus velit, et massa nu…</string>
+    <string name="post_info_sample">No category · 0 views</string>
+    <string name="zero">0</string>
+    <string name="post_info">%1$s · %2$s views</string>
+    <string name="tier_1">Free</string>
+    <string name="tier_2">For subscribers</string>
 </resources>

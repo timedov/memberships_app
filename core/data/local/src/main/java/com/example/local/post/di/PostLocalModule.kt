@@ -23,5 +23,9 @@ class PostLocalModule {
 
     @Provides
     @AppScope
-    fun providePostDao(postDatabase: PostDatabase) = postDatabase.postDao()
+    fun providePostDataDao(postDatabase: PostDatabase) = postDatabase.postDataDao()
+
+    @Provides
+    @AppScope
+    fun providePostDraftDao(postDatabase: PostDatabase) = postDatabase.postDraftDao()
 }

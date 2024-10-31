@@ -3,6 +3,7 @@ package com.example.network.mapper
 import com.example.domain.model.ContentType
 import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
+import com.example.network.remote.datasource.requests.SavePostRequest
 import com.example.network.remote.datasource.responses.PostDataResponse
 import com.example.network.remote.datasource.responses.PostResponse
 import javax.inject.Inject
@@ -39,4 +40,13 @@ class PostDomainModelMapper @Inject constructor() {
 
     fun mapResponseListToDomainModelList(postResponseList: List<PostResponse>) =
         postResponseList.map { mapResponseToDomainModel(it) }
+
+    fun mapDataDomainModelToRequest(postDataDomainModel: PostDataDomainModel, username: String) =
+        SavePostRequest(
+            title = postDataDomainModel.title,
+            category = postDataDomainModel.category,
+            author = username,
+            body = postDataDomainModel.body,
+            requiresSubscription = postDataDomainModel.requiresSubscription
+        )
 }

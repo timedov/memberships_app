@@ -6,6 +6,7 @@ import com.example.domain.model.ContentType.NONE
 import com.example.domain.model.PostDataDomainModel
 import com.example.local.comment.entity.CommentEntity
 import com.example.local.post.entity.PostDataEntity
+import com.example.local.post.entity.PostDraftEntity
 
 fun PostDataEntity.toDomainModel() =
     PostDataDomainModel(
@@ -20,7 +21,7 @@ fun PostDataEntity.toDomainModel() =
         requiresSubscription = requiresSubscription
     )
 
-fun PostDataDomainModel.toEntity() =
+fun PostDataDomainModel.toDataEntity() =
     PostDataEntity(
         id = id,
         title = title,
@@ -29,6 +30,28 @@ fun PostDataDomainModel.toEntity() =
         category = category,
         postedAt = postedAt,
         author = author,
+        body = body,
+        requiresSubscription = requiresSubscription
+    )
+
+fun PostDraftEntity.toDomainModel() =
+    PostDataDomainModel(
+        id = id,
+        title = title.orEmpty(),
+        content = content.orEmpty(),
+        contentType = ContentType.entries.find { it.code == contentType } ?: NONE,
+        category = category.orEmpty(),
+        body = body.orEmpty(),
+        requiresSubscription = requiresSubscription
+    )
+
+fun PostDataDomainModel.toDraftEntity() =
+    PostDraftEntity(
+        id = id,
+        title = title,
+        content = content,
+        contentType = contentType.code,
+        category = category,
         body = body,
         requiresSubscription = requiresSubscription
     )

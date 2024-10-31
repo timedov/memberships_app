@@ -8,11 +8,19 @@ import com.example.domain.model.PostDataDomainModel
 import com.example.domain.model.PostDomainModel
 import com.example.domain.model.TierType
 import com.example.domain.repository.PostRepository
+import com.example.domain.repository.datasource.PostDraftLocalDataSource
 import com.example.domain.repository.datasource.PostLocalDataSource
 import com.example.network.mapper.PostDomainModelMapper
 import com.example.network.remote.datasource.PostApi
 import com.example.network.repository.paging.PostPagingSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
@@ -20,6 +28,7 @@ class PostRepositoryImpl @Inject constructor(
     private val postApi: PostApi,
     private val postPagingSource: PostPagingSource,
     private val postLocalDataSource: PostLocalDataSource,
+    private val postDraftLocalDataSource: PostDraftLocalDataSource,
     private val postDomainModelMapper: PostDomainModelMapper
 ) : PostRepository {
 
@@ -61,18 +70,30 @@ class PostRepositoryImpl @Inject constructor(
         mimeType: String?,
         username: String
     ) {
-        TODO("Not yet implemented")
+        val postDataJson =
+            Json.encodeToString(postDomainModelMapper.mapDataDomainModelToRequest(post, username))
+        val postDataRequestBody =
+            postDataJson.toRequestBody(Constants.JSON_CONTENT_TYPE.toMediaType())
+
+        val contentPart = content?.let {
+            val requestFile = it.asRequestBody(mimeType?.toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("content", it.name, requestFile)
+        }
+
+        postApi.savePost(
+            postData = postDataRequestBody,
+            content = contentPart
+        )
     }
 
     override suspend fun savePostDraft(post: PostDataDomainModel) {
-        TODO("Not yet implemented")
+        postDraftLocalDataSource.savePostDraft(post)
     }
 
-    override suspend fun getPostDraft(): PostDataDomainModel {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getPostDraft(): PostDataDomainModel =
+        postDraftLocalDataSource.getPostDraft() ?: PostDataDomainModel()
 
-    override suspend fun removePostDraft() {
-        TODO("Not yet implemented")
+    override suspend fun removePostDraft(postDraft: PostDataDomainModel) {
+        postDraftLocalDataSource.removePostDraft(postDraft)
     }
 }

@@ -26,5 +26,5 @@ interface PostRepository {
 
     suspend fun getPostDraft(): PostDataDomainModel
 
-    suspend fun removePostDraft()
+    suspend fun removePostDraft(postDraft: PostDataDomainModel)
 }

@@ -13,21 +13,33 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/data" />
-            <option value="$PROJECT_DIR$/core/data/firebase" />
-            <option value="$PROJECT_DIR$/core/data/local" />
-            <option value="$PROJECT_DIR$/core/data/network" />
-            <option value="$PROJECT_DIR$/core/domain" />
+            <option value="$PROJECT_DIR$/core/data/api" />
+            <option value="$PROJECT_DIR$/core/data/impl" />
+            <option value="$PROJECT_DIR$/core/data/impl/firebase" />
+            <option value="$PROJECT_DIR$/core/data/impl/local" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/features" />
-            <option value="$PROJECT_DIR$/features/auth" />
             <option value="$PROJECT_DIR$/features/commentreplies" />
+            <option value="$PROJECT_DIR$/features/commentreplies/api" />
+            <option value="$PROJECT_DIR$/features/commentreplies/impl" />
             <option value="$PROJECT_DIR$/features/feed" />
+            <option value="$PROJECT_DIR$/features/feed/api" />
+            <option value="$PROJECT_DIR$/features/feed/impl" />
             <option value="$PROJECT_DIR$/features/postdetails" />
+            <option value="$PROJECT_DIR$/features/postdetails/api" />
+            <option value="$PROJECT_DIR$/features/postdetails/impl" />
             <option value="$PROJECT_DIR$/features/profile" />
+            <option value="$PROJECT_DIR$/features/profile/api" />
+            <option value="$PROJECT_DIR$/features/profile/impl" />
             <option value="$PROJECT_DIR$/features/savepost" />
-            <option value="$PROJECT_DIR$/features/savetier" />
-            <option value="$PROJECT_DIR$/features/subscribe" />
+            <option value="$PROJECT_DIR$/features/savepost/api" />
+            <option value="$PROJECT_DIR$/features/savepost/impl" />
+            <option value="$PROJECT_DIR$/features/signin" />
+            <option value="$PROJECT_DIR$/features/signin/api" />
+            <option value="$PROJECT_DIR$/features/signin/impl" />
             <option value="$PROJECT_DIR$/features/uploadpost" />
+            <option value="$PROJECT_DIR$/features/uploadpost/api" />
+            <option value="$PROJECT_DIR$/features/uploadpost/impl" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

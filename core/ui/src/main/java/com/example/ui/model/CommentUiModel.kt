@@ -6,5 +6,5 @@ class CommentUiModel(
     val parentCommentId: String = "",
     val profileImageUrl: String = "",
     val postedWhen: String = "",
-    val body: CommentBodyUiModel = CommentBodyUiModel(),
+    val body: String = "",
 )

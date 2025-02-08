@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.gms.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -51,21 +52,24 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
+    implementation(project(":core:data:api"))
+    implementation(project(":core:data:impl:local"))
+    implementation(project(":core:data:impl:firebase"))
     implementation(project(":core:ui"))
-    implementation(project(":core:data:local"))
-    implementation(project(":core:data:network"))
-    implementation(project(":core:data:firebase"))
-    implementation(project(":core:data:local"))
-    implementation(project(":features:auth"))
-    implementation(project(":features:commentreplies"))
-    implementation(project(":features:feed"))
-    implementation(project(":features:profile"))
-    implementation(project(":features:savepost"))
-    implementation(project(":features:savetier"))
-    implementation(project(":features:subscribe"))
-    implementation(project(":features:postdetails"))
-    implementation(project(":features:uploadpost"))
+    implementation(project(":features:signin:api"))
+    implementation(project(":features:signin:impl"))
+    implementation(project(":features:commentreplies:api"))
+    implementation(project(":features:commentreplies:impl"))
+    implementation(project(":features:feed:api"))
+    implementation(project(":features:feed:impl"))
+    implementation(project(":features:profile:api"))
+    implementation(project(":features:profile:impl"))
+    implementation(project(":features:savepost:api"))
+    implementation(project(":features:savepost:impl"))
+    implementation(project(":features:postdetails:api"))
+    implementation(project(":features:postdetails:impl"))
+    implementation(project(":features:uploadpost:api"))
+    implementation(project(":features:uploadpost:impl"))
 
     //dagger
     ksp(libs.dagger.compiler)
@@ -76,8 +80,11 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
 
     //firebase
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     //retrofit
     implementation(libs.okhttp)
@@ -91,9 +98,6 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-
-    //media3
-    implementation(libs.androidx.media3.exoplayer)
 
     //test
     testImplementation(libs.junit)

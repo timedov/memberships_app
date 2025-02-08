@@ -2,20 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_nav_graph"
-    app:startDestination="@id/savePostFragment">
+    app:startDestination="@id/feedFragment">
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.auth.presentation.login.LoginFragment"
+        android:id="@+id/signInFragment"
+        android:name="com.example.signin.impl.presentation.SignInFragment"
         android:label="LoginFragment" />
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.example.feed.presentation.FeedFragment"
+        android:name="com.example.feed.impl.presentation.FeedFragment"
         android:label="FeedFragment" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.profile.presentation.ProfileFragment"
+        android:name="com.example.profile.impl.presentation.ProfileFragment"
         android:label="ProfileFragment" >
 
         <argument
@@ -24,38 +24,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/subscribeFragment"
-        android:name="com.example.subscribe.presentation.SubscribeFragment"
-        android:label="SubscribeFragment">
-
-        <argument
-            android:name="username"
-            app:argType="string" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/saveTierFragment"
-        android:name="com.example.savetier.presentation.SaveTierFragment"
-        android:label="SaveTierFragment">
-
-        <argument
-            android:name="tierId"
-            app:argType="long" />
-    </fragment>
-
-    <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.example.postdetails.presentation.PostDetailsFragment"
+        android:name="com.example.postdetails.impl.presentation.PostDetailsFragment"
         android:label="PostDetailsFragment">
 
         <argument
             android:name="postId"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/commentRepliesFragment"
-        android:name="com.example.commentreplies.presentation.CommentRepliesFragment"
+        android:name="com.example.commentreplies.impl.presentation.CommentRepliesFragment"
         android:label="CommentRepliesFragment">
 
         <argument
@@ -65,6 +45,6 @@
 
     <fragment
         android:id="@+id/savePostFragment"
-        android:name="com.example.savepost.presentation.SavePostFragment"
+        android:name="com.example.savepost.impl.presentation.SavePostFragment"
         android:label="SavePostFragment" />
 </navigation>

@@ -61,16 +61,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.fragment.ktx)
 
-    //media3
-    implementation(libs.androidx.media3.ui)
-    implementation(libs.androidx.media3.exoplayer)
-
     //paging3
     implementation(libs.androidx.paging.common.android)
     implementation (libs.androidx.paging.compose)
 
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
 
     //test
     testImplementation(libs.junit)

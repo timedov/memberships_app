@@ -29,7 +29,7 @@ inline fun <T> Flow<T>.observe(fragment: Fragment, crossinline block: (T) -> Uni
 }
 
 inline fun <R> runSuspendCatching(
-    exceptionHandlerDelegate: ExceptionHandlerDelegate,
+    appExceptionHandler: AppExceptionHandler,
     block: () -> R
 ): Result<R> {
     return try {
@@ -37,7 +37,7 @@ inline fun <R> runSuspendCatching(
     } catch (c: CancellationException) {
         throw c
     } catch (e: Throwable) {
-        Result.failure(exceptionHandlerDelegate.handleException(e))
+        Result.failure(appExceptionHandler.handleException(e))
     }
 }
 

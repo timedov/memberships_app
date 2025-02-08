@@ -1,7 +1,7 @@
 package com.example.forboost.features.postdetails
 
 import com.example.forboost.navigation.GlobalRouter
-import com.example.postdetails.navigation.PostDetailsRouter
+import com.example.postdetails.api.navigation.PostDetailsRouter
 import javax.inject.Inject
 
 class AdapterPostDetailsRouter @Inject constructor(
@@ -18,9 +18,5 @@ class AdapterPostDetailsRouter @Inject constructor(
 
     override fun navigateToCommentReplies(commentId: String) {
         globalRouter.navigateToCommentReplies(commentId)
-    }
-
-    override fun navigateToSubscribe(username: String) {
-        globalRouter.navigateToSubscribe(username)
     }
 }

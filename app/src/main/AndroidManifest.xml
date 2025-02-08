@@ -33,7 +33,7 @@
         </activity>
 
         <service
-            android:name="com.example.uploadpost.service.UploadPostService"
+            android:name="com.example.uploadpost.impl.service.UploadPostService"
             android:foregroundServiceType="dataSync"
             android:exported="false" />
     </application>

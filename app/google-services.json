@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "214114394941",
+    "project_id": "forboost-d67d5",
+    "storage_bucket": "forboost-d67d5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214114394941:android:3d70717834ce0a18089b54",
+        "android_client_info": {
+          "package_name": "com.example.forboost"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi6v9ItVs-QMFKs9BMp2RHYyhMqYjJ57M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

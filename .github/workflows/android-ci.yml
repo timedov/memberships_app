@@ -39,8 +39,14 @@ jobs:
           mkdir -p app/src
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/src/google-services.json
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build the Project
         run: ./gradlew clean build
 
       - name: Run Lint Checks
         run: ./gradlew lint
+
+      - name: Run Detekt
+        run: ./gradlew detekt

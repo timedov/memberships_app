@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save_post">Save Post</string>
+    <string name="require_subscription">Require subscription</string>
+    <string name="title">Title</string>
+    <string name="post_save_failed">Post save failed. Please try again</string>
+    <string name="saving_post">Saving post...</string>
+    <string name="post_description">Post description</string>
+    <string name="restore">Restore</string>
+    <string name="no">No</string>
+    <string name="restore_post_draft_title">Restore Post Draft</string>
+    <string name="restore_post_draft_desc">You have unsaved changes. Do you want to restore them?</string>
+</resources>

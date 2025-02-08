@@ -1,6 +1,6 @@
 package com.example.forboost.features.commentreplies.di
 
-import com.example.commentreplies.navigation.CommentRepliesRouter
+import com.example.commentreplies.api.navigation.CommentRepliesRouter
 import com.example.forboost.features.commentreplies.AdapterCommentRepliesRouter
 import dagger.Binds
 import dagger.Module
@@ -9,5 +9,5 @@ import dagger.Module
 interface FeatureCommentRepliesBinderModule {
 
     @Binds
-    fun bindAdapterCommentRepliesRouterToCommentRepliesRouter(adapterCommentRepliesRouter: AdapterCommentRepliesRouter): CommentRepliesRouter
+    fun bindAdapterCommentRepliesRouter(adapterCommentRepliesRouter: AdapterCommentRepliesRouter): CommentRepliesRouter
 }

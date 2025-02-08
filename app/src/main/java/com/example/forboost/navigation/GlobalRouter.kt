@@ -10,13 +10,13 @@ interface GlobalRouter {
 
     fun navigateToForgotPassword()
 
-    fun navigateToPostDetails(postId: Long)
+    fun navigateToPostDetails(postId: String)
 
-    fun navigateToSubscribe(username: String)
-
-    fun navigateToSaveTier(tierId: Long)
+    fun navigateToSignIn()
 
     fun navigateToProfile(username: String)
 
     fun navigateToCommentReplies(parentCommentId: String)
+
+    fun runUploadPost()
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Profile</string>
+    <string name="back">Back</string>
+    <string name="joined_in_year">Joined in %1$s</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="count_subscribers">%1$s subscriber(s)</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="posts">Posts</string>
+    <string name="about">About</string>
+    <string name="no_description">No description</string>
+    <string name="no_posts">No posts yet</string>
+    <string name="edit_tiers">Edit Tiers</string>
+    <string name="you_are_subscribed">You are subscribed</string>
+    <string name="confirm_sign_out">Confirm Sign Out</string>
+    <string name="confirm_sign_out_desc">Are you sure you want to sign out?</string>
+    <string name="sign_out">Sign out</string>
+    <string name="cancel">Cancel</string>
+</resources>

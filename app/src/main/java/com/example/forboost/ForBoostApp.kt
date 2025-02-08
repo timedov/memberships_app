@@ -11,12 +11,16 @@ import com.example.common.utils.Keys
 import com.example.forboost.di.components.AppComponent
 import com.example.forboost.di.components.DaggerAppComponent
 import com.example.forboost.di.dependencies.ComponentDepsManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import javax.inject.Inject
 
 class ForBoostApp : Application(), DepsContainer {
 
     @Inject
     lateinit var depsManager: ComponentDepsManager
+
+    @Inject
+    lateinit var analytics: FirebaseAnalytics
 
     lateinit var appComponent: AppComponent
 
@@ -37,6 +41,8 @@ class ForBoostApp : Application(), DepsContainer {
                     )
                 )
         }
+
+        analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
     }
 
     override fun <T : ComponentDeps> getDependencies(key: Class<T>): T {

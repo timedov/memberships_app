@@ -1,6 +1,6 @@
 package com.example.forboost.features.commentreplies
 
-import com.example.commentreplies.navigation.CommentRepliesRouter
+import com.example.commentreplies.api.navigation.CommentRepliesRouter
 import com.example.forboost.navigation.GlobalRouter
 import javax.inject.Inject
 

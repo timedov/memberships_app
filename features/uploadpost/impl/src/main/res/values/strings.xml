@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="uploading_post">Uploading post</string>
+    <string name="post_uploaded">Post uploaded</string>
+    <string name="post_uploaded_successfully">Post uploaded successfully</string>
+    <string name="post_upload_failed">Post upload failed</string>
+    <string name="failed_to_upload_post">Failed to upload post. Please try again</string>
+</resources>

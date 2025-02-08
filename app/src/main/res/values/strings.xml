@@ -4,4 +4,5 @@
     <string name="home">Home</string>
     <string name="favorite">Favorite</string>
     <string name="upload_post">Upload Post</string>
+    <string name="add_post">Add Post</string>
 </resources>

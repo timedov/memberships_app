@@ -1,22 +1,18 @@
 package com.example.forboost.di.dependencies
 
-import com.example.auth.di.AuthDeps
-import com.example.commentreplies.di.CommentRepliesDeps
-import com.example.feed.di.FeedDeps
-import com.example.postdetails.di.PostDetailsDeps
-import com.example.profile.di.ProfileDeps
-import com.example.savepost.di.SavePostDeps
-import com.example.subscribe.di.SubscribeDeps
-import com.example.savetier.di.SaveTierDeps
-import com.example.uploadpost.di.UploadPostDeps
+import com.example.signin.impl.di.SignInDeps
+import com.example.commentreplies.impl.di.CommentRepliesDeps
+import com.example.feed.impl.di.FeedDeps
+import com.example.postdetails.impl.di.PostDetailsDeps
+import com.example.profile.impl.di.ProfileDeps
+import com.example.savepost.impl.di.SavePostDeps
+import com.example.uploadpost.impl.di.UploadPostDeps
 
 interface FeatureComponentsDeps :
-    AuthDeps,
+    SignInDeps,
     CommentRepliesDeps,
     FeedDeps,
     PostDetailsDeps,
     ProfileDeps,
-    SubscribeDeps,
     SavePostDeps,
-    SaveTierDeps,
     UploadPostDeps

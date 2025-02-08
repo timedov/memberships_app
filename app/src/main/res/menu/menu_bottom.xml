@@ -7,9 +7,9 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/favoriteFragment"
-        android:icon="@drawable/baseline_favorite_border_24"
-        android:title="@string/favorite" />
+        android:id="@+id/savePostFragment"
+        android:icon="@drawable/baseline_add_circle_outline_24"
+        android:title="@string/add_post" />
 
     <item
         android:id="@+id/profileFragment"

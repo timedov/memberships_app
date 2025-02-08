@@ -34,11 +34,6 @@ jobs:
           echo "ANDROID_HOME=/usr/local/android-sdk" >> $GITHUB_ENV
           echo "/usr/local/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Insert google-services.json from Secrets
-        run: |
-          mkdir -p app/src
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/src/google-services.json
-
       - name: Make gradlew executable
         run: chmod +x gradlew
 

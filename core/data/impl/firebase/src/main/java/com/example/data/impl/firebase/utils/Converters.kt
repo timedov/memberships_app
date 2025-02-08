@@ -34,7 +34,7 @@ internal fun DocumentSnapshot.toUserDataModel(): UserDataModel =
         uid = getString("uid") ?: "",
         username = getString("username") ?: "",
         imageUrl = getString("imageUrl"),
-        joinedAt = getLong("joinedYear") ?: -1L,
+        joinedAt = getLong("joinedAt") ?: -1L,
         about = getString("about") ?: ""
     )
 

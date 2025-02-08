@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.performance)
 }
 
 android {
@@ -85,6 +86,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.perf)
 
     //retrofit
     implementation(libs.okhttp)

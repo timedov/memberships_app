@@ -5,6 +5,8 @@ firebaseAnalytics = "22.1.0"
 firebaseBom = "33.5.0"
 firebaseCrashlytics = "18.3.2"
 firebaseCrashlyticsPlugin = "2.9.4"
+firebasePerf = "20.5.1"
+firebasePerfPlugin = "1.4.2"
 foundationAndroid = "1.7.4"
 googleDagger = "2.51.1"
 kotlin = "1.9.10"
@@ -61,6 +63,7 @@ firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-perf = { module = "com.google.firebase:firebase-perf", version.ref = "firebasePerf" }
 google-dagger = { module = "com.google.dagger:dagger", version.ref = "googleDagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -99,5 +102,6 @@ devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-performance = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }

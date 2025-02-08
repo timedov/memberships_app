@@ -5,4 +5,4 @@ tests in modules:
 - :features:profile
 - :features:savepost
 - :features:signin
-- :features:uploadposts
+- :features:uploadpost
